@@ -1,5 +1,5 @@
-# cambridge-notes-template
+# ib-dpmms-linear-algebra-mt-26
 
-[![LaTeX Compile PDF](https://github.com/EasonSYC/cambridge-notes-template/actions/workflows/compile-pdf.yml/badge.svg)](https://github.com/EasonSYC/cambridge-notes-template/actions/workflows/compile-pdf.yml)
+[![LaTeX Compile PDF](https://github.com/EasonSYC/ib-dpmms-linear-algebra-mt-26/actions/workflows/compile-pdf.yml/badge.svg)](https://github.com/EasonSYC/ib-dpmms-linear-algebra-mt-26/actions/workflows/compile-pdf.yml)
 
-Template for typesetting my Cambridge notes.
+My notes for Cambridge Maths Part IB DPMMS Linear Algebra course, Michaelmas Term 2026, lectured by H. Bradford.
