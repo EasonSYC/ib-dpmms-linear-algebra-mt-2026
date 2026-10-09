@@ -1,0 +1,216 @@
+\section{Vector Spaces}
+
+Throughout, we denote \(\FF\) a \term{field}, in particular, \(\FF = \RR\) or \(\FF = \CC\).
+
+\subsection{Vector Spaces and Subspaces}
+
+\begin{definition}[Vector Space]
+    An \term{\(\FF\)-vector space} (also known as a \term{vector space over \(\FF\)}) is an abelian group \(\pqty{V, +, \vb{0}}\), equipped with an operation
+    \[
+        \function{\cdot}{\FF \times V}{V}{\pqty{\lambda, \vb{v}}}{\lambda \vb{v}}
+    \]
+    called \term{scalar multiplication}, such that for all \(\lambda, \mu \in \FF\) and \(\vb{v}, \vb{w} \in V\), the following axioms hold:
+    \begin{enumerate}[label=(\roman*)]
+        \item \(\lambda \pqty{\vb{v} + \vb{w}} = \lambda \vb{v} + \lambda \vb{w}\);
+        \item \(\pqty{\lambda + \mu} \vb{v} = \lambda \vb{v} + \mu \vb{v}\);
+        \item \(\lambda \pqty{\mu \vb{v}} = \pqty{\lambda \mu} \vb{v}\);
+        \item \(1 \vb{v} = \vb{v}\), where \(1\) is the multiplicative identity in \(\FF\).
+    \end{enumerate}
+\end{definition}
+
+\begin{notation}
+    Throughout, we denote \(V\) as a vector space over \(\FF\).
+\end{notation}
+
+\begin{examples}[Vector Spaces]
+    \begin{enumerate}
+        \item The set of column vectors of length \(n\), \(\FF^n\) with the usual addition and scalar multiplication (by components), is a vector space over \(\FF\).
+        \item The set of \(m \times n\) matrices over \(\FF\), denoted \(\matrixset_{m \times n} \pqty{\FF}\), with the usual addition and scalar multiplication (entry-wise), is a vector space over \(\FF\).
+        \item The set \(\CC^n\) is a \(\CC\)-vector space, and also a \(\RR\)-vector space.
+        \item For any set \(X\), define the set
+        \[
+            \FF^X = \set{f}{\functiondomain{f}{X}{\FF}}.
+        \]
+
+        We define the operations, for \(f, g \in \FF^X\) and \(\lambda \in \FF\), that
+        \[
+            \pqty{f + g} \pqty{x} = f \pqty{x} + g \pqty{x} \qand \pqty{\lambda f} \pqty{x} = \lambda f \pqty{x}.
+        \]
+    \end{enumerate}
+\end{examples}
+
+We may expect some properties of vector spaces to be axioms, but they are in fact consequences of the axioms, and can be deduced by simple manipulations. We list some of these properties below.
+
+\begin{proposition}[Properties of Scalar Multiplication]
+    For \(\vb{v} \in V\), we have
+    \[
+        0 \vb{v} = \vb{0} \qand \pqty{-1} \vb{v} = -\vb{v}.
+    \]
+\end{proposition}
+
+\begin{definition}[Subspace]
+    Let \(U \subseteq V\). We say \(U\) is a \term{(vector) subspace} of \(V\) if \(U\) is itself a \(\FF\)-vector space under the same operations as \(V\). We denote this as \(U \subspace V\).
+
+    Equivalently, \(U\) is a subspace of \(V\) if \(\pqty{U, +, \vb{0}}\) is a subgroup of \(\pqty{V, +, \vb{0}}\), and for all \(\lambda \in \FF\) and \(\vb{u} \in U\), we have \(\lambda \vb{u} \in U\).
+\end{definition}
+
+\begin{proposition}[Subspace Test]
+    Let \(U \subseteq V\), then \(U \subspace V\) if and only if the following conditions hold:
+    \begin{enumerate}[label=(\alph*)]
+        \item \(U\) is non-empty;
+        \item for all \(\vb{u}, \vb{w} \in U\) and \(\lambda \in \FF\), we have \(\vb{u} + \lambda \vb{w} \in U\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Clearly, any subspace \(U \subspace\) has to satisfy these two conditions.
+
+    Conversely, setting \(\lambda = -1\), we have \(\vb{u} + (-1) \vb{w} = \vb{u} - \vb{w} \in U\). This precisely gives the \emph{subgroup test} (recall from \textit{IA Groups} or \textit{IB Groups, Rings and Modules}), so \(U\) is a subgroup of \(V\) under addition.
+
+    Set \(\vb{u} = \vb{0} \in U\). Then the hypothesis says that for all \(\vb{w} \in U\) and \(\lambda \in \FF\), we have \(\lambda \vb{w} \in U\), which is precisely as desired.
+\end{proof}
+
+\begin{example}[Subspaces]
+    \begin{enumerate}
+        \item For \(t \in \RR\), the set
+        \[
+            \set{\pmqty{x \\ y \\ z} \in \RR^3}{x + y + z = t}
+        \]
+        is a subspace of \(\RR^3\), if and only if \(t = 0\).
+        \item For the set
+        \[
+            \RR^{\RR} = \set{f}{\functiondomain{f}{\RR}{\RR}},
+        \]
+        the space of continuous functions \(\contClass{0}\pqty{\RR}\) is a subspace of \(\RR^{\RR}\). Furthermore, the space of smooth functions \(\smoothClass\pqty{\RR}\) is a subspace of \(\contClass{0}\pqty{\RR}\), and the space of polynomial functions with real coefficients \(\PP\pqty{\RR}\) is a subspace of \(\smoothClass\pqty{\RR}\).
+
+        \[
+            \RR^{\RR} \supspace \contClass{0}\pqty{\RR} \supspace \smoothClass\pqty{\RR} \supspace \PP\pqty{\RR}.
+        \]
+    \end{enumerate}
+\end{example}
+
+\begin{proposition}[Intersection of Subspaces]
+    Let \(U, W \subspace V\). Then \(U \cap W \subspace V\).
+\end{proposition}
+
+\begin{proof}
+    We use the subspace test.
+    \begin{enumerate}[label=(\alph*)]
+        \item We have \(\vb{0} \in U, W \subspace V\), and hence \(\vb{0} \in U \cap W\). So \(U \cap W \neq \emptyset\).
+        \item Let \(\vb{x}, \vb{y} \in U \cap W\), \(\lambda \in \FF\). Then \(\vb{x}, \vb{y} \in U\), and since \(U \subspace V\),
+        \[
+            \vb{x} + \lambda \vb{y} \in U.
+        \]
+
+        Similarly, \(\vb{x} + \lambda \vb{y} \in W\). Then
+        \[
+            \vb{x} + \lambda \vb{y} \in U \cap W.
+        \]
+    \end{enumerate}
+\end{proof}
+
+\begin{remark}
+    It is \emph{almost never} the case that \(U, W \subspace V\) implies \(U \cup W \subspace V\). In fact, we may see that \(U \cup W\) is a subspace of \(V\) if and only if \(U \subseteq W\) or \(W \subseteq U\).
+\end{remark}
+
+So we want an alternative definition that defines the \emph{smallest} subspace containing \(U\) and \(W\).
+
+\begin{definition}[Sum of Subspaces]
+    For \(U, W \subspace V\), the \emph{sum} \(U + W\) is defined as
+    \[
+        U + W = \set{\vb{u} + \vb{w}}{\vb{u} \in U, \vb{w} \in W} \subseteq V.
+    \]
+\end{definition}
+
+\begin{proposition}[Sum of Subspaces is always a Subspace]
+    For any \(U, W \subspace V\), \(U + W \subspace V\).
+\end{proposition}
+
+\begin{proof}
+    By direct application of the subspace test.
+\end{proof}
+
+\begin{remark}
+    In fact, \(U + W\) is indeed the \emph{smallest} subspace of \(V\) that contains both \(U\) and \(W\).
+\end{remark}
+
+\subsection{Linear Maps and Isomorphisms}
+
+\begin{definition}[Linear Map]
+    Let \(V\) and \(W\) be \(\FF\)-vector spaces. A function \(\functiondomain{\alpha}{V}{W}\) is a \term{linear map} (or \term{linear transformation}) if for all \(\vb{v}, \vb{w} \in V\) and \(\lambda \in \FF\), we have:
+    \begin{enumerate}
+        \item \term{\(\alpha\) is a homomorphism of the group structure}: \(\alpha \pqty{\vb{v} + \vb{w}} = \alpha \pqty{\vb{v}} + \alpha \pqty{\vb{w}}\);
+        \item \term{\(\alpha\) respects scalar multiplication}: \(\alpha \pqty{\lambda \vb{v}} = \lambda \alpha \pqty{\vb{v}}\).
+    \end{enumerate}
+
+    Equivalently, \(\alpha\) is a linear map, if for all \(\vb{u}, \vb{w} \in V\) and \(\lambda \in \FF\), we have
+    \[
+        \alpha \pqty{\vb{u} + \lambda \vb{w}} = \alpha \pqty{\vb{u}} + \lambda \alpha \pqty{\vb{w}}.
+    \]
+\end{definition}
+
+\begin{definition}[Endomorphism]
+    A \term{endomorphism} is a linear map where \(V = W\).
+\end{definition}
+
+\begin{examples}[Linear Maps]
+    \begin{enumerate}[label=(\alph*)]
+        \item Let \(V = \FF^n\), \(W = \FF^m\) and \(A \in \matrixset_{m \times n} \pqty{\FF}\). Then the map
+        \[
+            \function{\alpha}{\FF^n}{\FF^m}{\vb{x}}{A \vb{x}}
+        \]
+        is a linear map.
+        \item The map
+        \[
+            \function{\alpha}{\smoothClass\pqty{\RR}}{\smoothClass\pqty{\RR}}{f}{f'}
+        \]
+        is a linear map.
+        \item The map
+        \[
+            \function{\alpha}{\contClass{0}\pqty{\RR}}{\RR}{f}{\int_{0}^{1} f \pqty{x} \dd{x}}
+        \]
+        is a linear map.
+        \item Let \(X \neq \emptyset\), and set \(x_0 \in X\). Then the \term{evaluation map}
+        \[
+            \function{e_{x_0}}{\FF^X}{\FF}{f}{f \pqty{x_0}}
+        \]
+        is a linear map.
+        \item For any \(\FF\)-vector space \(V\), the \term{identity map}
+        \[
+            \function{\identity_V}{V}{V}{\vb{v}}{\vb{v}}
+        \]
+        is a linear map.
+        \item For any \(\FF\)-vector space \(V\) and \(W\), the \term{zero map}
+        \[
+            \function{\alpha}{V}{W}{\vb{v}}{\vb{0}_{W}}
+        \]
+        is a linear map.
+        \item For any linear maps \(\functiondomain{\alpha}{U}{V}\) and \(\functiondomain{\beta}{V}{W}\), the \term{composition}
+        \[
+            \function{\beta \circ \alpha}{U}{W}{\vb{u}}{\beta \pqty{\alpha \pqty{\vb{u}}}}
+        \]
+        is also a linear map.
+        \item Consider \(\functiondomain{\alpha, \beta}{\RR}{\RR}\) where \(\alpha\pqty{x} = x^2\), and \(\beta\pqty{x} = x + 1\). Neither functions are linear. In particular, \(\beta\) is referred to as an \term{affine map}.
+    \end{enumerate}
+\end{examples}
+
+\begin{example}[Underlying Field Structure]
+    Now, consider the map
+    \[
+        \function{\alpha}{\CC}{\CC}{z}{\conjugate{z}.}
+    \]
+
+    Then \(\alpha\) \emph{is} a linear map if we consider \(\CC\) as a vector space over \(\RR\), but \(\alpha\) is \emph{not} a linear map if we consider \(\CC\) as a vector space over \(\CC\).
+\end{example}
+
+\begin{definition}[Isomorphism]
+    A linear map between two \(\FF\)-vector spaces \(V\) and \(W\), \(\functiondomain{\alpha}{V}{W}\), is an \term{isomorphism} if it is bijective. If there is an isomorphism between two \(\FF\)-vector spaces \(V\) and \(W\), we say \(V\) and \(W\) are \term{isomorphic}, and denote this as \(V \isomorphic W\).
+\end{definition}
+
+\begin{example}[Isomorphisms]
+    The map
+    \[
+        \function{\alpha}{\FF^4}{\matrixset_{2 \times 2} \pqty{\FF}}{\pmqty{a \\ b \\ c \\ d}}{\pmqty{a & b \\ c & d}}
+    \]
+    is an isomorphism.
+\end{example}
