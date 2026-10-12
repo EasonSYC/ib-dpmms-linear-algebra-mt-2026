@@ -214,3 +214,135 @@ So we want an alternative definition that defines the \emph{smallest} subspace c
     \]
     is an isomorphism.
 \end{example}
+
+The following propositions are immediate consequences of the definitions, and they should also be familiar from \textit{IA Groups}.
+
+\begin{proposition}[Inverse of Isomorphism is an Isomorphism]
+    If \(\functiondomain{\alpha}{V}{W}\) is an isomorphism, then so is \(\functiondomain{\alpha\inverse}{W}{V}\).
+\end{proposition}
+
+\begin{proof}
+    Bijection is clear, so it suffices to check the linear property. Suppose \(\vb{w}_1, \vb{w}_2 \in W\) and \(\lambda \in \FF\). Then since \(\alpha\) is surjective, let \(\vb{v}_1, \vb{v}_2 \in V\) such that \(\alpha\pqty{\vb{v}_1} = \vb{w}_1\) and \(\alpha\pqty{\vb{v}_2} = \vb{w}_2\). Then we have
+    \begin{align*}
+        \alpha\inverse \pqty{\vb{w}_1 + \lambda \vb{w}_2} &= \alpha\inverse \pqty{\alpha{\vb{v}_1} + \lambda \alpha\pqty{\vb{v}_2}} \\
+        &= \alpha\inverse \pqty{\alpha\pqty{\vb{v}_1 + \lambda \vb{v}_2}} \\
+        &= \vb{v}_1 + \lambda \vb{v}_2 \\
+        &= \alpha\inverse\pqty{\vb{w}_1} + \lambda \alpha\inverse\pqty{\vb{w}_2}.
+    \end{align*}
+\end{proof}
+
+\begin{remark}
+    For any set \(X\) of \(\FF\)-vector spaces, the relation \(\isomorphic\) is an equivalence relation on \(X\).
+\end{remark}
+
+Similar to the case of groups, we make the following definitions.
+
+\begin{definition}[Kernel, Image]
+    Let \(\functiondomain{\alpha}{V}{W}\) be a linear map. The \term{kernel} of \(\alpha\) is the set
+    \[
+        \ker \pqty{\alpha} = \set{\vb{v} \in V}{\alpha\pqty{\vb{v}} = \vb{0}_W}
+    \]
+    and the \term{image} of \(\alpha\) is the set
+    \[
+        \img \pqty{\alpha} = \set{\vb{w} \in W}{\exists \vb{v} \in V: \alpha\pqty{\vb{v}} = \vb{w}} = \set{\alpha\pqty{\vb{v}}}{\vb{v} \in V}.
+    \]
+\end{definition}
+
+\begin{lemma}[Kernels and Images, Surjections and Injections]
+    For a linear map \(\functiondomain{\alpha}{V}{W}\), we have the following:
+    \begin{enumerate}[label=(\roman*)]
+        \item \(\ker\pqty{\alpha} \subspace V, \img\pqty{\alpha} \subspace W\).
+        \item \(\alpha\) is surjective if and only if \(\img\pqty{\alpha} = W\).
+        \item \(\alpha\) is injective if and only if \(\ker\pqty{\alpha} = \Bqty{\vb{0}_V}\).
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    We can use the fact that
+    \begin{align*}
+        \alpha\pqty{\vb{0}_V} &= \alpha\pqty{\vb{0}_V + \vb{0}_V} \\
+        &= \alpha\pqty{\vb{0}_V} + \alpha\pqty{\vb{0}_V}
+    \end{align*}
+    and hence \(\alpha\pqty{\vb{0}_V} = \vb{0}_W\). This shows that \(\vb{0}_V \in \ker\pqty{\alpha}\) and \(\vb{0}_W \in \img\pqty{\alpha}\). The remaining is simply the subspace test.
+
+    The second and third points simply arise from the group structure. 
+\end{proof}
+
+\subsection{Quotient Spaces}
+
+\begin{definition}[Coset, Quotient Space]
+    Let \(W \subspace V\). For \(\vb{v} \in V\), the \term{coset} of \(W\) in \(V\) containing \(\vb{v}\) is the set
+    \[
+        \vb{v} + W = \set{\vb{v} + \vb{w}}{\vb{w} \in W}.
+    \]
+
+    The set of all cosets of \(W\) in \(V\) is denoted \(\flatfrac{V}{W}\), and we call this the \term{quotient space} of \(V\) by \(W\).
+\end{definition}
+
+\begin{remark}
+    Recall from \textit{IA Groups} that for \(\vb{u}, \vb{v} \in V\), we have
+    \[
+        \vb{u} + W = \vb{v} + W \iff \vb{u} - \vb{v} \in W.
+    \]
+\end{remark}
+
+\begin{proposition}[Quotient Space is a Vector Space]
+    Let \(W \subspace V\). Then \(\flatfrac{V}{W}\) is a \(\FF\)-vector space, under the following operations:
+    \begin{align*}
+        \pqty{\vb{u} + W} + \pqty{\vb{v} + W} &= \pqty{\vb{u} + \vb{v}} + W, \\
+        \lambda \pqty{\vb{v} + W} &= \pqty{\lambda \vb{v}} + W.
+    \end{align*}
+\end{proposition}
+
+\begin{proof}
+    Recall from \textit{IA Groups} that \(\flatfrac{V}{W}\) is an abelian group under the first operation. Therefore, we need to check that the scalar multiplication operations are well-defined and satisfy the vector space axioms (but these inherit from the space \(V\)). This is just a matter of doing very elementary algebra.
+\end{proof}
+
+\begin{definition}[Quotient Map]
+    Let \(W \subspace V\). The \term{quotient map} \(\functiondomain{\pi_{W}}{V}{\flatfrac{V}{W}}\) is defined as
+    \[
+        \function{\pi_{W}}{V}{\flatfrac{V}{W}}{\vb{v}}{\vb{v} + W.}
+    \]
+\end{definition}
+
+\begin{proposition}[Quotient Map is Surjective and Linear with Kernel \(W\)]
+    The quotient map \(\pi_{W}\) is surjective and linear, with kernel \(W\).
+\end{proposition}
+
+\begin{proof}
+    Surjectivity is trivial by definition, and linearity arises from the definition of the operations on \(\flatfrac{V}{W}\). 
+
+    For \(\vb{v} \in V\), note
+    \[
+        \vb{v} \in \ker\pqty{\pi_{W}} \iff \pi_{W}\pqty{\vb{v}} = \vb{0}_{\flatfrac{V}{W}} = W \iff \vb{v} + W = W \iff \vb{v} \in W,
+    \]
+    so \(\ker\pqty{\pi_{W}} = W\).
+\end{proof}
+
+\begin{theorem}[First Isomorphism Theorem]
+    Let \(V\) and \(W\) be \(\FF\)-vector spaces, and let \(\functiondomain{\alpha}{V}{W}\) be a linear map. Then there is an isomorphism
+    \[
+        \function{\overline{\alpha}}{\flatfrac{V}{\ker\pqty{\alpha}}}{\img\pqty{\alpha}}{\vb{v} + \ker\pqty{\alpha}}{\alpha\pqty{\vb{v}}}.
+    \]
+\end{theorem}
+
+\begin{proof}
+    Let \(k = \ker\pqty{\alpha}\). We start by showing that the map \(\overline{\alpha}\) is well-defined.
+
+    For \(\vb{u}, \vb{v} \in V\), if their cosets \(\vb{u} + K = \vb{v} + K\), then \(\vb{u} - \vb{v} \in K\), and hence \(\alpha\pqty{\vb{u} - \vb{v}} = \vb{0}_W\). This implies \(\alpha\pqty{\vb{u}} = \alpha\pqty{\vb{v}}\), and hence \(\overline{\alpha} \pqty{\vb{u} + W} = \overline{\alpha} = \pqty{\vb{v} + W}\).
+
+    But note the above argument is perfectly reversible, so we have that \(\overline{\alpha} \pqty{\vb{u} + W} = \overline{\alpha} \pqty{\vb{v} + W}\) if and only if \(\vb{u} + W = \vb{v} + W\). One direction shows that \(\overline{\alpha}\) is well-defined, and the other shows that \(\overline{\alpha}\) is injective.
+
+    To show \(\overline{\alpha}\) is surjective, note that for any \(\vb{w} \in \img\pqty{\alpha}\), there is some \(\vb{v} \in V\) such that
+    \[
+        \vb{w} = \alpha\pqty{\vb{v}} = \overline{\alpha}\pqty{\vb{v} + K}.
+    \]
+
+    Finally, to show that \(\overline{\alpha}\) is linear, given \(\vb{u}, \vb{v} \in V\) and \(\lambda \in \FF\),
+    \begin{align*}
+        \overline{\alpha}\pqty{\pqty{\vb{u} + K} + \lambda \pqty{\vb{v} + K}} &= \overline{\alpha}\pqty{\pqty{\vb{u} + \lambda \vb{v}} + K} \\
+        &= \alpha\pqty{\vb{u} + \lambda \vb{v}} \\
+        &= \alpha\pqty{\vb{u}} + \lambda \alpha\pqty{\vb{v}} \\
+        &= \overline{\alpha}\pqty{\vb{u} + K} + \lambda \overline{\alpha}\pqty{\vb{v} + K}.
+    \end{align*}
+\end{proof}

@@ -1,0 +1,32 @@
+\section{Span, Linear Independence, Basis, and Dimension}
+
+\subsection{Spanning Set and Linear Independence}
+
+\begin{definition}[Span of a Set, Spanning Set]
+    Let \(S \subseteq V\). The \term{span} of \(S\) in \(V\) is given by
+    \[
+        \spn \pqty{S} = \angBrac{S} = \set{{\sum_{\vb{s} \in S}}' \lambda_{\vb{s}} \vb{s}}{\lambda_{\vb{s}} \in \FF},
+    \]
+    where the sum \({\sum}'\) denotes a \term{finite sum}, i.e., we require that \(\lambda_{\vb{s}} = 0\) for all but finitely many \(\vb{s} \in S\).
+    
+    The elements of \(\spn\pqty{S}\), in the finite sum form, are called \term{linear combinations} of elements of \(S\).
+
+    If \(\spn\pqty{S} = V\), then we say \(S\) is a \term{spanning set} of \(V\).
+\end{definition}
+
+\begin{remark}
+    Note that we require \({\sum}'\), since there is no well-defined way to sum infinitely many vectors in a vector space (this requires \emph{analysis}). In particular, if \(S\) is infinite, then \(\spn\pqty{S}\) is the set of all finite linear combinations of elements of \(S\).
+\end{remark}
+
+\begin{definition}[Finite/Infinite-Dimensional Vector Space]
+    We say that a vector space \(V\) is \term{finite-dimensional} if there exists a finite spanning set \(S \subseteq V\). Otherwise, we say that \(V\) is \term{infinite-dimensional}.
+\end{definition}
+
+\begin{remarks}
+    \begin{itemize}
+        \item \(\spn\pqty{S} \subspace V\) for any \(S \subseteq V\).
+        \item By convention, \(\spn\pqty{\emptyset} = \Bqty{\vb{0}_V}\).
+        \item If \(S\) spans \(V\) and \(S \subseteq \spn\pqty{T}\), then \(T\) spans \(V\).
+        \item \(\spn\pqty{S \cup T} = \spn\pqty{S} + \spn\pqty{T}\).
+    \end{itemize}
+\end{remarks}
