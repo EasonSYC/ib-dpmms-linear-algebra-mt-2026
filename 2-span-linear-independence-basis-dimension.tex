@@ -30,3 +30,210 @@
         \item \(\spn\pqty{S \cup T} = \spn\pqty{S} + \spn\pqty{T}\).
     \end{itemize}
 \end{remarks}
+
+\begin{examples}
+    \begin{enumerate}[label=(\roman*)]
+        \item Let \(V = \RR^3\), and let
+        \[
+            S = \Bqty{\pmqty{1 \\ 0 \\ 0}, \pmqty{1 \\ 1 \\ 2}} \qand T = \Bqty{\pmqty{2 \\ 1 \\ 2}, \pmqty{0 \\ 1 \\ 2}, \pmqty{-1 \\ 2 \\ 4}}.
+        \]
+
+        Then
+        \[
+            \spn\pqty{S} = \spn\pqty{T} = \set{\pmqty{x \\ y \\ 2y}}{x, y \in \RR} \subspace \RR^3.
+        \]
+
+        \item Let \(V = \RR^3\), and let
+        \[
+            T = \set{\kronecker_n}{n \in \NN} \subseteq V
+        \]
+        where \(\functiondomain{\kronecker_n}{\NN}{\RR}\) is given by
+        \[
+            \kronecker_n\pqty{m} = \kronecker_{n, m} = \begin{cases}
+                1 & n = m, \\
+                0 & n \neq m.
+            \end{cases}
+        \]
+
+        Then \(\spn\pqty{T} \neq \RR^\NN\). For instance, if \(f \in \RR^\NN\) satisfies \(f\pqty{n} = 1\) for all \(n\), then \(f \notin \spn\pqty{T}\). In fact,
+        \[
+            \spn\pqty{T} = \set{g \in V}{g\pqty{n} = 0 \text{ for sufficiently large }n \in \NN}.
+        \]
+    \end{enumerate}
+\end{examples}
+
+\begin{definition}[Linearly Independence/Dependence]
+    A set \(S \subseteq V\) is \term{linearly independent (L.I.)} if, for any linear combination satisfying
+    \[
+        {\sum_{\vb{s} \in S}}' \lambda_{\vb{s}} \vb{s} = \vb{0}_V,
+    \]
+    we have \(\lambda_{\vb{s}} = 0\) for all \(\vb{s} \in S\). Otherwise, we say that \(S\) is \term{linearly dependent (L.D.)}.
+\end{definition}
+
+\begin{remarks}
+    \begin{itemize}
+        \item If a set \(S \subseteq V\) is linearly independent, then \(\vb{0} \notin S\).
+        \item If \(S\) is finite, with \(S = \Bqty{\vb{v}_1, \vb{v}_2, \ldots, \vb{v}_n}\) and \(\abs{S} = n\), then \(S\) is linearly independent, if and only if for all \(\lambda_1, \lambda_2, \ldots, \lambda_n \in \FF\), that
+        \[
+            \sum_{i = 1}^{n} \lambda_i \vb{v}_i = \vb{0} \implies \lambda_i = \cdots = \lambda_n = 0.
+        \]
+        \item If \(S\) is infinite, then \(S\) is linearly independent, if and only if every finite subset of \(S\) is linearly independent.
+        \item Every subset of a linearly independent set is itself linearly independent.
+    \end{itemize}
+\end{remarks}
+
+\begin{examples}
+    \begin{enumerate}[label=(\roman*)]
+        \item Let \(V = \RR^3\), and let
+        \[
+            S = \Bqty{\pmqty{1 \\ 0 \\ 0}, \pmqty{1 \\ 1 \\ 2}} \qand T = \Bqty{\pmqty{2 \\ 1 \\ 2}, \pmqty{0 \\ 1 \\ 2}, \pmqty{-1 \\ 2 \\ 4}}.
+        \]
+
+        Then \(S\) is linearly independent, while \(T\) is linearly dependent, since
+        \[
+            1 \cdot \pmqty{2 \\ 1 \\ 2} - 5 \cdot \pmqty{0 \\ 1 \\ 2} + 2 \cdot \pmqty{-1 \\ 2 \\ 4} = \pmqty{0 \\ 0 \\ 0}.
+        \]
+
+        On the other hand, if \(\lambda, \mu \in \RR\) is such that
+        \[
+            \vb{0} = \lambda \pmqty{1 \\ 0 \\ 0} + \mu \pqty{1 \\ 1 \\ 2} = \pmqty{\lambda + \mu \\ \mu \\ 2\mu}
+        \]
+        then \(\lambda = \mu = 0\), so \(S\) is linearly independent.
+
+        \item Let \(V = \RR^3\), and let
+        \[
+            T = \set{\kronecker_n}{n \in \NN} \subseteq V
+        \]
+        where \(\functiondomain{\kronecker_n}{\NN}{\RR}\) is given by
+        \[
+            \kronecker_n\pqty{m} = \kronecker_{n, m} = \begin{cases}
+                1 & n = m, \\
+                0 & n \neq m.
+            \end{cases}
+        \]
+
+        Let \(f = {\sum_{n \in \NN}}'\lambda_n \delta_n\) where \(\lambda_n \in \RR\). If \(f = 0\), then for all \(m \in \NN\),
+        \[
+            0 = f\pqty{m} = \pqty{{\sum_{n \in \NN}' \lambda_n \delta_n}} \pqty{m} = {\sum_{n \in \NN}}' \lambda_n \delta_n\pqty{m} = \lambda_m,
+        \]
+        precisely giving the trivial linear combination. so \(T\) is linearly independent.
+    \end{enumerate}
+\end{examples}
+
+\subsection{Basis}
+
+\begin{definition}[Basis]
+    Let \(S \subseteq V\). \(S\) is a \term{basis} of \(V\) if it is linearly independent and spans \(V\).
+\end{definition}
+
+\begin{examples}
+    \begin{enumerate}
+        \item Let \(\vb{e}_i \in \FF^n\) be the \term{\(i\)-th standard basis vector}, with entries 0 except for the \(i\)-th entry, which is 1. Then the set \(\Bqty{\vb{e}_i}{1 \leq i \leq n}\) is the \term{standard basis} of \(\FF^n\).
+        \item The set
+        \[
+            \Bqty{\pmqty{1 \\ 0 \\ 0}, \pmqty{1 \\ 1 \\ 0}, \pmqty{1 \\ 1 \\ 1}} \subseteq \FF^3
+        \]
+        is a basis for \(\FF^3\).
+        \item Let \(p_n \in P\pqty{\RR}\) be given by \(p_n\pqty{x} = x^n\). Then the set \(\Bqty{p_n}{n \in \NN}\) is a basis for \(P\pqty{\RR}\).
+    \end{enumerate}
+\end{examples}
+
+\begin{proposition}[Finite Spanning Set reduces to a Basis]
+    Suppose \(S \subseteq V\) is a finite spanning set. Then there exists a subset \(S' \subseteq S\) such that \(S\) is a basis of \(V\).
+\end{proposition}
+
+\begin{proof}
+    If \(S\) is linearly independent, then we are done. If not, write
+    \[
+        S = \Bqty{\vb{v}_1, \vb{v}_2, \ldots, \vb{v}_n}.
+    \]
+
+    There exists \(\lambda_1, \lambda_2, \ldots, \lambda_n \in \FF\), not all zero, such that
+    \[
+        \sum_{i = 1}^{n} \lambda_i \vb{v}_i = \vb{0}.
+    \]
+
+    Without loss of generality, up to relabelling, that \(\lambda_1 \neq 0\). Then rearranging this expression,
+    \[
+        \vb{v}_1 = - \frac{1}{\lambda_1} \sum_{i = 2}^{n} \lambda_i \vb{v}_i \in \spn\pqty{S \setminus \Bqty{\vb{v}_1}}.
+    \]
+
+    So \(S \setminus \Bqty{\vb{v}_1}\) also spans \(V\). Repeat this and this will terminate after at most \(n\) steps.
+\end{proof}
+
+\begin{corollary}[Finite-Dimensional Vector Space has a Finite Basis]
+    \label{cor:finite-dimensional-vector-space-has-finite-basis}%
+    Every finite-dimensional vector space has a finite basis.
+\end{corollary}
+
+\begin{remark}
+    We will \emph{not} prove that every vector space has a basis. Some non-finite-dimensional vector spaces do have a basis, for example, the above set of polynomial functions over \(\RR\). However, even attempting to write down a basis of \({\RR}^{\NN}\) will be a lot of trouble -- in fact you cannot write down a basis of this space explicitly. The existence of a basis for every vector space is equivalent to the \emph{axiom of choice}, which is a controversial axiom in set theory. In other words, one should not assume that a infinite-dimensional vector space has a basis, unless it is explicitly constructed.
+\end{remark}
+
+\begin{theorem}[Steinitz Exchange Lemma]
+    \label{thm:steinitz-exchange-lemma}%
+    Let \(V\) be a \(\FF\)-vector space, \(S, T \subseteq V\) finite, with \(S\) being linearly-independent, and \(T\) spanning \(V\). Then we have the following.
+
+    \begin{itemize}
+        \item \emph{Linear independence set is always smaller than spanning set.} \(\abs{S} \leq \abs{T}\).
+        \item \emph{Removing elements from a spanning set and replacing with linearly independent elements.} There exists \(T' \subseteq T\), such that \(S \cup T'\) spans \(V\), and \(\abs{T'} = \abs{T} - \abs{S}\).
+    \end{itemize}
+\end{theorem}
+
+\begin{proof}
+    Let \(S = \Bqty{\vb{s}_1, \ldots, \vb{s}_m}\) nad \(T = \Bqty{\vb{t}_1, \ldots, \vb{t}_n}\), with \(\abs{S} = m\) and \(\abs{T} = n\).
+
+    If \(S = \emptyset\), then we are done. If not, we conduct the following steps.
+
+    \textbf{Step 1.} Since \(\spn\pqty{T} = V\), then there exists \(\lambda_i \in \FF\), such that
+    \[
+        \vb{s}_1 = \sum_{i = 1}^{N} \lambda_i \vb{t}_i,
+    \]
+    and since \(\vb{s}_1 \neq \vb{0}\), so \(\lambda_i\) cannot be trivially all zeros. Without loss of generality, up to relabelling, we can assume that \(\lambda_1 \neq 0\). Then rearranging this expression,
+    \[
+        \vb{t}_1 = \frac{1}{\lambda_1} \pqty{\vb{s}_1 - \sum_{i = 2}^{N} \lambda_i \vb{t}_i} \in \spn\pqty{\Bqty{\vb{s}} \cup \Bqty{\vb{t}_2, \ldots, \vb{t}_n}}.
+    \]
+
+    \textbf{Step \(\boldsymbol{\pqty{k + 1}}\)} where \(k < m\). Assume the set \(\Bqty{\vb{s}_1, \ldots, \vb{s}_k, \vb{t}_{k + 1}}, \ldots, \vb{t}_n\) spans \(V\). Write
+    \[
+        \vb{s}_{k + 1} = \sum_{i = k + 1}^{n} \lambda_i \vb{t}_i + \sum_{j = 1}^{k} \mu_j \vb{s}_j,
+    \]
+    where \(\lambda_i, \mu_j \in \FF\), not all \(0\).
+
+    If all \(\lambda_i = 0\), then
+    \[
+        \vb{s}_{k + 1} = \sum_{j = 1}^{k} \mu_j \vb{s}_j = \vb{0}
+    \]
+    but \(S\) is linearly independence, giving a contradiction.
+
+    Hence, without loss of generality, \(\lambda_{k + 1} \neq 0\), so we can write
+    \[
+        \vb{t}_{k + 1} = \frac{1}{\lambda_{k + 1}} \pqty{\vb{s}_{k + 1} - \sum_{i = k + 2}^{n} \lambda_i \vb{t}_i - \sum_{j = 1}^{k} \mu_j \vb{s}_j} \in \spn\pqty{\Bqty{\vb{s}_1, \ldots, \vb{s}_{k + 1}} \cup \Bqty{\vb{t}_{k + 2}, \ldots, \vb{t}_n}}.
+    \]
+
+    So the new set \(\Bqty{\vb{s}_1, \ldots, \vb{s}_{k + 1}, \vb{t}_{k + 2}, \ldots, \vb{t}_n}\) spans \(V\).
+
+    We repeat the process until either we run out of elements of \(S\), or elements of \(T\). But if we exhausted \(T\) before \(S\), then we would have a linear combination of elements of \(S\) that gives \(\vb{0}\), contradicting the linear independence of \(S\). Hence, we must have exhausted \(S\) first, and we have \(\abs{S} \leq \abs{T}\), which gives \(m \leq n\), and
+    \[
+        \Bqty{\vb{s}_1, \ldots, \vb{s}_m, \vb{t}_{m + 1}, \ldots, \vb{t}_n} \subseteq V
+    \]
+    with \(T' = \Bqty{\vb{t}_{m + 1}, \ldots, \vb{t}_n}\).
+\end{proof}
+
+\subsection{Dimension}
+
+\begin{corollary}[Basis of Finite-Dimensional Vector Space]
+    Let \(V\) be a finite-dimensional vector space. Then every basis for \(V\) is finite, and any two bases \(B_1, B_2\) of \(V\) satisfy \(\abs{B_1} = \abs{B_2}\).
+\end{corollary}
+
+\begin{proof}
+    By \autoref{cor:finite-dimensional-vector-space-has-finite-basis}, \(V\) has some finite basis \(B\). Suppose \(B'\) is an infinite basis.
+
+    Let \(B'' \subset B'\) with \(\abs{B''} = \abs{B} + 1\). Then \(B''\) is linearly-independent, and \(B\) spans \(V\), contradicting with the first part of \autoref{thm:steinitz-exchange-lemma}.
+
+    If \(B_1, B_2\) are bases of \(V\), then both must be finite. By the first part of \autoref{thm:steinitz-exchange-lemma}, we have \(\abs{B_1} \leq \abs{B_2}\) and \(\abs{B_2} \leq \abs{B_1}\), so \(\abs{B_1} = \abs{B_2}\).
+\end{proof}
+
+\begin{definition}[Dimension]
+    For a finite-dimensional vector space \(V\), its \term{dimension} \(\dim\pqty{V}\) is the common size of any basis of \(V\).
+\end{definition}
