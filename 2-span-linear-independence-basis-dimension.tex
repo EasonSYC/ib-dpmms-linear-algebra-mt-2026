@@ -96,7 +96,7 @@
 
         On the other hand, if \(\lambda, \mu \in \RR\) is such that
         \[
-            \vb{0} = \lambda \pmqty{1 \\ 0 \\ 0} + \mu \pqty{1 \\ 1 \\ 2} = \pmqty{\lambda + \mu \\ \mu \\ 2\mu}
+            \vb{0} = \lambda \pmqty{1 \\ 0 \\ 0} + \mu \pmqty{1 \\ 1 \\ 2} = \pmqty{\lambda + \mu \\ \mu \\ 2\mu}
         \]
         then \(\lambda = \mu = 0\), so \(S\) is linearly independent.
 
@@ -112,9 +112,9 @@
             \end{cases}
         \]
 
-        Let \(f = {\sum_{n \in \NN}}'\lambda_n \delta_n\) where \(\lambda_n \in \RR\). If \(f = 0\), then for all \(m \in \NN\),
+        Let \(f = \sum_{n \in S \subset \NN}\lambda_n \delta_n\) where \(\lambda_n \in \RR\) and for some  finite set \(S \subset \NN\). If \(f = 0\), then for all \(m \in \NN\),
         \[
-            0 = f\pqty{m} = \pqty{{\sum_{n \in \NN}' \lambda_n \delta_n}} \pqty{m} = {\sum_{n \in \NN}}' \lambda_n \delta_n\pqty{m} = \lambda_m,
+            0 = f\pqty{m} = \pqty{{\sum_{n \in S} \lambda_n \delta_n}} \pqty{m} = \sum_{n \in S} \lambda_n \delta_n\pqty{m} = \lambda_m,
         \]
         precisely giving the trivial linear combination. so \(T\) is linearly independent.
     \end{enumerate}
