@@ -139,6 +139,7 @@
 \end{examples}
 
 \begin{proposition}[Finite Spanning Set reduces to a Basis]
+    \label{prop:spanning-set-reduces-to-basis}%
     Suppose \(S \subseteq V\) is a finite spanning set. Then there exists a subset \(S' \subseteq S\) such that \(S\) is a basis of \(V\).
 \end{proposition}
 
@@ -255,7 +256,9 @@
 \begin{proof}
     The inequalities themselves follow immediately from \autoref{thm:steinitz-exchange-lemma} (Steinitz).
 
-    If \(S\) is a basis, then \(\abs{S} = \dim V\) by \autoref{cor:basis-of-finite-dimensional-vector-space}. Conversely, if \(\abs{S} = \dim V\), let \(\basis\) be a basis, then applying \autoref{thm:steinitz-exchange-lemma} (Steinitz) to \(S\) and \(\basis\), we have some \(\basis' \subseteq \basis\) such that \(S \cup \basis'\) spans \(V\), and \(\abs{\basis'} = \abs{\basis} - \abs{S} = 0\). Hence, \(S\) spans \(V\), and is a basis. The argument for \(T\) is similar.
+    If \(S\) is a basis, then \(\abs{S} = \dim V\) by \autoref{cor:basis-of-finite-dimensional-vector-space}. Conversely, if \(\abs{S} = \dim V\), let \(\basis\) be a basis, then applying \autoref{thm:steinitz-exchange-lemma} (Steinitz) to \(S\) and \(\basis\), we have some \(\basis' \subseteq \basis\) such that \(S \cup \basis'\) spans \(V\), and \(\abs{\basis'} = \abs{\basis} - \abs{S} = 0\). Hence, \(S\) spans \(V\), and is a basis.
+
+    If \(T\) is a basis, then \(\abs{T} = \dim V\) by \autoref{cor:basis-of-finite-dimensional-vector-space}. Conversely, if \(\abs{T} = \dim V\), since \(T\) spans \(V\), it contains a basis of \(V\), say \(\basis \subseteq T\), by \autoref{prop:spanning-set-reduces-to-basis}. Then \(\abs{\basis} = \dim V = \abs{T}\), so \(\basis = T\), and \(T\) is a basis.
 \end{proof}
 
 \begin{proposition}[Dimension of Subspace]
