@@ -223,17 +223,215 @@
 \subsection{Dimension}
 
 \begin{corollary}[Basis of Finite-Dimensional Vector Space]
-    Let \(V\) be a finite-dimensional vector space. Then every basis for \(V\) is finite, and any two bases \(B_1, B_2\) of \(V\) satisfy \(\abs{B_1} = \abs{B_2}\).
+    \label{cor:basis-of-finite-dimensional-vector-space}%
+    Let \(V\) be a finite-dimensional vector space. Then every basis for \(V\) is finite, and any two bases \(\basis_1, \basis_2\) of \(V\) satisfy \(\abs{\basis_1} = \abs{\basis_2}\).
 \end{corollary}
 
 \begin{proof}
-    By \autoref{cor:finite-dimensional-vector-space-has-finite-basis}, \(V\) has some finite basis \(B\). Suppose \(B'\) is an infinite basis.
+    By \autoref{cor:finite-dimensional-vector-space-has-finite-basis}, \(V\) has some finite basis \(\basis\). Suppose \(\basis'\) is an infinite basis.
 
-    Let \(B'' \subset B'\) with \(\abs{B''} = \abs{B} + 1\). Then \(B''\) is linearly-independent, and \(B\) spans \(V\), contradicting with the first part of \autoref{thm:steinitz-exchange-lemma}.
+    Let \(\basis'' \subset \basis'\) with \(\abs{\basis''} = \abs{\basis} + 1\). Then \(\basis''\) is linearly-independent, and \(\basis\) spans \(V\), contradicting with the first part of \autoref{thm:steinitz-exchange-lemma}.
 
-    If \(B_1, B_2\) are bases of \(V\), then both must be finite. By the first part of \autoref{thm:steinitz-exchange-lemma}, we have \(\abs{B_1} \leq \abs{B_2}\) and \(\abs{B_2} \leq \abs{B_1}\), so \(\abs{B_1} = \abs{B_2}\).
+    If \(\basis_1, \basis_2\) are bases of \(V\), then both must be finite. By the first part of \autoref{thm:steinitz-exchange-lemma}, we have \(\abs{\basis_1} \leq \abs{\basis_2}\) and \(\abs{\basis_2} \leq \abs{\basis_1}\), so \(\abs{\basis_1} = \abs{\basis_2}\).
 \end{proof}
 
 \begin{definition}[Dimension]
     For a finite-dimensional vector space \(V\), its \term{dimension} \(\dim\pqty{V}\) is the common size of any basis of \(V\).
 \end{definition}
+
+\begin{example}
+    We have \(\dim\pqty{\FF^n} = n\).
+\end{example}
+
+\begin{corollary}[Size of Linearly Independent Set and Spanning Set]
+    \label{cor:size-of-li-and-spanning}%
+    Let \(V\) be a finite-dimensional vector space. Let \(S\) be a linearly independent set of \(V\), and \(T\) be a spanning set of \(V\). Then
+    \[
+        \abs{S} \leq \dim V \leq \abs{T},
+    \]
+    with equality on the left if and only if \(S\) is a basis, and equality on the right if and only if \(T\) is a basis.
+\end{corollary}
+
+\begin{proof}
+    The inequalities themselves follow immediately from \autoref{thm:steinitz-exchange-lemma} (Steinitz).
+
+    If \(S\) is a basis, then \(\abs{S} = \dim V\) by \autoref{cor:basis-of-finite-dimensional-vector-space}. Conversely, if \(\abs{S} = \dim V\), let \(\basis\) be a basis, then applying \autoref{thm:steinitz-exchange-lemma} (Steinitz) to \(S\) and \(\basis\), we have some \(\basis' \subseteq \basis\) such that \(S \cup \basis'\) spans \(V\), and \(\abs{\basis'} = \abs{\basis} - \abs{S} = 0\). Hence, \(S\) spans \(V\), and is a basis. The argument for \(T\) is similar.
+\end{proof}
+
+\begin{proposition}[Dimension of Subspace]
+    If \(U \subspace V\) is a subspace of a finite-dimensional vector space \(V\), then \(U\) is also finite-dimensional, and \(\dim U \leq \dim V\), with equality if and only if \(U = V\).
+\end{proposition}
+
+\begin{proof}
+    If \(U = \Bqty{\vb{0}}\), then \(\dim U = 0\), and we are done. Then, we construct a finite basis for \(U\) as follows.
+
+    \textbf{Step 1.} Let \(\vb{0} \neq \vb{u}_1 \in U\). Then \(\Bqty{\vb{u}_i}\) is linearly independent.
+
+    After \textbf{Step \(\boldsymbol k\).} We have \(S_k = \Bqty{\vb{u}_1, \ldots, \vb{u}_k} \subset U\) is linearly independent.
+
+    By \autoref{cor:size-of-li-and-spanning}, we have \(k \leq \dim \pqty{V}\). If \(\spn S_k = U\), then we are done. If not, then there exists some \(\vb{u}_{k + 1} \in U \setminus \spn S_k\), and set
+    \[
+        S_{k + 1} = S_k \cup \Bqty{\vb{u}_{k + 1}} = \Bqty{\vb{u}_1, \ldots, \vb{u}_{k + 1}}.
+    \]
+
+    We claim that \(S_{k + 1}\) is linearly independent. Suppose not, then there exists \(\lambda_1, \ldots, \lambda_{k + 1} \in \FF\), not all zero, such that
+    \[
+        \sum_{i = 1}^{k + 1} \lambda_i \vb{u}_i = \vb{0}.
+    \]
+
+    If \(\lambda_{k + 1} = 0\), then we have a non-trivial linear combination of \(S_k\) that gives \(\vb{0}\), contradicting the linear independence of \(S_k\). Hence, \(\lambda_{k + 1} \neq 0\), and rearranging this expression, we can express \(\vb{u}_{k + 1}\) in terms of the elements of \(S_k\), contradicting the fact that \(\vb{u}_{k + 1} \notin \spn S_k\).
+
+    This terminates in \(\leq \dim\pqty{V}\) steps to form a basis for \(U\), so \(U\) is finite-dimensional, and \(\dim U \leq \dim V\). Furthermore, if \(\dim \pqty{U} = \dim \pqty{V}\), using \autoref{cor:size-of-li-and-spanning} tells us that the basis of \(U\) is also a basis of \(V\), so \(U = V\).
+\end{proof}
+
+\begin{proposition}[Extending a Basis]
+    Let \(U \subspace V\). For \(\basis_U\) a basis for \(U\), there exists a basis \(\basis_V\) for \(V\) such that \(\basis_U \subseteq \basis_V\).
+\end{proposition}
+
+\begin{proof}
+    Applying the second part of \autoref{thm:steinitz-exchange-lemma} (Steinitz) with \(S = \basis_U\) and \(T\) for \emph{any} basis over \(V\), we obtain some \(T' \subseteq T\) such that \(\basis_V = \basis_U \cup T'\) spans \(V\), and \(\abs{T'} = \abs{T} - \abs{S} = \dim V - \dim U\).
+
+    Then \(\abs{\basis_V} \leq \abs{\basis_U} + \abs{T'} = \dim V\), hence \(\basis_V\) is a basis for \(V\), by \autoref{cor:size-of-li-and-spanning}.
+\end{proof}
+
+\subsection{Basis and Linear Maps}
+
+\begin{definition}[Rank and Nullity]
+    We define the \term{rank} of a linear map \(\alpha\) as
+    \[
+        \rank \alpha = \dim \img \alpha
+    \]
+    and the \term{nullity} of a linear map \(\alpha\) as
+    \[
+        \nul \alpha = \dim \ker \alpha.
+    \]
+\end{definition}
+
+\begin{theorem}[Rank--Nullity Theorem]
+    Let \(\functiondomain{\alpha}{V}{W}\) be a linear map and let \(V\) be finite-dimensional. Then \(\img \alpha\) is finite-dimensional, and
+    \[
+        \dim \ker \alpha + \dim \img \alpha = \dim V.
+    \]
+\end{theorem}
+
+\begin{proof}
+    Let \(\Bqty{\vb{v}_1, \ldots, \vb{v}_k}\) be a basis for \(\ker \alpha\), and we extend this to a basis for \(V\) by adding \(\Bqty{\vb{v}_{k + 1}, \ldots, \vb{v}_n}\).
+
+    We claim that the set
+    \[
+        \Bqty{\alpha\pqty{\vb{v}_{k + 1}}, \ldots, \alpha\pqty{\vb{v}_n}}
+    \]
+    forms a basis for \(\img \alpha\).
+
+    \textbf{Spanning.} Let \(\vb{w} \in \img \alpha\) and write \(\vb{w} = \alpha\pqty{\vb{v}}\) for \(\vb{v} \in V\). Then we write
+    \[
+        \vb{v} = \sum_{i = 1}^{n} \lambda_i \vb{v}_i
+    \]
+    for some \(\lambda_i \in \FF\). Then by the linearity of \(\alpha\),
+    \begin{align*}
+        \vb{w} &= \alpha\pqty{\vb{v}} \\
+        &= \sum_{i = 1}^{n} \lambda_i \alpha\pqty{\vb{v}_i} \\
+        &= \sum_{i = k + 1}^{n} \lambda_i \alpha\pqty{\vb{v}_i},
+    \end{align*}
+    showing that the set is indeed a spanning set.
+
+    \textbf{Linear independence.} Suppose that
+    \[
+        \vb{0} = \sum_{i = k + 1}^{l} \lambda_i \alpha\pqty{\vb{v}_i} = \alpha \pqty{\sum_{i = k + 1}^{n} \lambda_i \vb{v}_i}.
+    \]
+
+    Then
+    \[
+        \sum_{i = k + 1}^{n} \lambda_i \vb{v}_i = - \sum_{i = 1}^{k} \lambda_i \vb{v}_i
+    \]
+    for some \(\lambda_1, \ldots, \lambda_k \in \FF\). But this gives that
+    \[
+        \sum_{i = 1}^{n} \lambda_i \vb{v}_i = \vb{0},
+    \]
+    so all \(\lambda_i = 0\), and in particular, \(\lambda_{k + 1} = \cdots = \lambda_n = 0\), giving the trivial linear combination.
+\end{proof}
+
+\begin{corollary}[Dimension of Quotient Space]
+    \label{cor:dimension-of-quotient-space}%
+    Let \(U \subspace V\) be finite-dimensional. Then \(\flatfrac{V}{U}\) is finite-dimensional, and
+    \[
+        \dim \pqty{\flatfrac{V}{U}} = \dim V - \dim U.
+    \]
+\end{corollary}
+
+\begin{proof}
+    Recall that there is a surjective linear map
+    \[
+        \function{\pi_U}{V}{\flatfrac{V}{U}}{v}{v + U}
+    \]
+    which has \(\ker \pqty{\pi_U} = U\). Applying rank--nullity theorem, this gives the result as desired.
+\end{proof}
+
+\begin{remark}
+    We could prove \autoref{cor:dimension-of-quotient-space} directly, by taking a basis of \(U\) and extending it to a basis of \(V\), and then argue as in our proof of the rank--nullity theorem. In particular, this approach gives an explicit basis for the quotient base: given basis \(\basis_U\) for \(U\) and \(\basis_V\) for \(V\) with \(\basis_U \subseteq \basis_V\), then the set
+    \[
+        \set{\vb{b} + U}{\vb{b} \in \basis_V \setminus \basis_U}
+    \]
+    forms a basis for the quotient space \(\flatfrac{V}{U}\). With this, we may simply deduce the result by \autoref{thm:first-isomorphism-theorem} (First Isomorphism Theorem).
+\end{remark}
+
+\begin{corollary}[Linear Map between Vector Spaces of Same Dimensions]
+    If \(V\) and \(W\) are finite-dimensional with \(\dim V = \dim W\), and \(\functiondomain{\alpha}{V}{W}\) be a linear map. Then the following are equivalent.
+    \begin{enumerate}[label=(\roman*)]
+        \item \(\alpha\) is injective.
+        \item \(\alpha\) is surjective.
+        \item \(\alpha\) is an isomorphism.
+    \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+    Recall that \(\alpha\) is injective if and only if \(\ker \alpha = \Bqty{\vb{0}}\), which is equivalent to \(\nul \alpha = 0\). Similarly, recall \(\alpha\) is surjective if and only if \(\img \alpha = W\), which is equivalent to \(\rank \alpha = \dim W = \dim V\).
+
+    By rank--nullity theorem, we have
+    \[
+        \nul \alpha + \rank \alpha = \dim V.
+    \]
+    which gives the equivalence of the three statements.
+\end{proof}
+
+\begin{proposition}[Linear Map is Exactly Determined by its Action on a Basis]
+    Let \(V, W\) be \(\FF\)-vector spaces (not necessarily finitely dimensional). Suppose \(\basis\) is a basis for \(V\).
+
+    For any function \(\functiondomain{f}{\basis}{W}\), there is a unique linear map \(\functiondomain{F}{V}{W}\) extending \(f\), i.e., \(\rightbar{F}_{\basis} = f\).
+\end{proposition}
+
+\begin{proof}
+    \textbf{Existence.} Given \(\vb{v} \in V\), write
+    \[
+        \vb{v} = {\sum_{\vb{b} \in \basis}}' \lambda_{\vb{b}} \vb{b}
+    \]
+
+    Then, we define
+    \[
+        F\pqty{\vb{v}} = {\sum_{\vb{b} \in \basis}}' \lambda_{\vb{b}} f\pqty{\vb{b}}.
+    \]
+
+    \textbf{Well-defined.} If \(\vb{v} = {\sum_{\vb{b} \in \basis}}' \mu_i \vb{b}\), then \(\vb{0} = \Bqty{\sum_{\vb{b} \in \basis}}' \pqty{\lambda_{\vb{b}} - \mu_{\vb{b}}} \vb{b}\), hence \(\lambda_{\vb{b}} = \mu_{\vb{b}}\) for all \(\vb{b} \in \basis\), and so \(F\) is well-defined.
+
+    \textbf{Uniqueness.} Suppose \(G\) is a linear map extending \(f\). Then for any \(\vb{v} \in V\), we have
+    \begin{align*}
+        G\pqty{\vb{v}} &= G\pqty{{\sum_{\vb{b} \in \basis}}' \lambda_{\vb{b}} \vb{b}} \\
+        &= {\sum_{\vb{b} \in \basis}}' \lambda_{\vb{b}} G\pqty{\vb{b}} \\
+        &= {\sum_{\vb{b} \in \basis}}' \lambda_{\vb{b}} f\pqty{\vb{b}} \\
+        &= F\pqty{\vb{v}}.
+    \end{align*}
+
+    \textbf{Linearity.} For \(\vb{u}, \vb{v} \in V\) and \(\lambda \in \FF\), let
+    \[
+        \vb{u} = {\sum_{\vb{b} \in \basis}}' \lambda_{\vb{b}} \vb{b} \qand \vb{v} = {\sum_{\vb{b} \in \basis}}' \mu_{\vb{b}} \vb{b}.
+    \]
+
+    Then
+    \begin{align*}
+        F\pqty{\vb{u} + \lambda \vb{v}} &= F\pqty{{\sum_{\vb{b} \in \basis}}' \lambda_{\vb{b}} \vb{b} + {\sum_{\vb{b} \in \basis}}' \lambda \mu_{\vb{b}} \vb{b}} \\
+        &= F\pqty{{\sum_{\vb{b} \in \basis}}' \pqty{\lambda_{\vb{b}} + \lambda \mu_{\vb{b}}} \vb{b}} \\
+        &= {\sum_{\vb{b} \in \basis}}' \pqty{\lambda_{\vb{b}} + \lambda \mu_{\vb{b}}} f\pqty{\vb{b}} \\
+        &= {\sum_{\vb{b} \in \basis}}' \lambda_{\vb{b}} f\pqty{\vb{b}} + {\sum_{\vb{b} \in \basis}}' \lambda \mu_{\vb{b}} f\pqty{\vb{b}} \\
+        &= F\pqty{\vb{u}} + \lambda F\pqty{\vb{v}}.
+    \end{align*}
+\end{proof}
