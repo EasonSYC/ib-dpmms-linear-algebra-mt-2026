@@ -1,0 +1,132 @@
+\section{Direct Sums}
+
+\subsection{External Direct Sums}
+
+\begin{definition}[External Direct Sum]
+    The \term{external direct sum} of two \(\FF\)-vector spaces \(V\) and \(W\), denoted \(V \oplus W\), is an \(\FF\)-vector space with the Cartesian product \(V \times W\) as the underlying set, and with addition and scalar multiplication defined coordinate-wise, i.e.,
+    \begin{itemize}
+        \item \(\pqty{\vb{v}_1, \vb{w}_1} + \pqty{\vb{v}_2, \vb{w}_2} = \pqty{\vb{v}_1 + \vb{v}_2, \vb{w}_1 + \vb{w}_2}\), and
+        \item \(c \pqty{\vb{v}, \vb{w}} = \pqty{c\vb{v}, c\vb{w}}\)
+    \end{itemize}
+    for all \(\vb{v}, \vb{v}_1, \vb{v}_2 \in V\) and \(\vb{w}, \vb{w}_1, \vb{w}_2 \in W\) and \(c \in \FF\). Similarly, we can define the external direct sum of \(n\) vector spaces \(V_1, \ldots, V_n\), denoted as \(V_1 \oplus \cdots \oplus V_n\)
+\end{definition}
+
+\begin{lemma}[Dimension of Direct Sum]
+    \label{lem:dimension-of-direct-sum}%
+    Let \(V\) and \(W\) be finite-dimensional vector spaces. Then \(V \oplus W\) is finite-dimensional, and
+    \[
+        \dim \pqty{V \oplus W} = \dim V + \dim W.
+    \]
+\end{lemma}
+
+\begin{proof}[\proofname\ by Construction of Basis]
+    Let \(\basis_V\) and \(\basis_W\) be bases for \(V\) and \(W\) respectively. Then the set
+    \[
+        \basis_{V \oplus W} = \set{\pqty{\vb{v}, \vb{0}}}{\vb{v} \in \basis_V} \cup \set{\pqty{\vb{0}, \vb{w}}}{\vb{w} \in \basis_W}
+    \]
+    is a basis for \(V \oplus W\). Hence, we have
+    \[
+        \dim \pqty{V \oplus W} = \abs{\basis_{V \oplus W}} = \abs{\basis_V} + \abs{\basis_W} = \dim V + \dim W.
+    \]
+
+    In particular, this proof did not use finite-dimensionality of \(V\) and \(W\) to construct a basis for \(V \oplus W\), so this construction of basis works for infinite-dimensional vector spaces as well.
+\end{proof}
+
+\begin{proof}[\proofname\ by Standard \(\FF^n\)]
+    If \(V \isomorphic \FF^n\) and \(W \isomorphic \FF^m\), then clearly\(V \oplus W \isomorphic \FF^{n + m}\) by considering column vectors.
+\end{proof}
+
+\begin{proposition}[Direct Sum and Sum]
+    \label{prop:direct-sum-and-sum}%
+    Let \(V\) be an \(\FF\)-vector space, and \(U, W \subspace V\). Then there is a surjective linear map
+    \[
+        \function{\phi}{U \oplus W}{U + W}{\pqty{\vb{u}, \vb{w}}}{\vb{u} + \vb{w}}
+    \]
+    where \(\ker \phi \isomorphic U \cap W\).
+\end{proposition}
+
+\begin{proof}
+    Surjective and linearity is trivial. For the kernel, if \(\pqty{\vb{u}, \vb{w}} \in U \oplus W\), we have
+    \[
+        \pqty{\vb{u}, \vb{w}} \in \ker \phi \iff \vb{u} + \vb{w} = \vb{0} \iff \vb{u} = -\vb{w} \in U \cap W,
+    \]
+    hence
+    \[
+        \ker\pqty{\phi} = \set{\pqty{\vb{u}, -\vb{u}}}{\vb{u} \in U \cap W}.
+    \]
+
+    The function \(\vb{x} \mapsto \pqty{\vb{x}, - \vb{x}}\) provides an isomorphism between \(U \cap W\) and \(\ker \phi\).
+\end{proof}
+
+This is very much a technical result, but it gives us a few nice results.
+
+\begin{corollary}[Sum--Intersection Formula for Subspaces]
+    \label{cor:sum-intersection-formula}%
+    Let \(V\) be an \(\FF\)-vector space, and \(U, W \subspace V\) be finite-dimensional subspaces. Then
+    \[
+        \dim(U + W) = \dim U + \dim W - \dim(U \cap W).
+    \]
+\end{corollary}
+
+\begin{proof}
+    Apply \autoref{thm:rank-nullity-thm} (Rank--Nullity Theorem) to the previous surjection in \autoref{prop:direct-sum-and-sum}, we have
+    \[
+        \dim(U \oplus W) = \dim(U + W) + \dim(\ker \phi) = \dim(U + W) + \dim(U \cap W).
+    \]
+
+    Since \(\dim(U \oplus W) = \dim U + \dim W\) by \autoref{lem:dimension-of-direct-sum}, we get
+    \[
+        \dim U + \dim W = \dim(U + W) + \dim(U \cap W).
+    \]
+    Rearranging, we obtain the desired formula.
+\end{proof}
+
+This proof is unsatisfying since it does not give an explicit basis for \(U + W\). But using this result, we may construct a basis for \(U + W\) from bases of \(U\) and \(W\).
+
+Let \(\basis\) be a basis for \(U \cap W\). Then we can extend \(\basis\) to a basis \(\basis_U\) for \(U\) and a basis \(\basis_W\) for \(W\). Then the set \(\basis_U \cup \basis_W\) spans \(U + W\), with size
+\[
+    \abs{\basis_U \cup \basis_W} \leq \abs{\basis_U} + \abs{\basis_W} - \abs{\basis} = \dim U + \dim W - \dim(U \cap W) = \dim \pqty{U + W},
+\]
+since \(\basis_U\) and \(\basis_W\) each contain \(\basis\) as a subset. But the spanning set \(\abs{\basis_U \cup \basis_W} \leq \dim \pqty{U + W}\), so \(\basis_U \cup \basis_W\) is a basis for \(U + W\). (Alternatively, we could check directly that \(\basis_U \cup \basis_W\) is linearly independent and has the correct size. This would provide an alternative (constructive) proof of \autoref{cor:sum-intersection-formula}.)
+
+\subsection{Internal Direct Sums}
+
+If every element of \(U + W\) is uniquely expressible as a sum of \(\vb{u} \in U\) and \(\vb{w} \in W\), then the map given in \autoref{prop:direct-sum-and-sum} is an isomorphism. We say that \(U + W\) is the \term{internal direct sum} of \(U\) and \(W\), and we simply denoted the sum instead with a direct sum, i.e., \(U \oplus W\).
+
+\begin{remark}
+    Note here there is an analogue with \textit{IA Groups} where we have the \term{direct product theorem}, which links the direct product of subgroups together with the group itself. The groups version is slightly more complicated, but the idea is similar.
+\end{remark}
+
+In this case, we have \(U \cap W = \Bqty{\vb{0}}\). For \(U, W \subspace V\), we have \(V = U \oplus W\), if and only if both \(U + W = V\), and \(U \cap W = \Bqty{\vb{0}}\).
+
+\begin{definition}[Direct Complement]
+    For \(U \subspace V\) and \(W \subspace V\), we say that \(W\) is a \term{direct complement} to \(U\) in \(V\) if \(V = U \oplus W\).
+\end{definition}
+
+\begin{proposition}[Existence of Direct Complement]
+    Let \(V\) be a finite-dimensional vector space. then every subspace \(U \subspace V\) has a direct complement \(W \subspace V\).
+\end{proposition}
+
+\begin{proof}
+    Let \(\basis_U\) be a basis for \(U\), and extend it to a basis \(\basis_V\) for \(V\). Then let
+    \[
+        W = \spn \pqty{\basis_V \setminus \basis_U}.
+    \]
+
+    Then
+    \[
+        V = \spn \pqty{\basis_V} = \spn \pqty{\basis_U \cup \pqty{\basis_V \setminus \basis_U}} = U + W.
+    \]
+
+    Since \(\basis_V\) is linearly independent, we have \(U \cap W = \Bqty{\vb{0}}\). (Alternatively, \(\dim\pqty{U} + \dim\pqty{W} = \dim\pqty{V}\) so by \autoref{cor:sum-intersection-formula} (Sum--Intersection Formula), we have \(U \cap W = \Bqty{\vb{0}}\).)
+\end{proof}
+
+More generally, given \(U_1, \ldots, U_n \subspace V\), we write
+\[
+    V = \bigoplus_{i = 1}^{n} U_i = U_1 \oplus \cdots \oplus U_n,
+\]
+if the map
+\[
+    \function{s}{\bigoplus_{i = 1}^{n} U_i}{V}{\pqty{\vb{u}_1, \ldots, \vb{u}_n}}{\sum_{i = 1}^{n} \vb{u}_i}
+\]
+is an isomorphism. In particular, this is \textbf{not} equivalent to checking \(U_1 + \cdots + U_n = V\) and \(U_i \cap U_j = \Bqty{\vb{0}}\) if \(i \neq j\).

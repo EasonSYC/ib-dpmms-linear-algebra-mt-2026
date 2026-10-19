@@ -311,6 +311,7 @@
 \end{definition}
 
 \begin{theorem}[Rank--Nullity Theorem]
+    \label{thm:rank-nullity-thm}%
     Let \(\functiondomain{\alpha}{V}{W}\) be a linear map and let \(V\) be finite-dimensional. Then \(\img \alpha\) is finite-dimensional, and
     \[
         \dim \ker \alpha + \dim \img \alpha = \dim V.
@@ -398,6 +399,7 @@
 \end{proof}
 
 \begin{proposition}[Linear Map is Exactly Determined by its Action on a Basis]
+    \label{prop:linear-map-is-determined-by-basis}%
     Let \(V, W\) be \(\FF\)-vector spaces (not necessarily finitely dimensional). Suppose \(\basis\) is a basis for \(V\).
 
     For any function \(\functiondomain{f}{\basis}{W}\), there is a unique linear map \(\functiondomain{F}{V}{W}\) extending \(f\), i.e., \(\rightbar{F}_{\basis} = f\).
@@ -438,3 +440,53 @@
         &= F\pqty{\vb{u}} + \lambda F\pqty{\vb{v}}.
     \end{align*}
 \end{proof}
+
+\begin{corollary}[Isomorphism between \(n\)-dimensional Vector Space and \(\FF^n\)]
+    \label{cor:isomorphism-between-n-dimensional-vector-space-and-F^n}%
+    Let \(V\) be a \(n\)-dimensional vector space, and let \(\basis = \Bqty{\vb{v}_1, \ldots, \vb{v}_n}\) be a basis for \(V\). Then there is an isomorphism
+    \[
+        \function{F_{\basis}}{V}{\FF^n}{\sum_{i = 1}^{n} \lambda_i \vb{v}_i}{\pmqty{\lambda_1 \\ \vdots \\ \lambda_n}}.
+    \]
+\end{corollary}
+
+\begin{proof}
+    There is a bijection
+    \[
+        \function{f}{\basis}{\Bqty{\vb{e}_1, \ldots, \vb{e}_n}}{\vb{v}_i}{\vb{e}_i}.
+    \]
+
+    By \autoref{prop:linear-map-is-determined-by-basis}, let \(F_{\basis}\) and \(\overline{F_{\basis}}\) extend \(f\) and \(f\inverse\) respectively. We claim that \(\overline{F_{\basis}} = \pqty{F_\basis}\inverse\). Consider the composition
+    \[
+        \functiondomain{\overline{F_{\basis}} \circ F_{\basis}}{V}{V}.
+    \]
+
+    Then this sends any \(\vb{v}_i\) to \(\vb{v}_i\) by definition, and is a composition of linear maps, so it is linear. But another obvious map acting identically on \(\basis\) is the identity map \(\identity_{V}\). By \autoref{prop:linear-map-is-determined-by-basis}, we have \(\overline{F_{\basis}} \circ F_{\basis} = \identity_{V}\). Similarly, we have \(F_{\basis} \circ \overline{F_{\basis}} = \identity_{\FF^n}\).
+
+    So indeed, \(\overline{F_{\basis}} = \pqty{F_\basis}\inverse\), so \(F_{\basis}\) is an isomorphism.
+\end{proof}
+
+\begin{definition}[Coordinate Vector]
+    Let \(V\) be a finite-dimensional vector space, and let \(\basis = \Bqty{\vb{v}_1, \ldots, \vb{v}_n}\) be an ordered basis for \(V\). Given a vector \(\vb{v} \in V\), we denote the \term{coordinate vector} of \(\vb{v}\) with respect to \(\basis\) as
+    \[
+        \bqty{\vb{v}}_{\basis} = \pmqty{\lambda_1 \\ \vdots \\ \lambda_n} \in \FF^n
+    \]
+    where \(\vb{v} = \sum_{i = 1}^{n} \lambda_i \vb{v}_i\) for \(\vb{v}_i \in \basis\).
+\end{definition}
+
+\begin{corollary}[Isomorphism between Finite-Dimensional Vector Spaces]
+    Let \(V\) and \(W\) be finite-dimensional vector spaces. Then \(V \isomorphic W\) if and only if \(\dim V = \dim W\).
+\end{corollary}
+
+\begin{proof}
+    If \(\dim V = \dim W = n\), by \autoref{cor:isomorphism-between-n-dimensional-vector-space-and-F^n}, we have isomorphisms \(V \isomorphic \FF^n \isomorphic W\).
+
+    If \(V\) and \(W\) are isomorphic, then since isomorphisms send bases to bases, there are two bases of same lengths for \(V\) and \(W\) respectively, so we have \(\dim V = \dim W\).
+\end{proof}
+
+\begin{example}
+    If \(V = \FF^n\) and \(W \subspace V\) with \(W \isomorphic \FF^m\), then by \autoref{cor:dimension-of-quotient-space}, we have
+    \[
+        \dim \pqty{\flatfrac{V}{W}} = \dim V - \dim W = n - m,
+    \]
+    so \(\flatfrac{V}{W} \isomorphic \FF^{n - m}\).
+\end{example}
