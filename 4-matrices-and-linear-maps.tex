@@ -1,0 +1,186 @@
+\section{Matrices and Linear Maps}
+
+Let \(V, W\) be linear maps. Define the set
+\[
+    \linearmap\pqty{V, W} = \set{\functiondomain{\alpha}{V}{W}}{\alpha \text{ is a linear map}}
+\]
+equipped with element-wise addition and scalar multiplication
+\[
+    \pqty{\alpha + \beta} \pqty{\vb{v}} = \alpha\pqty{\vb{v}} + \beta\pqty{\vb{v}} \qand \pqty{\lambda \alpha} \pqty{\vb{v}} = \lambda \alpha \pqty{\vb{v}}.
+\]
+
+It is straightforward to check that \(\linearmap\pqty{V, W}\) is an \(\FF\)-vector space.
+
+Suppose onwards that \(V\) and \(W\) are finite-dimensional, with \(\dim \pqty{V} = n\) and \(\dim \pqty{W} = m\).
+
+\begin{theorem}[Linear Maps and Matrices]
+    \label{thm:linear-maps-matrices}%
+    We have
+    \[
+        \linearmap\pqty{V, W} \isomorphic \matrixset_{m \times n} \pqty{\FF}.
+    \]
+
+    In particular, we have \(\dim\pqty{\linearmap\pqty{V, W}} = mn\).
+\end{theorem}
+
+\begin{notation}
+    For \(A \in \matrixset_{m \times n} \pqty{\FF}\), we denote the entries of \(A\) as \(A = \pqty{a_{i, j}}\) where \(a_{i, j} \in \FF\) and \(1 \leq i \leq m\), \(1 \leq j \leq n\). Furthermore, let \(\matrixset_{m \times n}\pqty{\FF}\) has a standard basis
+    \[
+        \set{E_{r, s}}{1 \leq r \leq m, 1 \leq s \leq n}
+    \]
+    where \(E_{r, s} = \pqty{\kronecker_{r, i}, \kronecker_{s, j}}\)
+\end{notation}
+
+Since \(V\) and \(W\) are finite dimensional, let \(\basis = \Bqty{\vb{v}_1, \ldots, \vb{v}_n}\) and \(\mathcal{C} = \Bqty{\vb{w}_1, \ldots, \vb{w}_m}\). Then given a linear map \(\alpha \in \linearmap\pqty{V, W}\), we may apply \(\alpha\) to the basis vectors \(\vb{v}_j\) to get linear combinations of \(\vb{w}_i\)
+\begin{align*}
+    \alpha\pqty{\vb{v}_1} &= a_{1, 1} \vb{w}_1 + a_{2, 1} \vb{w}_2 + \cdots + a_{m, 1} \vb{w}_m, \\
+    \alpha\pqty{\vb{v}_2} &= a_{1, 2} \vb{w}_1 + a_{2, 2} \vb{w}_2 + \cdots + a_{m, 2} \vb{w}_m, \\
+    \vdots &= \vdots \\
+    \alpha\pqty{\vb{v}_n} &= a_{1, n} \vb{w}_1 + a_{2, n} \vb{w}_2 + \cdots + a_{m, n} \vb{w}_m.
+\end{align*}
+
+\begin{definition}[Matrix of Linear Map]
+    The \term{matrix of the linear map} \(\alpha\) with respect to \(\basis\) and \(\mathcal{C}\) is given by
+    \[
+        \bqty{\alpha}_{\mathcal{C}}^{\basis} = \pqty{a_{i, j}} \in \matrixset_{m \times n} \pqty{\FF}
+    \]
+\end{definition}
+
+The purpose of defining the matrix this way around is for consistent matrix multiplication with coordinate vectors. In particular, for all \(\vb{v} \in V\), we have
+\[
+    \bqty{\alpha}_{\mathcal{C}}^{\basis} \bqty{\vb{v}}_{\basis} = \bqty{\alpha\pqty{\vb{v}}}_{\mathcal{C}}.
+\]
+
+Furthermore, the matrix defined above is in fact the \emph{only} matrix \(A \in \matrixset_{m \times n} \pqty{\FF}\) that gives
+\[
+    A \bqty{\vb{v}}_{\basis} = \bqty{\alpha\pqty{\vb{v}}}_{\mathcal{C}}
+\]
+for all \(\vb{V} \in V\).
+
+\begin{proof}
+    \begin{enumerate}[label=(\roman*)]
+        \item \textbf{Compatibility with Coordinate Vectors.} For any vector \(\vb{v} = \sum_{j = 1}^{n} \lambda_j \vb{v}_j\), we have
+        \begin{align*}
+            \alpha\pqty{\vb{v}} &= \sum_{j = 1}^{n} \lambda_j \alpha\pqty{\vb{v}_j} \\
+            &= \sum_{j = 1}^{n} \lambda_j \sum_{i = 1}^{m} a_{ij} \vb{w}_i \\
+            &= \sum_{i = 1}^{m} \pqty{\sum_{j = 1}^{n} a_{i, j} \lambda_j} w_i.
+        \end{align*}
+    
+        Then note
+        \[  
+            \bqty{\alpha\pqty{\vb{v}}}_{\mathcal{C}} = \pqty{\sum_{j = 1}^{n} a_{ij} \lambda_j}_i = \pqty{a_{i, j}}_{i, j} \pqty{\lambda_j}_j = \bqty{\alpha}_{\mathcal{C}}^{\basis} \bqty{\vb{v}}_{\basis}
+        \]
+        is indeed the standard multiplication of the matrix and the basis coordinate vector.
+    
+        \item \textbf{Uniqueness with Coordinate Vectors}. By definition, \(\bqty{\vb{v_i}}_{\basis} = \vb{e}_i\) gives the standard basis vectors, so for \(A \in \matrixset_{m \times n} \pqty{\FF}\), we have
+        \[
+            A \bqty{\vb{v}_i}_{\mathcal{B}} = A \vb{e}_i = i\text{-th column of }A.
+        \]
+    
+        But if another matrix \(A\) maps the corresponding coordinate vectors to the coordinate vectors, then
+        \begin{align*}
+            A \bqty{\vb{v}_i}_{\basis} &= \bqty{\alpha \pqty{\vb{v}_\mathcal{C}}}_{\mathcal{C}} \\
+            &= \bqty{\alpha}_{\mathcal{C}}^{\basis} \bqty{\vb{v}_i}_{\basis} \\
+            &= \bqty{\alpha}_{\mathcal{C}}^{\basis} \vb{e}_i \\
+            &= i\text{-th colunn of } \bqty{\alpha}_{\mathcal{C}}^{\basis}
+        \end{align*}
+        and this holds for all \(i\), so \(A = \bqty{\alpha}_{\mathcal{C}}^{\basis}\).
+    
+        \item \textbf{Linearity.} For \(\alpha, \beta \in \linearmap\pqty{V, W}\) and \(\lambda \in \FF\), we can compare the matrices \(\bqty{\alpha}_{\mathcal{C}}^{\basis} + \lambda \bqty{\alpha}_{\mathcal{C}}^{\basis}\) with \(\bqty{\alpha + \lambda \beta}_{\mathcal{C}}^{\basis}\). For \(\vb{v} \in V\), we have
+        \begin{align*}
+            \pqty{\bqty{\alpha}_{\mathcal{C}}^{\basis} + \lambda \bqty{\beta}_{\mathcal{C}}^{\basis}} \bqty{\vb{v}}_{\basis} &= \bqty{\alpha \pqty{\vb{v}}}_{\mathcal{C}} + \lambda \bqty{\beta\pqty{\vb{v}}}_{\mathcal{C}} \\
+            &= \bqty{\alpha \pqty{\vb{v}} + \lambda \beta \pqty{\vb{v}}}_{\mathcal{C}} \\
+            &= \bqty{\pqty{\alpha + \lambda \beta}}_{\mathcal{C}}^{\basis} \bqty{\vb{v}}_{\basis}.
+        \end{align*}
+    
+        Hence, by uniqueness in (ii), we have \(\bqty{\alpha + \lambda \beta}_{\mathcal{C}}^{\basis} = \bqty{\alpha}_{\mathcal{C}}^{\basis} + \lambda \bqty{\beta}_{\mathcal{C}}^{\basis}\).
+
+        \item \textbf{Injectivity.} If \(\alpha, \beta \in \linearmap\pqty{V, W}\), with \(\bqty{\alpha}_{\mathcal{C}}^{\basis} = \bqty{\beta}_{\mathcal{C}}^{\basis}\), then we have
+        \[  
+            \alpha\pqty{\vb{v}_i} = \beta\pqty{\vb{v}_i}
+        \]
+        and by \autoref{prop:linear-map-is-determined-by-basis} (Uniqueness of Linear Extensions), we have \(\alpha = \beta\).
+
+        \item \textbf{Surjectivity.} Given \(A \in \matrixset_{m \times n} \pqty{\FF}\), let \(\alpha in \linearmap\pqty{V, W}\) be the linear extension of
+        \[
+            \alpha\pqty{\vb{v}_j} = \sum_{i = 1}^{m} a_{i, j} \vb{w}_u
+        \]
+        with \(A = \pqty{a_{i, j}}\). Then \(\bqty{\alpha}_{\mathcal{C}}^{\basis} = A\).
+    \end{enumerate}
+\end{proof}
+
+Using the \term{commutative diagram} below we can see what is going on here, with all the vector spaces.
+
+\begin{figure}[ht!]
+    \centering
+    \begin{tikzcd}
+        \vb{v} \arrow[rrr, mapsto] \arrow[ddd, mapsto] & & & \alpha\pqty{\vb{v}} \arrow[ddd, mapsto] \\
+        & V \arrow[r, "\alpha"] \arrow[d, "F_{\basis}"] & W \arrow[d, "F_{\mathcal{C}}"] \\
+        & \FF^n \arrow[r, "\bqty{\alpha}_{\mathcal{C}}^{\basis}"] & \FF^m \\
+        \bqty{\vb{v}_{\basis}} \arrow[rrr, mapsto] & & & 
+        \substack{\displaystyle \bqty{\alpha}_{\mathcal{C}}^{\basis} \bqty{\vb{v}}_{\basis} \\
+        \displaystyle || \\
+        \displaystyle \bqty{\alpha\pqty{\vb{v}}}_{\mathcal{C}}}
+    \end{tikzcd}
+    \caption{Commutative Diagram for Matrix and Linear Maps}
+    \label{fig:commutative-diagram-matrix-linear-maps}%
+\end{figure}
+
+\begin{proposition}[Matrix of Composition]
+    \label{prop:composition-matrix}%
+    Let \(V, W, X\) be finite-dimensional vector spaces with bases \(\basis, \mathcal{C}, \mathcal{D}\) respectively, with \(\alpha \in \linearmap\pqty{V, W}\) and \(\beta \in \linearmap\pqty{W, X}\). Then
+    \[
+        \bqty{\beta \circ \alpha}_{\mathcal{D}}^{\basis} = \bqty{\beta}_{\mathcal{D}}^{\mathcal{C}} \bqty{\alpha}_{\mathcal{C}}^{\basis}.
+    \]
+\end{proposition}
+
+\begin{proof}
+    By \autoref{thm:linear-maps-matrices}, the matrix \(A = \bqty{\beta \circ \alpha}_{\mathcal{C}}^{\basis}\) is uniquely determined by
+    \[  
+        A \bqty{\vb{v}}_{\basis} = \bqty{\beta\pqty{\alpha\pqty{\vb{v}}}}_{\mathcal{D}}
+    \]
+    for all \(\vb{v} \in V\). But notice that
+    \begin{align*}
+        \pqty{\bqty{\beta}_{\mathcal{D}}^{\mathcal{C}} \bqty{\alpha}_{\mathcal{C}}^{\basis}} \bqty{\vb{v}}_{\basis} &= \bqty{\beta}_{\mathcal{D}}^{\mathcal{C}} \bqty{\alpha\pqty{\vb{v}}}_{\mathcal{C}} \\
+        &= \bqty{\beta\pqty{\alpha\pqty{\vb{v}}}}_{\mathcal{D}}
+    \end{align*}
+    for all \(\vb{v} \in V\). Then we have \(A = \bqty{\beta}_{\basis}^{\mathcal{C}} \bqty{\alpha}_{\mathcal{C}}^{\basis}\).
+\end{proof}
+
+It is relatively obvious that for any basis \(\basis\) of \(V\), we have
+\[
+    \bqty{\identity_V}_{\basis}^{\basis} = \identityM_n.
+\]
+
+\begin{definition}[Base-Change Matrix]
+    Given bases \(\basis, \basis'\) of \(V\), the \term{base-change matrix} from \(\basis\) to \(\basis'\) is given by
+    \[
+        P = \bqty{\identity_V}_{\basis'}^{\basis} = \matrixset_{m \times n} \pqty{\FF}.
+    \]
+
+    Equivalently, for \(\basis = \Bqty{\vb{v}_1, \vb{v}_2, \ldots, \vb{v}_n}\) and \(\basis' = \Bqty{\vb{v}_1', \vb{v}_2', \ldots, \vb{v}_n'}\), then \(P = \pqty{p_{i, j}}\), where
+    \[
+        \vb{v}_j = \sum_{i = 1}^{n} p_{i, j} \vb{v}_i'
+    \]
+    so the \(j\)-th column of \(P\) is \(\bqty{\vb{v}_j}_{\basis'}\).
+\end{definition}
+
+Recall that a matrix \(A \in \matrixset_{n \times n} \pqty{\FF}\) is \term{invertible} if there exists \(A\inverse \in \matrixset_{m \times n} \pqty{\FF}\) such that \(A A\inverse = A\inverse A = I_n\), and we call \(A\inverse\) an \term{inverse} for \(A\). The \term{group} of invertible \(n \times n\) matrices over \(\FF\) is denoted \(\GL_n \pqty{\FF}\).
+
+\begin{proposition}[Change of Basis Matrices]
+    We have the following.
+
+    \begin{enumerate}[label=(\roman*)]
+        \item The matrix \(\bqty{\identity_V}_{\basis'}^{\basis}\) is invertible, with inverse \(\bqty{\identity_V}_{\basis}^{\basis'}\).
+        \item \term{Change of basis formula.} For \(\alpha \in \linearmap\pqty{V, W}\) and bases \(\basis, \basis'\) for \(V\), \(\mathcal{C}, \mathcal{C}'\) for \(W\), we have
+        \[
+            \bqty{\alpha}_{\mathcal{C}'}^{\basis'} = \bqty{\identity_W}_{\mathcal{C}'}^{\mathcal{C}} \bqty{\alpha}_{\mathcal{C}}^{\basis} \bqty{\identity_V}_{\basis}^{\basis'}.
+        \]
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Both are immediate from \autoref{prop:composition-matrix}.
+\end{proof}
+
+Note that the converse is true: any invertible matrix is a base-change matrix.
