@@ -13,6 +13,8 @@ It is straightforward to check that \(\linearmap\pqty{V, W}\) is an \(\FF\)-vect
 
 Suppose onwards that \(V\) and \(W\) are finite-dimensional, with \(\dim \pqty{V} = n\) and \(\dim \pqty{W} = m\).
 
+\subsection{Matrices and Bases}
+
 \begin{theorem}[Linear Maps and Matrices]
     \label{thm:linear-maps-matrices}%
     We have
@@ -149,7 +151,7 @@ Using the \term{commutative diagram} below we can see what is going on here, wit
 
 It is relatively obvious that for any basis \(\basis\) of \(V\), we have
 \[
-    \bqty{\identity_V}_{\basis}^{\basis} = \identityM_n.
+    \bqty{\identity_V}_{\basis}^{\basis} = I_n.
 \]
 
 \begin{definition}[Base-Change Matrix]
@@ -168,6 +170,7 @@ It is relatively obvious that for any basis \(\basis\) of \(V\), we have
 Recall that a matrix \(A \in \matrixset_{n \times n} \pqty{\FF}\) is \term{invertible} if there exists \(A\inverse \in \matrixset_{m \times n} \pqty{\FF}\) such that \(A A\inverse = A\inverse A = I_n\), and we call \(A\inverse\) an \term{inverse} for \(A\). The \term{group} of invertible \(n \times n\) matrices over \(\FF\) is denoted \(\GL_n \pqty{\FF}\).
 
 \begin{proposition}[Change of Basis Matrices]
+    \label{prop:change-of-basis-matrix}%
     We have the following.
 
     \begin{enumerate}[label=(\roman*)]
@@ -184,3 +187,202 @@ Recall that a matrix \(A \in \matrixset_{n \times n} \pqty{\FF}\) is \term{inver
 \end{proof}
 
 Note that the converse is true: any invertible matrix is a base-change matrix.
+
+\begin{theorem}[Rank and Identity Submatrix]
+    \label{thm:rank-and-identity-submatrix}%
+    For any linear map \(\alpha \in \linearmap\pqty{V, W}\), we have the following.
+
+    \begin{enumerate}
+        \item There exists basis \(\basis, \mathcal{C}\) for \(V, W\) respectively such that
+        \[
+            \bqty{\alpha}_{\mathcal{C}}^{\basis} = \pmqty{I_r & 0 \\ 0 & 0}
+        \]
+        where \(r = \rank\pqty{\alpha}\).
+
+        \item If there are some other bases \(\basis', \mathcal{C}'\) for \(V, W\) respectively such that
+        \[
+            \bqty{\alpha}_{\mathcal{C}'}^{\basis'} = \pmqty{I_{r'} & 0 \\ 0 & 0}
+        \]
+        then \(r = r'\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    By \autoref{thm:rank-nullity-thm} (Rank--Nullity Theorem), \(\ker\pqty{\alpha}\) has a basis
+    \[
+        \Bqty{\vb{v}_{r + 1}, \ldots, \vb{v}_n},
+    \]
+    and we extend this to a basis for \(V\) by adding vectors \(\vb{v}_1, \ldots, \vb{v}_r\) to get
+    \[
+        \basis = \Bqty{\vb{v}_1, \ldots, \vb{v}_r, \vb{v}_{r + 1}, \ldots, \vb{v}_n}.
+    \]
+    
+    Then \(\alpha\pqty{\vb{v}_1}, \ldots, \alpha\pqty{\vb{v}_r}\) spans \(\img\pqty{\alpha}\) with at most size \(r\). Then this is a basis for \(\img\pqty{\alpha}\), and denote
+    \[
+        \Bqty{\vb{w}_1 = \alpha\pqty{\vb{v}_1}, \ldots, \vb{w}_r = \alpha\pqty{\vb{v}_r}}
+    \]
+    as a basis of \(\img\pqty{\alpha}\). We extend this to a basis for \(W\) by adding vectors \(\vb{w}_{r + 1}, \ldots, \vb{w}_m\), to get
+    \[
+        \mathcal{C} = \Bqty{\vb{w}_1, \ldots, \vb{w}_r, \vb{w}_{r + 1}, \ldots, \vb{w}_m}.
+    \]
+    
+    Then we have
+    \[
+        \alpha\pqty{\vb{v}_i} = \begin{cases}
+            \vb{w}_i & 1 \leq i \leq r, \\
+            \vb{0} & r + 1 \leq i \leq n.
+        \end{cases}
+    \]
+
+    So indeed
+    \[
+        \bqty{\alpha}_{\mathcal{C}}^{\basis} = \pmqty{I_r & 0 \\ 0 & 0}.
+    \]
+
+    Conversely, if \(\basis', \mathcal{C}'\) are bases for \(V, W\) respectively such that
+    \[
+        \bqty{\alpha}_{\mathcal{C}'}^{\basis'} = \pmqty{I_{r'} & 0 \\ 0 & 0},
+    \]
+    then we have
+    \[
+        \alpha\pqty{\vb{v}_i'} = \begin{cases}
+            \vb{w}_i' & 1 \leq i \leq r', \\
+            \vb{0} & r' + 1 \leq i \leq n.
+        \end{cases}
+    \]
+
+    Hence, \(\vb{w}_1', \ldots, \vb{w}_{r'}'\) spans \(\img \pqty{\alpha}\) and is linearly independent as a subset of the basis. So it is a basis for \(\img\pqty{\alpha}\), and we have \(r' = \rank\pqty{\alpha} = r\).
+\end{proof}
+
+\subsection{Applications of Matrices}
+
+\begin{definition}[Equivalent Matrices]
+    Let \(A, A' \in \matrixset_{m \times n} \pqty{\FF}\). We say that \(A\) and \(A'\) are \term{equivalent} if there exist invertible matrices \(P \in \GL_m\pqty{\FF}\) and \(Q \in \GL_n\pqty{\FF}\) such that
+    \[
+        A' = P A Q.
+    \]
+\end{definition}
+
+\begin{remarks}
+    \begin{itemize}
+        \item This definition is motivated by the change of basis formula in \autoref{prop:change-of-basis-matrix}. In particular, if \(\bqty{\alpha}_{\mathcal{C}}^{\basis}\) and \(\bqty{\alpha}_{\mathcal{C}'}^{\basis'}\) are equivalent: matrices of the same linear map \(\alpha\) with respect to different bases, then they are equivalent.
+        \item In addition, equivalence of matrices is an equivalence relation on \(\matrixset_{m \times n} \pqty{\FF}\), since \(\GL_m\pqty{\FF}\) and \(\GL_n\pqty{\FF}\) are groups under matrix multiplication.
+    \end{itemize}
+\end{remarks}
+
+\begin{definition}[Column and Row Spaces]
+    Given a matrix \(A \in \matrixset_{m \times n} \pqty{\FF}\), we define the \term{column space} of \(A\) as the subspace \(\Col\pqty{A} \subspace \FF^m\) spanned by the columns of \(A\), and the \term{column rank} of \(A\) is \(\colrank\pqty{A} = \dim\pqty{\Col\pqty{A}}\).
+    
+    The \term{row space} of \(A\) is the subspace \(\Row\pqty{A} = \Col\pqty{A \transpose} \subspace \FF^n\) spanned by the (transpose of) rows of \(A\), and the \term{row rank} of \(A\) is \(\rowrank\pqty{A} = \dim\pqty{\Row\pqty{A}}\).
+\end{definition}
+
+\begin{remark}
+    For a matrix \(A \in \matrixset_{m \times n} \pqty{\FF}\), there is a linear map \(\functiondomain{\alpha}{\FF^n}{\FF^m}\) given by \(\alpha\pqty{\vb{x}} = A \vb{x}\). Then \(A = \bqty{\alpha}_{E_m}^{E_n}\) where \(E_m, E_n\) are the standard bases for \(\FF^m, \FF^n\) respectively. Moreover, notice \(\img\pqty{\alpha} = \Col\pqty{A}\), and \(\rank\pqty{\alpha} = \colrank\pqty{A}\).
+\end{remark}
+
+\begin{notation}
+    We write \(\ker\pqty{A}, \img\pqty{A}, \rank\pqty{A}, \nul\pqty{A}\) for the kernel, image, rank and nullity of the linear map \(\alpha\) associated to \(A\).
+\end{notation}
+
+\begin{theorem}[Classificaiton of Matrices up to Equivalence]
+    \label{thm:classification-of-matrices-up-to-equivalence}%
+    Let \(A, A' \in \matrixset_{m \times n} \pqty{\FF}\). Then we have the following.
+    \begin{enumerate}[label=(\roman*)]
+        \item \(A\) is equivalent to the matrix \(\pmqty{I_r & 0 \\ 0 & 0}\) where \(r = \rank\pqty{A}\).
+        \item \(A\) and \(A'\) are equivalent if and only if \(\colrank\pqty{A} = \colrank\pqty{A'}\).
+    \end{enumerate}
+\end{theorem}
+
+We use the following lemma about the rank of a product of matrices.
+
+\begin{lemma}[Rank of Product of Matrices]
+    \label{lem:rank-of-product-of-matrices}%
+    Let \(A \in \matrixset_{m \times n} \pqty{\FF}\) and \(B \in \matrixset_{n \times p} \pqty{\FF}\). Then \(\rank \pqty{AB} \leq \min\pqty{\rank\pqty{A}, \rank\pqty{B}}\).
+\end{lemma}
+
+\begin{proof}
+    Clearly, we note \(\img \pqty{AB} \subspace \img\pqty{A}\), so \(\rank\pqty{AB} \leq \rank\pqty{A}\).
+
+    On the other hand, if \(B \vb{v} = \vb{0}\), then \(AB \vb{v} = \vb{0}\). Hence, \(\ker\pqty{B} \subspace \ker\pqty{AB}\), and by \autoref{thm:rank-nullity-thm} (Rank--Nullity Theorem), we have
+    \[
+        \rank\pqty{AB} = p - \nul\pqty{AB} \leq p - \nul\pqty{B} = \rank\pqty{B}.
+    \]
+    so \(\rank \pqty{AB} \leq \rank \pqty{B}\).
+\end{proof}
+
+Now we proof \autoref{thm:classification-of-matrices-up-to-equivalence}.
+
+\begin{proof}[\proofname\ of \autoref{thm:classification-of-matrices-up-to-equivalence}]
+    Let \(\alpha\) be as the linear map associated to \(A\), so \(A = \bqty{\alpha}_{E_m}^{E_n}\). So by \autoref{thm:rank-and-identity-submatrix}, there exists bases \(\basis, \mathcal{C}\) for \(\FF^n, \FF^m\) respectively such that
+    \[
+        \bqty{\alpha}_{\mathcal{C}}^{\basis} = \pmqty{I_r & 0 \\ 0 & 0}
+    \]
+    where \(r = \rank\pqty{\alpha} = \colrank\pqty{A}\). By \autoref{prop:change-of-basis-matrix}, we have
+    \[
+        \bqty{\alpha}_{\mathcal{C}}^{\basis} = \bqty{\identity_{\FF^m}}_{\mathcal{C}}^{E_m} \bqty{\alpha}_{E_m}^{E_n} \bqty{\identity_{\FF^n}}_{E_n}^{\basis} = P A Q
+    \]
+    where \(P = \bqty{\identity_{\FF^m}}_{\mathcal{C}}^{E_m} \in \GL_m\pqty{\FF}\) and \(Q = \bqty{\identity_{\FF^n}}_{E_n}^{\basis} \in \GL_n\pqty{\FF}\). So indeed \(A\) is equivalent to \(\pmqty{I_r & 0 \\ 0 & 0}\).
+
+    For the second part, if \(A\) and \(A'\) have a common column rank, then \(A\) and \(A'\) are both equivalent to \(\pmqty{I_r & 0 \\ 0 & 0}\) where \(r = \colrank\pqty{A} = \colrank\pqty{A'}\). Hence, \(A\) and \(A'\) are equivalent.
+
+    If \(A\) and \(A'\) are equivalent, say \(A' = P A Q\) for some \(P \in \GL_m\pqty{\FF}\) and \(Q \in \GL_n\pqty{\FF}\), then by \autoref{lem:rank-of-product-of-matrices}, we have
+    \[
+        \rank\pqty{A'} = \rank\pqty{P \pqty{AQ}} \leq \rank\pqty{AQ} \leq \rank\pqty{A}.
+    \]
+    and symmetrically, \(\rank\pqty{A} \leq \rank\pqty{A'}\). Hence, \(\colrank\pqty{A} = \colrank\pqty{A'}\).
+\end{proof}
+
+\begin{theorem}[Row Rank is equal to Column Rank]
+    For any matrix \(A \in \matrixset_{m \times n} \pqty{\FF}\), we have
+    \[
+        \colrank\pqty{A} = \rowrank\pqty{A}.
+    \]
+\end{theorem}
+
+\begin{proof}
+    By \autoref{thm:classification-of-matrices-up-to-equivalence}, we may write
+    \[
+        PAQ = \pmqty{I_r & 0 \\ 0 & 0} \in \matrixset_{m \times n} \pqty{\FF}
+    \]
+    where \(r = \colrank\pqty{A}\). Transposing both sides, we have
+    \[
+        Q\transpose A\transpose P\transpose = \pmqty{I_r & 0 \\ 0 & 0} \in \matrixset_{n \times m} \pqty{\FF},
+    \]
+    and in particular, if \(P\) and \(Q\) are invertible, then \(P\transpose\) and \(Q\transpose\) are also invertible. [Note this does \emph{not} mean that \(PAQ = Q\transpose A\transpose P\transpose\) since the matrices are of different sizes.] Hence, by \autoref{thm:classification-of-matrices-up-to-equivalence}, we have
+    \[
+        \rowrank\pqty{A} = \colrank\pqty{A\transpose} = r = \colrank\pqty{A}
+    \]
+    finishing the proof.
+\end{proof}
+
+Now we reduce to consider only square matrices.
+
+\begin{remark}
+    Let \(\basis, \basis'\) be bases for \(V\), and let \(\alpha \in \linearmap\pqty{V, V}\) be an endomorphism. Then by \autoref{prop:change-of-basis-matrix}, we have
+    \[
+        \bqty{\alpha}_{\basis'}^{\basis'} = \bqty{\identity_V}_{\basis'}^{\basis} \bqty{\alpha}_{\basis}^{\basis} \bqty{\identity_V}_{\basis}^{\basis'},
+    \]
+    and if \(P = \bqty{\identity_V}_{\basis'}^{\basis}\), then \(P\) is invertible with \(P\inverse = \bqty{\identity_V}_{\basis}^{\basis'}\).
+\end{remark}
+
+The following definition is motivated by the above remark.
+
+\begin{definition}[Similar Matrices]
+    For \(A, A' \in \matrixset_{n \times n} \pqty{\FF}\), we say that \(A\) and \(A'\) are \term{similar} if there exists an invertible matrix \(P \in \GL_n\pqty{\FF}\) such that
+    \[
+        A' = P A P\inverse.
+    \]
+\end{definition}
+
+\begin{remarks}
+    \begin{itemize}
+        \item Similarity of matrices is an equivalence relation on \(\matrixset_{n \times n} \pqty{\FF}\).
+        \item If \(A, A'\) are similar, then they are equivalent, but the converse is not true.
+    \end{itemize}
+\end{remarks}
+
+\begin{example}[Equivalent Matrices that are not Similar]
+    Note that \(I_n \in \matrixset_{n \times n} \pqty{\FF}\) is equivalent to every \(P \in \GL_n\pqty{\FF}\), but \(I_n\) is only similar to itself.
+\end{example}
+
+Determining the equivalence classes of matrices up to similarity is a much more difficult problem than determining the equivalence classes of matrices up to equivalence. In a sense, this is what the majority of the remaining of this course is about, relating to the eigenvalues and eigenvectors, and the Jordan canonical form of a matrix.
