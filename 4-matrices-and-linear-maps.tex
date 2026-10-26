@@ -333,6 +333,7 @@ Now we proof \autoref{thm:classification-of-matrices-up-to-equivalence}.
 \end{proof}
 
 \begin{theorem}[Row Rank is equal to Column Rank]
+    \label{thm:row-rank-equals-column-rank}%
     For any matrix \(A \in \matrixset_{m \times n} \pqty{\FF}\), we have
     \[
         \colrank\pqty{A} = \rowrank\pqty{A}.
@@ -386,3 +387,165 @@ The following definition is motivated by the above remark.
 \end{example}
 
 Determining the equivalence classes of matrices up to similarity is a much more difficult problem than determining the equivalence classes of matrices up to equivalence. In a sense, this is what the majority of the remaining of this course is about, relating to the eigenvalues and eigenvectors, and the Jordan canonical form of a matrix.
+
+\subsection{Elementary Operations on Matrices}
+
+Suppose the rows of \(A\) are \(\vb{r}_1, \ldots, \vb{r}_m\), in the form
+\[
+    A = \pmqty{\vb{r}_1 \\ \vdots \\ \vb{r}_m}.
+\]
+
+\begin{definition}[Elemnetary Row Operations (EROs)]
+    The three types of \term{elementary row operations (EROs)} on \(A\) are as follows.
+    \begin{enumerate}
+        \item Swap \(\vb{r}_i\) and \(\vb{r}_j\) for \(i \neq j\).
+        \item Replace \(\vb{r}_i\) by \(\lambda \vb{r}_i\) where \(\lambda \neq 0, \lambda \in \FF\).
+        \item Replace \(\vb{r}_i\) by \(\vb{r}_i + \lambda \vb{r}_j\) for some \(i \neq j, \lambda \in \FF\).
+    \end{enumerate}
+\end{definition}
+
+Clearly, each of these operations are reversible. The \term{elementary column operators (ECOs)} are defined similarly, but applied to the columns of \(A\).
+
+\begin{definition}[Elementary Matrices]
+    An \term{elementary row matrix} is a matrix obtained from \(I_n\) by applying a single elementary row operation. Explicitly speaking, the three types of elementary matrices are as follows.
+    \begin{enumerate}
+        \item Swapping rows \(i\) and \(j\), giving
+        \[
+            T_{ij} = \pmqty{\dmat{1, \ddots, 1, {0 & & & & 1 \\ & 1 \\ & & \ddots  \\ & & & 1 \\ 1 & & & & 0}, 1, \ddots, 1}}.
+        \]
+        \item Multiplying row \(i\) by \(\lambda \neq 0\), giving
+        \[
+            M_{i, \lambda} = \pmqty{\dmat{1, \ddots, 1, \lambda, 1, \ddots, 1}},
+        \]
+        where the \(\lambda\) is in the \(i\)-th position.
+        \item Adding \(\lambda\) times row \(j\) to row \(i\), giving
+        \[
+            C_{i, j, \lambda} = \pmqty{\dmat{1, \ddots, 1, {1 & & & & \lambda \\ & 1 \\ & & \ddots  \\ & & & 1 \\ 0 & & & & 1}, 1, \ddots, 1}},
+        \]
+        where the \(\lambda\) is in the \(i\)-th row and \(j\)-th column.
+    \end{enumerate}
+\end{definition}
+
+\begin{remarks}
+    \begin{itemize}
+        \item All these matrices are invertible, with
+        \[
+            T_{ij}\inverse = T_{ij}, \quad M_{i, \lambda}\inverse = M_{i, \lambda\inverse}, \quad C_{i, j, \lambda}\inverse = C_{i, j, -\lambda}.
+        \]
+        \item Note that the first two elementary matrices are symmetric, while the third is not.
+    \end{itemize}
+\end{remarks}
+
+\begin{lemma}[Multiplying by Elementary Operation corresponds to Performing the Row Operation]
+    Let \(E\) be an elementary matrix in \(\GL_m\pqty{\FF}\). Then \(EA\) is obtained from \(A\) by performing the corresponding elementary row operation on \(A\).
+\end{lemma}
+
+\begin{proof}
+    This is a direct computation of matrix multiplication.
+\end{proof}
+
+Similarly, \(AE\) for \(E \in \GL_n\pqty{\FF}\) is obtained from \(A\) by performing the corresponding elementary column operation on \(A\), with the slight caveat that \(A C_{i, j, \lambda}\) changes the \(j\)th column of \(A\) instead by adding \(\lambda\) times the \(i\)th column to it.
+
+Note that elementary row operations preserve the row space of a matrix, and elementary column operations preserve the column space of a matrix. Hence, by \autoref{thm:row-rank-equals-column-rank}, both the elementary row and column operations preserve the rank of a matrix.
+
+\begin{definition}[Row-Reduced Echelon Form (RREF), Column-Reduced Echelon Form (CREF)]
+    A matrix \(A \in \matrixset_{m \times n} \pqty{\FF}\) is in \term{row-reduced echelon form (RREF)} if it satisfies the following conditions.
+    \begin{enumerate}
+        \item All non-zero rows are above any rows entirely consisted of zeros.
+        \item In any non-zero row \(\vb{r}_i\), the left-most non-zero entry is a 1, in place \(1 \leq p\pqty{\vb{r}_i} \leq n\) known as the \term{pivot entry}.
+        \item If \(\vb{r}_i\) nad \(\vb{r}_j\) are non-zero rows with \(i < j\), then \(p\pqty{\vb{r}_i} < p\pqty{\vb{r}_j}\).
+        \item Each pivot entry is the only non-zero entry in its column.
+    \end{enumerate}
+
+    A matrix \(A \in \matrixset_{m \times n} \pqty{\FF}\) is in \term{column-reduced echelon form (CREF)} if \(A\transpose\) is in RREF.
+\end{definition}
+
+\begin{example}[Matrices in RREF]
+    The following \(3 \times 5\) matrix
+    \[
+        \pmqty{\boxed{1} & \cdot & \cdot & \cdot & \cdot \\ \cdot & \cdot & 
+        \boxed{1} & \cdot & \cdot \\ \cdot & \cdot & \cdot & \boxed{1} & \cdot}
+    \]
+    where the \(1\)s are the pivot entries, is in RREF, if and only if the dotted entries are given as
+    \[
+        \pmqty{\boxed{1} & a & 0 & 0 & b \\ 0 & 0 & 
+        \boxed{1} & 0 & c \\ 0 & 0 & 0 & \boxed{1} & d}
+    \]
+    for \(a, b, c, d \in \FF\).
+\end{example}
+
+\begin{lemma}[Rank of Matrices in RREF]
+    Let \(A\) be a matrix in RREF. Then the rank of \(A\) is equal to the number of non-zero rows.
+\end{lemma}
+
+\begin{proof}
+    Suppose the non-zero rows are \(\vb{r}_1, \ldots, \vb{r}_k\). Clearly they span the row space \(\Row\pqty{A}\). To check linear independence, suppose
+    \[
+        \sum_{i = 1}^{k} \lambda_i \vb{r}_i = \vb{0}
+    \]
+    for some \(\lambda_i \in \FF\). Let \(p\pqty{\vb{r}_i} = j_i\), then it has to be a strictly increasing sequence \(j_1 < j_2 < \cdots < j_k\). By observing each \(j_i\)-th entry of the sum, we see that \(\lambda_i = 0\) for all \(i\). Sp \(\Bqty{\vb{r}_1, \ldots, \vb{r}_k}\) is linearly independent.
+\end{proof}
+
+\begin{proposition}[Matrix can be put into RREF]
+    \label{prop:matrix-can-be-put-into-rref}%
+    Every \(A \in \matrixset_{m \times n} \pqty{\FF}\), can be put into RREF via a sequence of elementary row operations.
+\end{proposition}
+
+\begin{proof}
+    We consider the algorithm below which is known as the \term{Gaussian elimination}, and we conduct induction on \(n\), the number of columns.
+
+    Let \(A = \pmqty{\vb{c}_1 & \vb{c}_2 & \cdots & \vb{c}_n}\). If \(\vb{c}_1 = \vb{0}\), then we may simply apply induction on the remaining columns.
+
+    If \(\vb{c}_1 \neq \vb{0}\), then suppose \(a_{i, 1} \neq 0\) for the \(i\)th row. By swapping rows, we may move \(a_{i, 1}\) to the \(\pqty{1, 1}\) entry, so that the \(\pqty{1, 1}\) entry is non-zero. Then we may rescale the \(\pqty{1, 1}\) entry to \(1\).
+
+    By subtracting multiples of the first row from the remaining rows, we may remove all the non-zero entries in the first column, so that we obtain a matrix of the form
+    \[
+        \pmqty{1 & * & * & \cdots & * \\ 0 & * & * & \cdots & * \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 0 & * & * & \cdots & *},
+    \]
+    and we denote the bottom-right \((m - 1) \times (n - 1)\) submatrix as \(A'\). By induction, we may put \(A'\) into RREF by operating RREF to rows \(2, \ldots, m\). 
+
+    Finally, we use pivot entries in \(A'\) to remove the non-zero entries in the first row which are on a pivot column, and we obtain a matrix in RREF.
+\end{proof}
+
+\begin{remarks}
+    \begin{itemize}
+        \item The RREF of a matrix is unique. We will not prove this, but the proof is not too difficult, just a bit fiddly.
+        \item We may obtain the CREF form of a matrix simply by applying the above algorithm to \(A\transpose\) and then transposing the result.
+        \item If \(A\) is a square matrix, then the RREF form of \(A\) is either \(I_n\) or \(I_n\) with row(s) of zeros.
+    \end{itemize}
+\end{remarks}
+
+\begin{theorem}[Square Matrices and Rank]
+    For \(A \in \matrixset_{n \times n} \pqty{\FF}\), the following are equivalent.
+    \begin{enumerate}[label=(\roman*)]
+        \item \(\rank\pqty{A} = n\).
+        \item \(A\) is a product of elementary matrices.
+        \item \(A\) is invertible.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    \textbf{(i) \(\implies\) (ii).} By \autoref{prop:matrix-can-be-put-into-rref}, we may put \(A\) into RREF by a sequence of elementary row operations, so there exist \(E_1, \ldots, E_k \in \GL_n\pqty{\FF}\) such that
+    \[
+        E_k E_{k - 1} \cdots E_1 A = I_n.
+    \]
+    Since \(A\) has rank \(n\), the RREF form of \(A\) is the identity matrix\(I_n\). Hence,
+    \[
+        A = E_1\inverse E_2\inverse \cdots E_k\inverse,
+    \]
+    which is a product of elementary matrices.
+
+    \textbf{(ii) \(\implies\) (iii).} Each elementary matrix is invertible, so a product of elementary matrices is also invertible.
+
+    \textbf{(iii) \(\implies\) (i).} Suppose \(A\) is invertible with \(AB = I_n\). Then by \autoref{lem:rank-of-product-of-matrices}, we have
+    \[
+        n = \rank\pqty{I_n} = \rank\pqty{AB} \leq \min\pqty{\rank\pqty{A}, \rank\pqty{B}},
+    \]
+    so \(\rank \pqty{A} = n\).
+    
+    Alternatively, for any \(\vb{v} \in \FF^n\), note
+    \[
+        \vb{v} = A \pqty{B \vb{v}} \in \img \pqty{A}
+    \]
+    so \(\img\pqty{A} = \FF^n\), and hence \(\rank\pqty{A} = n\).
+\end{proof}
