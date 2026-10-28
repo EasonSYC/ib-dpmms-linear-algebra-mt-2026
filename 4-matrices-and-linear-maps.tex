@@ -549,3 +549,24 @@ Note that elementary row operations preserve the row space of a matrix, and elem
     \]
     so \(\img\pqty{A} = \FF^n\), and hence \(\rank\pqty{A} = n\).
 \end{proof}
+
+This allows for an alternative proof that every matrix \(A\) is equivalent to a matrix of the form \(\pmqty{I_r & 0 \\ 0 & 0}\) where \(r = \rank\pqty{A}\) in \autoref{thm:classification-of-matrices-up-to-equivalence}.
+
+\begin{proof}[\proofname\ of \autoref{thm:classification-of-matrices-up-to-equivalence} using Row and Column operations]
+    Let \(E_1, \ldots, E_l\) be elementary matrices such that \(A' = E_l \cdots E_1 A\) is RREF. Write \(P = E_l \cdots E_1\) is in \(\GL_m\pqty{\FF}\).
+
+    Then, we apply elementary column operations to \(A' = PA\) to move all pivot columns left, obtaining
+    \[
+        A'' = A' E_1' \cdots E_k' = \pmqty{I_r & ? \\ 0 & 0},
+    \]
+    and we finally use the pivot entries to remove all non-zero entries in the top-right block, obtaining
+    \[
+        A'' E''_1 \cdots E''_j = \pmqty{I_r & 0 \\ 0 & 0}.
+    \]
+
+    Now, set \(Q = E_1' \cdots E_k' E''_1 \cdots E''_j\) which is in \(\GL_n\pqty{\FF}\). Then we have \(PAQ\) is in the form as desired.
+\end{proof}
+
+\begin{remark}
+    If \(A \in \GL_n\pqty{\FF}\), we can reduce to \(I_n\) using only elementary row or column operations.
+\end{remark}

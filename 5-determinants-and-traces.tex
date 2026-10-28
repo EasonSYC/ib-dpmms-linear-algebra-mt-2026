@@ -1,0 +1,154 @@
+\section{Determinants and Traces}
+
+Throughout this chapter, we discuss square matrices \(A \in \matrixset_{n \times n} \pqty{\FF}\), and we decompose \(A\) into columns \(A = \pmqty{\vb{c}_1 & \vb{c}_2 & \cdots & \vb{c}_n}\).
+
+\subsection{Existence and Uniqueness of Determinants}
+
+\begin{theorem}[Existence and Uniqueness of Determinants]
+    \label{thm:determinant-existence-uniqueness}%
+    For each \(n \in \NN\), there exists a unique function
+    \[
+        \functiondomain{\det}{\matrixset_{n \times n} \pqty{\FF}}{\FF}
+    \]
+    satisfying the following properties.
+
+    \begin{itemize}
+        \item \term{Alternating.} If there is some \(i \neq j\) such that \(\vb{c}_i = \vb{c}_j\), then \(\det A = 0\).
+        \item \term{Multilinear in Columns.} For each matrix \(A\) and \(i\), the map
+        \[
+            \function{d_{A, i}}{\FF^n}{\FF}{\vb{v}}{\det\pqty{\pmqty{\vb{c}_1 & \cdots & \vb{c}_{i-1} & \vb{v} & \vb{c}_{i+1} & \cdots & \vb{c}_n}}}
+        \]
+        is linear.
+        \item \term{Normalised.} \(\det I_n = 1\).
+    \end{itemize}
+\end{theorem}
+
+\begin{definition}[Determinant, Volume Form]
+    \(\det\pqty{A}\) is the \term{determinant} of \(A\), sometimes also denoted \(\abs{A}\).
+
+    A function satisfying the alternating property and the multilineality property is called a \term{\(n\)-dimensional volume form}.
+\end{definition}
+
+\begin{lemma}[Properties of Volume Forms]
+    \label{lem:volume-form-properties}%
+    Let \(\functiondomain{F}{\FF^n}{\FF}\) be a volume form, and \(A \in \matrixset_{n \times n} \pqty{\FF}\). Then the following holds.
+
+    \begin{enumerate}[label=(\roman*)]
+        \item If \(A\) has a zero column, then \(F\pqty{A} = 0\).
+        \item \(F\pqty{A T_{ij}} = - F\pqty{A}\) for \(i \neq j\), where \(T_{ij}\) is the elementary matrix that swaps columns \(i\) and \(j\).
+        \item \(F\pqty{A M_{i, \lambda}} = \lambda F\pqty{A}\), where \(M_{i, \lambda}\) is the elementary matrix that multiplies column \(i\) by \(\lambda\).
+        \item \(F\pqty{A C_{i, j, \lambda}} = F\pqty{A}\), where \(C_{i, j, \lambda}\) is the elementary matrix that adds \(\lambda\) times column \(i\) to column \(j\).
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    Let \(\functiondomain{d_{A, i}}{\FF^n}{\FF}\) be as in the second hypothesis in \autoref{thm:determinant-existence-uniqueness}. Then note that \(d_{A, i} \pqty{\vb{c}_j} = \kronecker_{i, j} F\pqty{A}\) by the alternating property.
+
+    \begin{enumerate}[label=(\roman*)]
+        \item IF \(\vb{c}_i = \vb{0}\), then \(F\pqty{A} = d_{A, i}\pqty{\vb{0}} = 0\) by linearity.
+        
+        \item Let \(i \neq j\), and let \(\overline{A}\) be the matrix obtained by replacing both \(\vb{c}_i\) and \(\vb{c}_j\) with \(\vb{c}_i + \vb{c}_j\). Then we have
+        \begin{align*}
+            0 &= F\pqty{\overline{A}} \\
+            &= F\pqty{A} + F\pqty{A T_{i, j}} + d_{A, i} \pqty{\vb{c}_j} + d_{A, j} \pqty{\vb{c}_i} \\
+            &= F\pqty{A} + F\pqty{A T_{i, j}},
+        \end{align*}
+        which gives us the result as desired.
+
+        \item Note that
+        \begin{align*}
+            F\pqty{A M_{i, \lambda}} &= d_{A, i} \pqty{\lambda \vb{c}_i} \\
+            &= \lambda d_{A, i} \pqty{\vb{c}_i} \\
+            &= \lambda F\pqty{A}.
+        \end{align*}
+
+        \item Note that
+        \begin{align*}
+            F\pqty{A C_{i, j, \lambda}} &= d_{A, j} \pqty{\vb{c}_j + \lambda \vb{c}_i} \\
+            &= d_{A, j} \pqty{\vb{c}_j} + \lambda d_{A, j} \pqty{\vb{c}_i} \\
+            &= F\pqty{A}.
+        \end{align*}
+    \end{enumerate}
+\end{proof}
+
+Now, we are ready to prove the theorem.
+
+\begin{proof}[\proofname\ of \autoref{thm:determinant-existence-uniqueness}]
+    \term{Uniqueness.} Suppose we have a normalised \(n\)-dimensional volume form \(\functiondomain{F}{\matrixset_{n \times n} \pqty{\FF}}{\FF}\). By \autoref{lem:volume-form-properties} (ii), (iii), (iv), we have
+    \[
+        F\pqty{T_{i, j}} = -1, \quad F\pqty{M_{i, \lambda}} = \lambda, \quad F\pqty{C_{i, j, \lambda}} = 1,
+    \]
+    and we have
+    \[
+        F\pqty{AE} = F\pqty{A} F\pqty{E}
+    \]
+    for any elementary matrix \(E\). Let \(E_1, \ldots, E_l\) be elementary matrices such that \(A' = A E_1 \cdots E_l\) is in CREF. Then
+    \[
+        F\pqty{A} = F\pqty{A'} F\pqty{E_1}\inverse \cdots F\pqty{E_l}\inverse.
+    \]
+
+    \begin{itemize}
+        \item If \(\rank\pqty{A} < n\), then the CREF, \(A'\), has a zero column, so \(F\pqty{A} = F\pqty{A'} = 0\) by \autoref{lem:volume-form-properties} (i).
+        \item If \(\rank\pqty{A} = n\), then \(A' = I_n\), so \(F\pqty{A}\) is determined by the elementary matrices \(E_1, \ldots, E_l\).
+    \end{itemize}
+\end{proof}
+
+Note that in this proof, we have shown a way of calculating determinants.
+
+\begin{corollary}[Calculation of Determinants]
+    \(\det\pqty{A} \neq 0\) if and only if \(A\) is invertible. In this case, for \(A = E_1 \cdots E_l\) for elementary matrices \(E_i\), we have
+    \[
+        \det\pqty{A} = \det\pqty{E_1} \cdots \det\pqty{E_l}.
+    \]
+\end{corollary}
+
+For the existence, we recall facts from \textit{IA Groups}.
+
+\begin{itemize}
+    \item \(S_n\) is the group of permutations of \(\Bqty{1, \ldots, n}\).
+    \item There is a unique sign homomorphism \(\functiondomain{\sign}{S_n}{\Bqty{1, -1}}\) such that \(\sign\pqty{\tau} = -1\) for all transposition \(\tau = \perm{k l}\).
+    \item In particular, the kernel of \(\sign\) is the alternating group \(A_n\), and we have \(S_n = A_n \sqcup A_n \tau\) for any transposition \(\tau\).
+\end{itemize}
+
+We construct the following as the definition of the determinant
+\[
+    \det\pqty{A} = \sum_{\sigma \in S_n} \sign\pqty{\sigma} \prod_{i=1}^{n} a_{\sigma\pqty{i}, i}.
+\]
+and this is known as \term{Leibniz formula}.
+
+\begin{proof}[\proofname\ of \autoref{thm:determinant-existence-uniqueness}]
+    \term{Existence.} We show that the determinant claimed above indeed satisfies the three properties.
+
+    \begin{enumerate}[label=(\roman*)]
+        \item[(iii)] \term{Normalisation.} Note \(\det\pqty{I_n} = 1\) since only \(\sigma = \identity\) contributes to the sum.
+        \item[(ii)] \term{Multilinearity.} Each product is multilinear in the columns of \(A\), and hence so is their signed sum.
+        \item[(i)] \term{Alternating.} Suppose \(c_k = c_l\) and let \(\tau = \perm{k l}\). Then \(a_{j, i} = a_{j, \tau\pqty{i}}\) for all \(i, j\). Hence, we have
+        \begin{align*}
+            \det\pqty{A} &= \sum_{\sigma \in A_n} \sign\pqty{\sigma} \prod_{i=1}^{n} a_{\sigma\pqty{i}, i} + \sum_{\sigma \in A_n} \sign\pqty{\sigma \tau} \prod_{i=1}^{n} a_{\sigma \tau\pqty{i}, i} \\
+            &= \sum_{\sigma \in A_n} \prod_{i=1}^{n} a_{\sigma\pqty{i}, i} - \sum_{\sigma \in A_n} \prod_{i=1}^{n} a_{\sigma\tau\pqty{i}, i} \\
+            &= \sum_{\sigma \in A_n} \prod_{i=1}^{n} a_{\sigma\pqty{i}, i} - \sum_{\sigma \in A_n} \prod_{i=1}^{n} a_{\sigma\tau \pqty{i}, \tau \pqty{i}} \\
+            &= \sum_{\sigma \in A_n} \prod_{i=1}^{n} a_{\sigma\pqty{i}, i} - \sum_{\sigma \in A_n} \prod_{i=1}^{n} a_{\sigma \pqty{i}, i} \\
+            &= 0.
+        \end{align*}
+    \end{enumerate}
+\end{proof}
+
+\subsection{Properties of Determinants}
+
+\begin{lemma}[Determinant of Transpose]
+    For all \(A \in \matrixset_{n \times n} \pqty{\FF}\), we have
+    \[
+        \det\pqty{A\transpose} = \det\pqty{A}.
+    \]
+\end{lemma}
+
+\begin{proof}
+    Note
+    \begin{align*}
+        \det\pqty{A\transpose} &= \sum_{\sigma \in S_n} \sign\pqty{\sigma} \prod_{i=1}^{n} a_{i, {\sigma\pqty{i}}} \\
+        &= \sum_{\sigma \in S_n} \sign\pqty{\sigma} \prod_{j=1}^{n} a_{\sigma\inverse\pqty{j}, j} && j = \sigma\pqty{i} \\
+        &= \sum_{\sigma \in S_n} \sign\pqty{\sigma\inverse} \prod_{i=1}^{n} a_{\sigma\inverse\pqty{j}, j} \\
+        &= \sum_{\sigma \in S_n} \sign\pqty{\sigma} \prod_{i=1}^{n} a_{\sigma\pqty{i}, i} \\
+        &= \det\pqty{A}.
+    \end{align*}
+\end{proof}
