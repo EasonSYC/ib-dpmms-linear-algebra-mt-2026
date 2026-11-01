@@ -96,6 +96,7 @@ Now, we are ready to prove the theorem.
 Note that in this proof, we have shown a way of calculating determinants.
 
 \begin{corollary}[Calculation of Determinants]
+    \label{cor:determinant-calculation}%
     \(\det\pqty{A} \neq 0\) if and only if \(A\) is invertible. In this case, for \(A = E_1 \cdots E_l\) for elementary matrices \(E_i\), we have
     \[
         \det\pqty{A} = \det\pqty{E_1} \cdots \det\pqty{E_l}.
@@ -151,4 +152,223 @@ and this is known as \term{Leibniz formula}.
         &= \sum_{\sigma \in S_n} \sign\pqty{\sigma} \prod_{i=1}^{n} a_{\sigma\pqty{i}, i} \\
         &= \det\pqty{A}.
     \end{align*}
+\end{proof}
+
+\begin{proposition}[Determinant of Products]
+    For all \(A, B \in \matrixset_{n \times n} \pqty{\FF}\), we have
+    \[
+        \det\pqty{AB} = \det\pqty{A} \det\pqty{B}.
+    \]
+\end{proposition}
+
+\begin{proof}
+    If \(\rank\pqty{A} < n\) or \(\rank\pqty{B} < n\), then \(\rank\pqty{AB} < n\) and hence \(\det\pqty{AB} = 0 = \det\pqty{A} \det\pqty{B}\) by \autoref{cor:determinant-calculation}. Otherwise, we can write \(A = E_1 \cdots E_l\) and \(B = E'_1 \cdots E_k\) for elementary matrices \(E_i, E'j\). Then we have \(AB = E_1 \cdots E_l E'_1 \cdots E'_k\), and applying \autoref{cor:determinant-calculation} gives us the result as desired.
+\end{proof}
+
+\begin{corollary}[Determinants define Homomorphism]
+    \(\det\) defines a group homomorphism
+    \[
+        \functiondomain{\det}{\GL_n\pqty{\FF}}{\FF\multiplicative}.
+    \]
+\end{corollary}
+
+\begin{corollary}[Determinant of Inverse]
+    For all \(A \in \GL_n\pqty{\FF}\), we have
+    \[
+        \det\pqty{A\inverse} = \det\pqty{A}\inverse.
+    \]
+\end{corollary}
+
+\begin{corollary}[Similar Matrices have Same Determinant]
+    \label{cor:similar-matrices-same-determinant}%
+    If \(A, B \in \matrixset_{n \times n} \pqty{\FF}\) are similar, then
+    \[
+        \det\pqty{A} = \det\pqty{B}.
+    \]
+\end{corollary}
+
+\begin{proof}
+    Note
+    \[
+        \det\pqty{P A P\inverse} = \det\pqty{P} \det\pqty{A} \det\pqty{P\inverse} = \det\pqty{P} \det\pqty{P\inverse} \det\pqty{A} = 1 \cdot \det\pqty{A} = \det\pqty{A}.
+    \]
+\end{proof}
+
+\subsection{Determinants of Linear Maps}
+
+\begin{definition}[Determinant of Linear Maps]
+    Let \(V\) be a finite-dimensional vector space over \(\FF\), and let \(\alpha \in \linearmap\pqty{V, V}\) be a linear map. Fix a basis \(\basis\) for \(V\). Then we define the \term{determinant} of \(\alpha\) to be
+    \[
+        \det\pqty{\alpha} = \det\pqty{\bqty{\alpha}_{\basis}^{\basis}}.
+    \]
+\end{definition}
+
+\begin{proposition}[Determinant of Linear Maps is Well-Defined]
+    The determinant of a linear map is independent of the choice of basis.
+\end{proposition}
+
+\begin{proof}
+    Let \(\basis'\) be another basis, and set
+    \[
+        P = \bqty{\identity_V}_{\basis'}^{\basis} \in \GL_n\pqty{\FF}.
+    \]
+
+    Then
+    \[
+        P\inverse = \bqty{\identity_V}_{\basis}^{\basis'} \in \GL_n\pqty{\FF},
+    \]
+    and we have
+    \[
+        \bqty{\alpha}_{\basis'}^{\basis'} = P \bqty{\alpha}_{\basis}^{\basis} P\inverse
+    \]
+    which is similar to \(\bqty{\alpha}_{\basis}^{\basis}\). The result follows by \autoref{cor:similar-matrices-same-determinant}.
+\end{proof}
+
+\begin{definition}[Singular and Non-Singular Linear Maps]
+    Let \(V\) be a finite-dimensional vector space over \(\FF\), and let \(\alpha \in \linearmap\pqty{V, V}\) be a linear map. We say \(\alpha\) is \term{singular} if \(\det \pqty{\alpha} = 0\), and \term{non-singular} otherwise.
+\end{definition}
+
+\begin{proposition}[Non-Singular, Full-Rank and Invertability]
+    The following are equivalent.
+
+    \begin{enumerate}[label=(\roman*)]
+        \item \(\rank\pqty{\alpha} = \dim V\).
+        \item \(\alpha\) is invertible.
+        \item \(\alpha\) is non-singular.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Note (i) \(\iff\) (ii) by \autoref{thm:rank-nullity-thm} (Rank--Nullity Theorem).
+
+    We prove (i) \(\iff\) (iii). Fix any basis \(\basis\) for \(V\). Then \(A = \bqty{\alpha}_{\basis}^{\basis}\). Then \(\rank\pqty{\alpha} = \rank\pqty{A}\). Hence, \(\rank\pqty{\alpha} = \dim V\) if and only if \(\det \pqty{a} \neq 0\), by \autoref{cor:determinant-calculation}, if and only if \(\alpha\) is non-singular.
+\end{proof}
+
+\subsection{Computing Determinants}
+
+\begin{proposition}[Block-Triangular Matrices]
+    For \(A \in \matrixset_{k \times k} \pqty{\FF}, B \in \matrixset_{l \times l} \pqty{\FF}\), then we have
+    \[
+        \vmqty{A & ? \\ O & B} = \det\pqty{A} \det\pqty{B}.
+    \]
+\end{proposition}
+
+\begin{proof}
+    Let \(C \in \matrixset_{\pqty{k + l} \times \pqty{k + l}} \pqty{\FF}\) be the block-triangular matrix. Then \(c_{ij} = 0\) ofr all \(i \geq k + 1\), \(j \leq k\). Then for all \(\sigma \in S_n\), if
+    \[
+        \prod_{i = 1}^{n} c_{\sigma\pqty{i}, i} \neq 0,
+    \]
+    then \(\sigma\) preserves \(X = \Bqty{1, \ldots, k}\) and hence also preserves \(Y = \Bqty{k + 1, \ldots, k + l}\). Hence, we may decompose \(\sigma = \tau \theta\) for \(\tau\) permuting exactly elements in \(X\), and \(\theta\) permuting exactly elements in \(Y\). Conversely, given \(\tau \in \Sym\pqty{X}\) and \(\theta \in \Sym\pqty{Y}\), then \(\tau \theta \in S_n\). Moreover,
+    \begin{align*}
+        \prod_{i = 1}^{n} c_{\tau \theta\pqty{i}, i} &= \pqty{\prod_{i = 1}^{k} c_{\tau\pqty{i}, i}} \pqty{\prod_{i = k + 1}^{k + l} c_{\theta\pqty{i}, i}} \\
+        &= \pqty{\prod_{x \in X} c_{\tau\pqty{x}, x}} \pqty{\prod_{y \in Y} c_{\theta\pqty{y}, y}}.
+    \end{align*}
+
+    Hence,
+    \begin{align*}
+        \det\pqty{C} &= \sum_{\sigma \in S_n} \sign\pqty{\sigma} \prod_{i = 1}^{n} c_{\sigma\pqty{i}, i} \\
+        &= \sum_{\substack{\tau \in \Sym\pqty{X} \\ \theta \in \Sym\pqty{Y}}} \sign\pqty{\tau \theta} \prod_{i = 1}^{n} c_{\tau \theta\pqty{i}, i} \\
+        &= \sum_{\substack{\tau \in \Sym\pqty{X} \\ \theta \in \Sym\pqty{Y}}} \sign\pqty{\tau} \sign\pqty{\theta} \prod_{x \in X} c_{\tau\pqty{x}, x} \prod_{y \in Y} c_{\theta\pqty{y}, y} \\
+        &= \pqty{\sum_{\tau \in \Sym\pqty{X}} \sign\pqty{\tau} \prod_{x \in X} c_{\tau\pqty{x}, x}} \pqty{\sum_{\theta \in \Sym\pqty{Y}} \sign\pqty{\theta} \prod_{y \in Y} c_{\theta\pqty{y}, y}} \\
+        &= \det\pqty{A} \det\pqty{B}.
+    \end{align*}
+\end{proof}
+
+\begin{remark}
+    Note that a block matrix
+    \[
+        \vmqty{A & B \\ C & D} \neq \det{A} \det{D} - \det{B} \det{C}
+    \]
+    in general, even if they are well defined.
+\end{remark}
+
+\begin{corollary}[Determinant of Block-Diagonal Matrices]
+    We have
+    \[
+        \vmqty{A_1 & & ? \\ & \ddots &  \\ O & & A_k} = \prod_{i = 1}^{k} \det \pqty{A_i}.
+    \]
+\end{corollary}
+
+\subsection{Minors and Adjugates}
+
+\begin{definition}[Minor of Matrices]
+    Let \(A \in \matrixset_{n \times n} \pqty{\FF}\). For \(1 \leq i, j \leq n\), we define the \term{\(\pqty{i, j}\)-th minor} to be the matrix \(A_{\widehat{i, j}} \in \matrixset_{\pqty{n - 1} \times \pqty{n - 1}} \pqty{\FF}\) obtained by deleting the \(i\)-th row and \(j\)-th column of \(A\).
+\end{definition}
+
+
+\begin{lemma}[Laplace Expansion Formula along a Column/Row]
+    We have the following.
+
+    \begin{enumerate}[label=(\roman*)]
+        \item Expansion along the \(j\)-th column.
+        \[
+            \det\pqty{A} = \sum_{i = 1}^{n} \pqty{-1}^{i + j} a_{i, j} \det\pqty{A_{\widehat{i, j}}}.
+        \]
+        \item Expansion along the \(i\)-th row.
+        \[
+            \det\pqty{A} = \sum_{j = 1}^{n} \pqty{-1}^{i + j} a_{i, j} \det\pqty{A_{\widehat{i, j}}}.
+        \]
+    \end{enumerate}
+\end{lemma}
+
+\begin{remark}
+    Notice that (ii) follows from (i) immediately by taking the transpose.
+\end{remark}
+
+\begin{proof}
+    Let the columns of \(A\) be
+    \[
+        A = \pmqty{\vb{c}_1 & \cdots & \vb{c}_n},
+    \]
+    where
+    \[
+        \vb{c}_j = \sum_{i = 1}^{n} A_{i, j} \vb{e}_i.
+    \]
+
+    By linearity in the \(j\)-th column, we have
+    \[
+        \det\pqty{A} = \sum_{i = 1}^{n} a_{i, j} \det\pqty{\pmqty{\vb{c}_1 & \cdots & \vb{c}_{j - 1} & \vb{e}_i & \vb{c}_{j + 1} & \cdots & \vb{c}_n}}.
+    \]
+
+    Denote
+    \[
+        A^{\pqty{i}} = \pmqty{\vb{c}_1 & \cdots & \vb{c}_{j - 1} & \vb{e}_i & \vb{c}_{j + 1} & \cdots & \vb{c}_n}.
+    \]
+
+    By moving \(\vb{e}_i\) to the first column (through \(j - 1\) column swaps), followed by moving the entry in \(\vb{e}_i\) to the first row (through \(i - 1\) row swaps), we get
+    \[
+        \det\pqty{A^{\pqty{i}}} = \pqty{-1}^{i + j - 2} \det \pmqty{1 & ? \\
+        \vb{0} & A_{\widehat{i, j}}} = \pqty{-1}^{i + j} \det \pqty{A_{\widehat{i, j}}}.
+    \]
+\end{proof}
+
+\begin{definition}[Adjugate Matrix]
+    Let \(A \in \matrixset_{n \times n} \pqty{\FF}\). The \term{adjugate matrix} of \(A\) is the matrix
+    \[
+        \pqty{\adj\pqty{A}}_{i, j} = \pqty{-1}^{i + j} \det\pqty{A_{\widehat{j, i}}}.
+    \]
+\end{definition}
+
+\begin{theorem}[Cramer's Rule]
+    \begin{enumerate}[label=(\roman*)]
+        \item \(\adj\pqty{A} A = A \adj\pqty{A} = \det\pqty{A} I_n\).
+        \item If \(A\) is invertible, then \(A\inverse = \frac{1}{\det\pqty{A}} \adj\pqty{A}\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    (ii) is immediate from (i) by uniqueness of inverses.
+
+    By doing Laplace expansion in the \(j\)-th column of \(A\), we have
+    \[
+        \det\pqty{A} = \sum_{i} \pqty{\adj\pqty{A}}_{j, i} a_{ij}
+    \]
+    which is the \(\pqty{j, j}\)-th entry of \(\adj\pqty{A} A\). 
+
+    For \(j \neq k\), replace the \(j\)-th column of \(A\) by the \(k\)th column to get, and we expand along the \(j\)-th column, we have
+    \begin{align*}
+        0 &= \det \pmqty{\vb{c_1} & \cdots  & \vb{c}_k & \cdots & \vb{c}_k & \cdots & \vb{c}_n} \\
+        &= \sum_{i} \pqty{\adj\pqty{A}}_{j, i} a_{ik}
+    \end{align*}
+    which is the \(\pqty{j, k}\)-th entry of \(\adj\pqty{A} A\). Hence, we have \(\adj\pqty{A} A = \det\pqty{A} I_n\). The other equality for \(A \adj\pqty{A} = \det\pqty{A} I_n\) follows similarly.
 \end{proof}
