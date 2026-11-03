@@ -1,0 +1,199 @@
+\section{Dual Spaces}
+
+Let \(V = \RR^4\). Note that the same subspace can be represented by different ways:
+\begin{align*}
+    W &= \spn\Bqty{\pmqty{1 \\ 0 \\ 0 \\ 0}, \pmqty{1 \\ 1 \\ 2 \\ 0}} \\
+    &= \spn\Bqty{\pmqty{2 \\ 1 \\ 2 \\ 0}, \pmqty{0 \\ 1 \\ 2 \\ 0}, \pmqty{-1 \\ 2 \\ 4 \\ 0}} \\
+    &= \set{\vb{v} \in V}{2 v_2 = v_3, v_4 = 0} \\
+    &= \set{\vb{v} \in V}{2 \pqty{v_2 + v_4} = v_3, 2\pqty{v_2 - v_4} = v_3, 2 v_2 - 3 v_4 = 4 v_3}.
+\end{align*}
+
+The first two are relatively familiar, although the sets are of different lengths, because one is linearly independent and the other is not. The last two are less familiar, but they are also valid representations of the same subspace. But the number of constraints are different, because there are some ``extra'' constraints. In this chapter we rigorously study this phenomenon.
+
+\subsection{Dual Space and Dual Basis}
+
+\begin{definition}[Dual Space]
+    Let \(V\) be a vector space over \(\FF\). The \term{dual space} of \(V\) is the vector space of all linear functionals on \(V\), denoted by \(\dual{V} = \linearmap\pqty{V, \FF}\).
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item Let \(V = \RR^4\), and \(\theta_1, \theta_2, \theta_3 \in \dual{V}\) be defined by
+        \begin{align*}
+            \theta_1 \pqty{\vb{v}} &= 2\pqty{v_2 + v_4} - v_3, \\
+            \theta_2 \pqty{\vb{v}} &= 2\pqty{v_2 - v_4} - v_3, \\
+            \theta_3 \pqty{\vb{v}} &= 2 v_2 - 3 v_4 - 4 v_3.
+        \end{align*}
+        
+        \item The trace \(\tr \in \dual{\pqty{\matrixset_{n \times n} \pqty{\FF}}}\) is an element in the dual space of the vector space of \(n \times n\) matrices over \(\FF\).
+        
+        \item Let \(V = \contClass{\ccintv{0}{1}}\). An element in \(\dual{V}\) is the linear functional \(\theta\) defined by
+        \[
+            \theta \pqty{f} = \int_0^1 f\pqty{x} e^{-x} \dd{x}.
+        \]
+    \end{enumerate}
+\end{example}
+
+\begin{proposition}[Dual Basis]
+    \label{prop:dual-basis}%
+    Let \(V\) be a \(\FF\)-vector space with some basis \(\basis\). For \(\vb{b} \in \basis\), define \(\dual{\vb{b}} \in \dual{V}\) by
+    \[
+        \dual{\vb{b}}\pqty{{\sum_{\vb{c} \in \basis}}' \lambda_{\vb{c}} \vb{c}} = \lambda_{\vb{b}},
+    \]
+    or specified on the basis,
+    \[
+        \dual{\vb{b}}\pqty{\vb{c}} = \kronecker_{\vb{b}, \vb{c}}.
+    \]
+
+    Set \(\dual{\basis} = \set{\dual{\vb{b}}}{\vb{b} \in \basis}\). We have the following.
+
+    \begin{enumerate}[label=(\roman*)]
+        \item \(\dual{\basis}\) is linearly independent.
+        \item If \(V\) is finite-dimensional, then \(\dual{\basis}\) is a basis for \(\dual{V}\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Suppose we have
+        \[
+            f = {\sum_{\vb{b} \in \basis}}' \lambda_{\vb{b}} \dual{\vb{b}}
+        \]
+        is the zero function in \(\dual{V}\). Then for any \(\vb{c} \in \basis\), we have
+        \[
+            0 = f\pqty{\vb{c}} = {\sum_{\vb{b} \in \basis}}' \lambda_{\vb{b}} \dual{\vb{b}}\pqty{\vb{c}} = {\sum_{\vb{b} \in \basis}}' \lambda_{\vb{b}} \kronecker_{\vb{b}, \vb{c}} = \lambda_{\vb{c}}.
+        \]
+
+        This means that all coefficients \(\lambda_{\vb{b}}\) are zero, and hence \(\dual{\basis}\) is linearly independent.
+
+        \item From (i), in the finite-dimensional case, note
+        \[
+            \abs{\basis} = \dim \pqty{V} = \dim \pqty{\linearmap\pqty{V, \FF}} = \dim \pqty{\dual{V}}.
+        \]
+
+        So \(\abs{\dual{\basis}} = \abs{\basis} = \dim \pqty{\dual{V}}\). Since \(\dual{\basis}\) is linearly independent, it is a basis for \(\dual{V}\).
+
+        Alternatively, let \(\theta \in \dual{V}\), and let \(\lambda_{\vb{b}} = \theta\pqty{\vb{b}} \in \FF\) for \(\vb{b} \in \basis\). Then defining
+        \[
+            \overline{\theta} = {\sum_{\vb{b} \in \basis}} \lambda_{\vb{b}} \dual{\vb{b}} \in \dual{V},
+        \]
+        where we note the sum is finite, we have for any \(\vb{c} \in \basis\),
+        \[
+            \overline{\theta}\pqty{\vb{c}} = {\sum_{\vb{b} \in \basis}} \lambda_{\vb{b}} \dual{\vb{b}}\pqty{\vb{c}} = {\sum_{\vb{b} \in \basis}} \lambda_{\vb{b}} \kronecker_{\vb{b}, \vb{c}} = \lambda_{\vb{c}} = \theta\pqty{\vb{c}}.
+        \]
+
+        So \(\theta = \overline{\theta} \in \spn\pqty{\Bqty{\dual{\basis}}}\), and hence \(\dual{\basis}\) spans \(\dual{V}\).
+    \end{enumerate}
+\end{proof}
+
+\begin{definition}[Dual Basis]
+    Let \(V\) be a \(\FF\)-vector space with some basis \(\basis\). The \term{dual basis} of \(\basis\) is the set \(\dual{\basis}\) as defined in \autoref{prop:dual-basis}.
+\end{definition}
+
+\begin{corollary}[Finite-Dimensional Spaces are Isomorphic to their Duals]
+    If \(V\) is finite-dimensional, then \(V \isomorphic \dual{V}\).
+\end{corollary}
+
+\begin{proof}
+    This is trivially because \(\dim \pqty{V} = \dim \pqty{\dual{V}}\).
+\end{proof}
+
+\begin{example}[Necessacity of Finite-Dimensionality]
+    Set \(V = \PP\pqty{\RR}\). Then the dual space \(\dual{V}\) is all possible real sequences \(\dual{V} = \RR^{\NN}\). Note \(V \notisomorphic \dual{V}\).
+\end{example}
+
+\begin{remark}
+    If \(V\) is finite-dimensional, and say we have some basis
+    \[
+        \basis = \set{\vb{b}_i}{1 \leq i \leq n}
+    \]
+    for \(V\). Then we can write any \(\vb{v} \in V\) as
+    \[
+        \vb{v} = \sum_{i=1}^n \lambda_i \vb{b}_i,
+    \]
+    and any \(\theta \in \dual{V}\) as
+    \[
+        \theta = \sum_{i=1}^n \mu_i \dual{\vb{b}_i}.
+    \]
+
+    Then we have
+    \[
+        \theta\pqty{\vb{v}} = \sum_{i, j} \lambda_i \mu_j \dual{\vb{b}_j}\pqty{\vb{b}_i} = \sum_{i = 1}^{n} \lambda_i \mu_i.
+    \]
+
+    But note that we have
+    \[
+        \pmqty{\lambda_1 \\ \vdots \\ \lambda_n} = \bqty{\vb{v}}_{\basis} \qand \pmqty{\mu_1 \\ \vdots \\ \mu_n} = \bqty{\theta}_{\dual{\basis}},
+    \]
+    so we have
+    \[
+        \theta\pqty{\vb{v}} = \pqty{\bqty{\theta}_{\dual{\basis}}}\transpose \bqty{\vb{v}}_{\basis}.
+    \]
+\end{remark}
+
+\subsection{Annihilators}
+
+\begin{definition}[Annihilator]
+    Let \(V\) be a vector space over \(\FF\), and let \(S \subseteq V\) be a subset of \(V\). The \term{annihilator} of \(S\) is the set
+    \[
+        \annihilator{S} = \set{\theta \in \dual{V}}{\forall \vb{v} \in S: \theta\pqty{\vb{v}} = 0}.
+    \]
+\end{definition}
+
+\begin{lemma}[Properties of Annihilators]
+    Let \(V\) be a vector space over \(\FF\), and let \(S, T \subseteq V\). We have the following.
+
+    \begin{enumerate}[label=(\roman*)]
+        \item \(\annihilator{S} \subspace \dual{V}\).
+        \item If \(S \subseteq T\), then \(\annihilator{T} \subspace \annihilator{S}\).
+        \item \(\annihilator{S} = \annihilator{\spn\pqty{S}}\).
+        \item \(\annihilator{V} = \Bqty{\vb{0}_{\dual{V}}}\) and \(\annihilator{\Bqty{\vb{0}_V}} = \dual{V}\).
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    \begin{enumerate}
+        \item This is a direct subspace test.
+        \item Inclusion is by definition, and both are subspaces of \(\dual{V}\).
+        \item Since \(S \subseteq \spn\pqty{S}\), we have \(\annihilator{\spn\pqty{S}} \subspace \annihilator{S}\).
+        
+        Conversely, if \(\theta \in \annihilator{S}\), then for any \(\vb{v} = {\sum_{\vb{s} \in S}}' \lambda_{\vb{s}} \vb{s} \in \spn\pqty{S}\), we have
+        \[
+            \theta\pqty{\vb{v}} = {\sum_{\vb{s} \in S}}' \lambda_{\vb{s}} \theta\pqty{\vb{s}} = 0,
+        \]
+        so \(\theta \in \annihilator{\spn\pqty{S}}\). Hence \(\annihilator{S} \subspace \annihilator{\spn\pqty{S}}\).
+        \item If \(\theta \in \annihilator{V}\), then \(\theta\pqty{\vb{v}} = 0\) for all \(\vb{v} \in V\), which is the zero map, so \(\theta = \vb{0}_{\dual{V}}\). Also note that any linear map sends \(\vb{0}_V\) to \(\vb{0}_{\FF}\), so \(\annihilator{\Bqty{\vb{0}_V}} = \dual{V}\).
+    \end{enumerate}
+\end{proof}
+
+\begin{proposition}[Dimension of Annihilators]
+    Let \(V\) be a finite-dimensional vector space over \(\FF\), and let \(U \subspace V\). Then
+    \[
+        \dim \pqty{\annihilator{U}} = \dim \pqty{V} - \dim \pqty{U}.
+    \]
+\end{proposition}
+
+\begin{proof}
+    Suppose \(\dim\pqty{V} = n\) and \(\dim\pqty{U} = k\). Let \(\basis_U = \Bqty{\vb{u}_1, \ldots, \vb{u}_k}\) be a basis for \(U\), and extend it to a basis for \(V\) given by \(\basis_{V} = \Bqty{\vb{v}_1, \ldots, \vb{v}_n}\) where \(\vb{v}_i = \vb{u}_i\) for \(i = 1, 2, \ldots, k\).
+
+    Then this gives us a dual basis \(\dual{\basis_V} = \Bqty{\dual{\vb{v}_1}, \ldots, \dual{\vb{v}_n}}\) for \(\dual{V}\). We claim that a basis for \(\annihilator{U}\) is given by
+    \[
+        \Bqty{\dual{\vb{v}_{k+1}}, \ldots, \dual{\vb{v}_n}}.
+    \]
+
+    First, we prove that this is a subspace of \(\annihilator{U}\). For \(i \leq k, j \geq k + 1\), we note \(\dual{\vb{v}_j} \pqty{\vb{v}_i} = \kronecker_{j, i} = 0\). So \(\dual{\vb{v_j}} \in \annihilator{\basis_U} = \annihilator{U}\) for \(j = k + 1, \ldots, n\).
+
+    Linear independence inherits from the linear independence of the dual basis. To show it is spanning, let \(\theta \in \annihilator{U}\). Then we can write
+    \[
+        \theta = \sum_{j = 1}^n \lambda_j \dual{\vb{v}_j}.
+    \]
+
+    Then for \(i \leq k\), we have
+    \[
+        0 = \theta\pqty{\vb{v}_i} = \sum_{j = 1}^{n} \lambda_j \dual{\vb{v}_j}\pqty{\vb{v}_i} = \sum_{j = 1}^{n} \lambda_j \kronecker_{j, i} = \lambda_i,
+    \]
+    and hence
+    \[
+        \theta = \sum_{j = k + 1}^{n} \lambda_j \dual{\vb{v}_j}.
+    \]
+\end{proof}

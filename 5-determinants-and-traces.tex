@@ -372,3 +372,67 @@ and this is known as \term{Leibniz formula}.
     \end{align*}
     which is the \(\pqty{j, k}\)-th entry of \(\adj\pqty{A} A\). Hence, we have \(\adj\pqty{A} A = \det\pqty{A} I_n\). The other equality for \(A \adj\pqty{A} = \det\pqty{A} I_n\) follows similarly.
 \end{proof}
+
+\subsection{Trace}
+
+\begin{definition}[Trace]
+    The \term{trace} of a square matrix \(A \in \matrixset_{n \times n} \pqty{\FF}\) is defined to be
+    \[
+        \tr\pqty{A} = \sum_{i = 1}^{n} a_{i, i}.
+    \]
+\end{definition}
+
+\begin{remark}
+    The trace is a linear map, so \(\tr \in \linearmap\pqty{\matrixset_{n \times n} \pqty{\FF}, \FF}\).
+\end{remark}
+
+\begin{lemma}[Trace of Product]
+    For all \(A \in \matrixset_{n \times m} \pqty{\FF}, B \in \matrixset_{m \times n} \pqty{\FF}\), we have
+    \[
+        \tr\pqty{AB} = \tr\pqty{BA}.
+    \]
+\end{lemma}
+
+\begin{proof}
+    Let \(C = AB \in \matrixset_{n \times n} \pqty{\FF}\) and \(D = BA \in \matrixset_{m \times m} \pqty{\FF}\). Then
+    \begin{align*}
+        \tr\pqty{C} &= \sum_{i = 1}^{n} c_{i, i} \\
+        &= \sum_{i = 1}^{n} \sum_{k = 1}^{m} a_{i, k} b_{k, i} \\
+        &= \sum_{k = 1}^{m} \sum_{i = 1}^{n} b_{k, i} a_{i, k} \\
+        &= \sum_{k = 1}^{m} d_{k, k} \\
+        &= \tr\pqty{D}.
+    \end{align*}
+\end{proof}
+
+\begin{remark}
+    We have \(\det\pqty{AB} = \det\pqty{A} \det\pqty{B} = \det\pqty{BA}\), but we do not have \(\tr\pqty{AB} = \tr\pqty{A} \tr\pqty{B}\) in general.
+\end{remark}
+
+\begin{corollary}[Similar Matrices have Same Trace]
+    If \(A, B \in \matrixset_{n \times n} \pqty{\FF}\) are similar, then
+    \[
+        \tr\pqty{A} = \tr\pqty{B}.
+    \]
+\end{corollary}
+
+\begin{proof}
+    Note
+    \[
+        \tr\pqty{P A P\inverse} = \tr\pqty{P \pqty{A P\inverse}} = \tr\pqty{\pqty{A P\inverse} P} = \tr\pqty{A \pqty{P\inverse P}} = \tr\pqty{A}.
+    \]
+\end{proof}
+
+\begin{definition}[Trace of Linear Maps]
+    Let \(V\) be a finite-dimensional vector space over \(\FF\), and let \(\alpha \in \linearmap\pqty{V, V}\) be a linear map. Fix a basis \(\basis\) for \(V\). Then we define the \term{trace} of \(\alpha\) to be
+    \[
+        \tr\pqty{\alpha} = \tr\pqty{\bqty{\alpha}_{\basis}^{\basis}}.
+    \]
+\end{definition}
+
+\begin{proposition}[Trace of Linear Maps is Well-Defined]
+    The trace of a linear map is independent of the choice of basis.
+\end{proposition}
+
+\begin{proof}
+    If \(\basis'\) is another basis, then \(\bqty{\alpha}_{\basis'}^{\basis'}\) and \(\bqty{\alpha}_{\basis}^{\basis}\) are similar.
+\end{proof}
