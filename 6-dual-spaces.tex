@@ -141,6 +141,7 @@ The first two are relatively familiar, although the sets are of different length
 \end{definition}
 
 \begin{lemma}[Properties of Annihilators]
+    \label{lem:annihilator-properties}%
     Let \(V\) be a vector space over \(\FF\), and let \(S, T \subseteq V\). We have the following.
 
     \begin{enumerate}[label=(\roman*)]
@@ -167,6 +168,7 @@ The first two are relatively familiar, although the sets are of different length
 \end{proof}
 
 \begin{proposition}[Dimension of Annihilators]
+    \label{prop:dimension-of-annihilator}%
     Let \(V\) be a finite-dimensional vector space over \(\FF\), and let \(U \subspace V\). Then
     \[
         \dim \pqty{\annihilator{U}} = \dim \pqty{V} - \dim \pqty{U}.
@@ -197,3 +199,269 @@ The first two are relatively familiar, although the sets are of different length
         \theta = \sum_{j = k + 1}^{n} \lambda_j \dual{\vb{v}_j}.
     \]
 \end{proof}
+
+\begin{remark}
+    By the proof, for any \(U \subspace V\), there is some \(X \subspace \dual{V}\), such that
+    \[
+        U = \set{\vb{v} \in V}{\forall \theta \in X: \theta\pqty{\vb{v}} = 0},
+    \]
+    and we have \(\dim \pqty{X} = \dim \pqty{V} - \dim \pqty{U}\).
+\end{remark}
+
+\begin{proposition}[Annihilator of Sum and Intersection]
+    \label{prop:annihilator-of-sum-and-intersection}%
+    For any vector space \(V\) over \(\FF\), with \(U, W \subspace V\), we have
+    \begin{enumerate}[label=(\roman*)]
+        \item \(\annihilator{\pqty{U + W}} = \annihilator{U} \cap \annihilator{W}\).
+        \item \(\annihilator{U} + \annihilator{W} \subspace \annihilator{\pqty{U \cap W}}\).
+        \item If \(V\) is finite-dimensional, then \(\annihilator{U} + \annihilator{W} = \annihilator{\pqty{U \cap W}}\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}[label=(\roman*)]
+        \item For \(\theta \in \dual{V}\), we have
+        \begin{align*}
+            \theta \in \annihilator{\pqty{U + W}} &\iff \forall \vb{u} \in U, \vb{w} \in W: \theta\pqty{\vb{u} + \vb{w}} = 0 \\
+            &\iff \forall \vb{u} \in U, \vb{w} \in W: \theta\pqty{\vb{u}} + \theta\pqty{\vb{w}} = 0 \\
+            &\iff \forall \vb{u} \in U, \vb{w} \in W: \theta\pqty{\vb{u}} = \theta\pqty{\vb{w}} = 0 \\
+            &\iff \theta \in \annihilator{U} \cap \annihilator{W}.
+        \end{align*}
+
+        \item Notice that \(U \cap W \subspace U\) and \(U \cap W \subspace W\). So by \autoref{lem:annihilator-properties} (ii), we have
+        \[
+            \annihilator{U}, \annihilator{W} \subspace \annihilator{\pqty{U \cap W}},
+        \]
+        and hence
+        \[
+            \annihilator{U} + \annihilator{W} \subspace \annihilator{\pqty{U \cap W}}.
+        \]
+
+        \item Using finite-dimensionality, let \(n = \dim V\), then
+        \begin{align*}
+            \dim\pqty{\annihilator{U} + \annihilator{W}} &= \dim\pqty{\annihilator{U}} + \dim\pqty{\annihilator{W}} - \dim\pqty{\annihilator{U} \cap \annihilator{W}} \\
+            &= \dim\pqty{\annihilator{U}} + \dim\pqty{\annihilator{W}} - \dim\pqty{\annihilator{\pqty{U + W}}} \\
+            &= \pqty{n - \dim\pqty{U}} + \pqty{n - \dim\pqty{W}} - \pqty{n - \dim\pqty{U + W}} \\
+            &= n - \dim\pqty{U \cap W} \\
+            &= \dim\pqty{\annihilator{\pqty{U \cap W}}},
+        \end{align*}
+        by using \autoref{prop:annihilator-of-sum-and-intersection} (i), \autoref{prop:dimension-of-annihilator}, and \autoref{cor:sum-intersection-formula}. Since we already have the inclusion from (ii), we have equality.
+    \end{enumerate}
+\end{proof}
+
+\subsection{Dual Maps}
+
+\begin{definition}[Dual Map]
+    Let \(\alpha \in \linearmap\pqty{V, W}\). The \term{dual map} of \(\alpha\) is the map \(\functiondomain{\dual{\alpha}}{\dual{W}}{\dual{V}}\) defined by
+    \[
+        \dual{\alpha} \pqty{\theta} = \theta \circ \alpha.
+    \]
+\end{definition}
+
+Intuitively, dual maps are the analogue of transpose of matrices in the abstract setting. Indeed, all of the following properties are analogous to the properties of transpose of matrices.
+
+\begin{lemma}[Properties of Dual Maps]
+    If \(\alpha, \beta \in \linearmap\pqty{V, W}\), \(\gamma \in \linearmap\pqty{U, V}\) and \(\lambda \in \FF\), then
+    \begin{enumerate}[label=(\roman*)]
+        \item \(\dual{\alpha} \in \linearmap\pqty{\dual{W}, \dual{V}}\).
+        \item \(\dual{\pqty{\alpha + \lambda\beta}} = \dual{\alpha} + \lambda \dual{\beta}\).
+        \item \(\dual{\pqty{\alpha \circ \gamma}} = \dual{\gamma} \circ \dual{\alpha}\).
+        \item If \(\beta\) is an isomorphism, then \(\dual{\beta}\) is also an isomorphism, and \(\dual{\pqty{\beta\inverse}} = \pqty{\dual{\beta}}\inverse\).
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    \begin{enumerate}[label=(\roman*)]
+        \item Let \(\theta, \eta \in \dual{W}\) and \(\mu \in \FF\). Then for any \(\vb{v} \in V\), we have
+        \begin{align*}
+            \dual{\alpha}\pqty{\theta + \mu \eta}\pqty{\vb{v}} &= \pqty{\theta + \mu \eta}\pqty{\alpha\pqty{\vb{v}}} \\
+            &= \theta\pqty{\alpha\pqty{\vb{v}}} + \mu \eta\pqty{\alpha\pqty{\vb{v}}} \\
+            &= \dual{\alpha}\pqty{\theta}\pqty{\vb{v}} + \mu \dual{\alpha}\pqty{\eta}\pqty{\vb{v}} \\
+            &= \pqty{\dual{\alpha}\pqty{\theta} + \mu \dual{\alpha}\pqty{\eta}}\pqty{\vb{v}}.
+        \end{align*}
+
+        This holds for all \(\vb{v} \in V\), so we have
+        \[
+            \dual{\alpha}\pqty{\theta + \mu \eta} = \dual{\alpha}\pqty{\theta} + \mu \dual{\alpha}\pqty{\eta},
+        \]
+
+        \item Notice that for all \(\vb{v} \in V\) and \(\theta \in \dual{W}\), we have
+        \begin{align*}
+            \dual{\pqty{\alpha + \lambda \beta}}\pqty{\theta}\pqty{\vb{v}} &= \theta\pqty{\pqty{\alpha + \lambda \beta}\pqty{\vb{v}}} \\
+            &= \theta\pqty{\alpha\pqty{\vb{v}} + \lambda \beta\pqty{\vb{v}}} \\
+            &= \theta\pqty{\alpha\pqty{\vb{v}}} + \lambda \theta\pqty{\beta\pqty{\vb{v}}} \\
+            &= \dual{\alpha}\pqty{\theta}\pqty{\vb{v}} + \lambda \dual{\beta}\pqty{\theta}\pqty{\vb{v}} \\
+            &= \pqty{\dual{\alpha}\pqty{\theta} + \lambda \dual{\beta}\pqty{\theta}}\pqty{\vb{v}} \\
+            &= \pqty{\dual{\alpha} + \lambda \dual{\beta}}\pqty{\theta}\pqty{\vb{v}}.
+        \end{align*}
+
+        Then for all \(\theta \in \dual{W}\), we have
+        \[
+            \dual{\pqty{\alpha + \lambda \beta}}\pqty{\theta}= \pqty{\dual{\alpha} + \lambda \dual{\beta}}\pqty{\theta},
+        \]
+        and since this holds for all \(\theta \in \dual{W}\), we have
+        \[
+            \dual{\pqty{\alpha + \lambda \beta}} = \dual{\alpha} + \lambda \dual{\beta}.
+        \]
+
+        \item Note that for all \(\theta \in \dual{W}\), we have
+        \begin{align*}
+            \dual{\pqty{\alpha \circ \gamma}}\pqty{\theta} &= \theta \circ \pqty{\alpha \circ \gamma} \\
+            &= \pqty{\theta \circ \alpha} \circ \gamma \\
+            &= \dual{\gamma}\pqty{\theta \circ \alpha} \\
+            &= \dual{\gamma}\pqty{\dual{\alpha}\pqty{\theta}} \\
+            &= \pqty{\dual{\gamma} \circ \dual{\alpha}}\pqty{\theta}.
+        \end{align*}
+
+        This holds for all \(\theta \in \dual{W}\), so we have
+        \[
+            \dual{\pqty{\alpha \circ \gamma}} = \dual{\gamma} \circ \dual{\alpha}.
+        \]
+
+        \item First, we note that the dual of the identity is the identity, since for all \(\theta \in \dual{V}\)
+        \[
+            \dual{\pqty{\identity_V}}\pqty{\theta} = \theta \circ \identity_V = \theta = \identity_{\dual{V}}\pqty{\theta},
+        \]
+        so \(\dual{\pqty{\identity_V}} = \identity_{\dual{V}}\).
+
+        Hence, by (iii), we have
+        \[
+            \identity_{\dual{V}} = \dual{\pqty{\identity_V}} = \dual{\pqty{\beta \circ \beta\inverse}} = \dual{\pqty{\beta\inverse}} \circ \dual{\beta},
+        \]
+        and similarly, we have
+        \[
+            \dual{\pqty{\beta\inverse}} \circ \dual{\beta} = \identity_{\dual{W}}.
+        \]
+    \end{enumerate}
+\end{proof}
+
+\begin{proposition}[Dual Maps and Transpose of Matrices]
+    Suppose \(V, W\) be finite-dimensional, and let \(\alpha \in \linearmap\pqty{V, W}\). Let \(\basis, \mathcal{C}\) be bases for \(V, W\) respectively. Then we have
+    \[
+        \bqty{\dual{\alpha}}^{\dual{\mathcal{C}}}_{\dual{\basis}} = \pqty{\bqty{\alpha}^{\basis}_{\mathcal{C}}}\transpose.
+    \]
+\end{proposition}
+
+\begin{proof}
+    Suppose \(n = \dim V\) and \(m = \dim W\), with
+    \[
+        \basis = \Bqty{\vb{b}_1, \ldots, \vb{b}_n} \qand \mathcal{C} = \Bqty{\vb{c}_1, \ldots, \vb{c}_m}.
+    \]
+
+    Let \(A = \bqty{\alpha}_{\mathcal{C}}^{\basis}\). Then we have
+    \[
+        \alpha\pqty{\vb{b}_i} = \sum_{k = 1}^{m} A_{ki} \vb{c}_k.
+    \]
+
+    Let \(A' = \bqty{\dual{\alpha}}_{\dual{\basis}}^{\dual{\mathcal{C}}}\). Then we have
+    \[
+        \dual{\alpha} \pqty{\dual{\vb{c}_j}} = \sum_{l = 1}^{n} A'_{lj} \dual{\vb{b}_l}.
+    \]
+
+    Then by definition of \(\dual{\vb{b}_i}\), we have
+    \begin{align*}
+        A_{i, j}' &= \dual{\alpha} \pqty{\dual{\vb{c}_j}} \pqty{\vb{b}_i} \\
+        &= \dual{\vb{c}_j} \pqty{\alpha \pqty{\vb{b}_i}} \\
+        &= A_{j, i}.
+    \end{align*}
+\end{proof}
+
+\begin{example}[Change of Basis and Transpose, Inverse of Transpose]
+    Let \(\basis\), \(\mathcal{C}\) be bases for a finite-dimensional space \(V\). Let
+    \[
+        P = \bqty{\identity_V}_{\mathcal{C}}^{\basis} \in \matrixset_{n \times n}\pqty{\FF.}
+    \]
+
+    Then we have
+    \begin{align*}
+        P\transpose &= \bqty{\identity_{\dual{V}}}_{\dual{\basis}}^{\dual{\mathcal{C}}} \\
+        \pqty{P\transpose}\inverse &= \bqty{\identity_{\dual{V}}}_{\dual{\mathcal{C}}}^{\dual{\basis}}.
+    \end{align*}
+\end{example}
+
+\begin{proposition}[Images, Kernals, Dual Maps and Annihilators]
+    Let \(V, W\) be vector spaces over \(\FF\). Let \(\alpha \in \linearmap\pqty{V, W}\). Then we have
+    \begin{enumerate}[label=(\roman*)]
+        \item \(\ker\pqty{\dual{\alpha}} = \annihilator{\img\pqty{\alpha}}\);
+        \item \(\img\pqty{\dual{\alpha}} \subspace \annihilator{\ker\pqty{\alpha}}\);
+        \item If \(V\) is finite-dimensional, then \(\img\pqty{\dual{\alpha}} = \annihilator{\ker\pqty{\alpha}}\), and \(\rank\pqty{\dual{\alpha}} = \rank\pqty{\alpha}\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}[label=(\roman*)]
+        \item For any \(\theta \in \dual{W}\), we have
+        \begin{align*}
+            \theta \in \ker\pqty{\dual{\alpha}} &\iff \theta \circ \alpha = 0 \\
+            &\iff \forall \vb{v} \in V: \theta\pqty{\alpha\pqty{\vb{v}}} = 0 \\
+            &\iff \theta \in \annihilator{\img\pqty{\alpha}}.
+        \end{align*}
+
+        \item For any \(\eta \in \dual{V}\), if there is some \(\theta \in \dual{W}\), such that
+        \[
+            \eta = \dual{\alpha}\pqty{\theta} = \theta \circ \alpha,
+        \]
+        then for \(\vb{v} \in \ker \alpha\), we have
+        \[
+            \eta \pqty{\vb{v}} = \theta\pqty{\alpha\pqty{\vb{v}}} = \theta\pqty{0} = 0,
+        \]
+        so \(\eta \in \annihilator{\ker\pqty{\alpha}}\).
+
+        \item Suppose \(\rank\pqty{\dual{\alpha}} = \rank\pqty{\alpha}\). Then we have
+        \begin{align*}
+            \dim\pqty{\annihilator{\ker\pqty{\alpha}}} &= \dim\pqty{V} - \dim\pqty{\ker\pqty{\alpha}} && \text{by \autoref{prop:dimension-of-annihilator}} \\
+            &= \rank \alpha && \text{by \autoref{thm:rank-nullity}} \\
+            &= \rank \dual{\alpha} \\
+            &= \dim\pqty{\img\pqty{\dual{\alpha}}}.
+        \end{align*}
+
+        To show the ranks are equal, we use matrices
+        \[
+            A = \bqty{\alpha}_{\mathcal{C}}^{\basis} \qand A\transpose = \bqty{\dual{\alpha}}_{\dual{\basis}}^{\dual{\mathcal{C}}}.
+        \]
+
+        Then we have
+        \begin{align*}
+            \rank\pqty{\alpha} &= \colrank\pqty{A} \\
+            &= \rowrank\pqty{A} && \text{by \autoref{thm:row-rank-equals-column-rank}} \\
+            &= \colrank\pqty{A\transpose} \\
+            &= \rank\pqty{\dual{\alpha}}.
+        \end{align*}
+        
+        Alternatively, we can use the rank-nullity theorem:
+        \begin{align*}
+            \rank \pqty{\dual{\alpha}} &= \dim \pqty{\dual{W}} - \dim \pqty{\ker \pqty{\dual{\alpha}}} && \text{by \autoref{thm:rank-nullity-thm}} \\
+            &= \dim \pqty{W} - \dim \pqty{\annihilator{\img\pqty{\alpha}}} && \text{by (i) and \autoref{prop:dimension-of-annihilator}} \\
+            &= \dim \img \pqty{\alpha} && \text{by \autoref{prop:dimension-of-annihilator}} \\
+            &= \rank \pqty{\alpha}.
+        \end{align*}
+    \end{enumerate}
+\end{proof}
+
+\subsection{Double duals}
+
+Denote
+\[
+    \ddual{V} = \dual{\pqty{\dual{V}}}.
+\]
+
+Then if \(V\) is finite-dimensional, by dimensions we have
+\[
+    V \isomorphic \dual{V} \isomorphic \ddual{V}.
+\]
+
+\begin{theorem}[Evaluation Map]
+    Let \(V\) be a vector space over \(\FF\). Define the map
+    \[
+        \functiondomain{\epsilon}{V}{\ddual{V}}
+    \]
+    given by
+    \[
+        \epsilon\pqty{\vb{v}} \pqty{\theta} = \theta\pqty{\vb{v}}
+    \]
+    for all \(\vb{v} \in V\) and \(\theta \in \dual{V}\). Then \(\epsilon\) is a linear map, and if \(V\) is finite-dimensional, then \(\epsilon\) is an isomorphism.
+\end{theorem}
+
+\begin{definition}[Evaluation Map, Natural Isomorphism]
+    The map \(\epsilon\) defined in the previous theorem is called the \term{evaluation map}. In the finite-dimensional case, the isomorphism \(\epsilon\) is called a \term{natural isomorphism} between \(V\) and \(\ddual{V}\).
+\end{definition}
