@@ -1,0 +1,113 @@
+\section{Polynomials}
+
+\begin{definition}[Polynomial, Degree, Leading Coefficient]
+    A \term{polynomial} over a field \(F\) is an expression
+    \[
+        f\pqty{t} = a_0 + a_1 t + a_2 t^2 + \dots + a_n t^n,
+    \]
+    for some \(n \geq 0\) and coefficients \(a_0, a_1, \dots, a_n \in F\).
+
+    The set \(\FF\bqty{t}\) is the set of all polynomials over \(F\).
+
+    The \term{degree} of a a polynomial \(f\pqty{t} \in \FF\bqty{t}\) is the largest \(n\) such that \(a_n \neq 0\). We write \(\deg f = n\). This \(a_n\) is the \term{leading coefficient} of \(f\pqty{t}\), and \(f\) is \term{monic} if \(a_n = 1\).
+
+    By convention, the zero polynomial has degree \(-\infty\).
+\end{definition}
+
+\begin{definition}[Arithmetics on Polynomials]
+    Let \(f, g \in \FF\bqty{t}\) be polynomials with
+    \[
+        f\pqty{t} = \sum_{i = 0}^{n} a_i t^i \qand g\pqty{t} = \sum_{ i =0}^{m} b_i t^i,
+    \]
+    and set \(a_i, b_j = 0\) for \(i > n, j > m\) or \(i < 0, j < 0\).
+    
+    We define the following operations on polynomials:
+    \begin{itemize}
+        \item \textbf{Addition.} The coefficient of \(t^k\) in \(f + g\) is \(a_k + b_k\) for \(k \geq 0\).
+        \item \textbf{Scalar Multiplication.} For \(\lambda \in \FF\), the coefficient of \(t^k\) in \(\lambda f\) is \(\lambda a_k\) for \(k \geq 0\).
+        \item \textbf{Multiplication.} The coefficient of \(t^k\) in \(f \cdot g\) is \(\sum_{i = 0}^{k} a_i b_{k - i}\) for \(k \geq 0\).
+    \end{itemize}
+\end{definition}
+
+\begin{proposition}[Degree of Polynomials]
+    We have
+    \begin{itemize}
+        \item \(\deg \pqty{f + g} \leq \max\pqty{\deg f, \deg g}\).
+        \item \(\deg \pqty{\lambda f} = \deg f\) for \(\lambda \in \FF, \lambda \neq 0\).
+        \item \(\deg \pqty{f \cdot g} = \deg f + \deg g\),
+    \end{itemize}
+\end{proposition}
+
+\begin{definition}[Evaluation of Polynomials]
+    For \(\lambda \in \FF\), write
+    \[
+        f\pqty{\lambda} = \sum_{i = 0}^{n} a_i \lambda^i \in \FF,
+    \]
+    and this is compatible with the vector space structure of \(\FF\bqty{t}\) and the multiplication of polynomials.
+\end{definition}
+
+\begin{remark}
+    If \(\FF\) is finite, then \(\FF\bqty{t}\) is \emph{not} identical (isomorphic) to the space of polynomial functions \(\functiondomain{f}{\FF}{\FF}\), the latter is clearly finite-dimensional, while the former is infinite-dimensional.
+\end{remark}
+
+\begin{definition}[Divisibility]
+    Let \(f, g \in \FF\bqty{t}\). We say \(f\) \term{divides} \(g\), or \(f\) is a \term{factor} of \(g\), written \(f \divides g\) if there is some \(h \in \FF\bqty{t}\) such that \(g = f \cdot h\).
+\end{definition}
+
+\begin{proposition}[Euclidean Algorithm]
+    For all \(f, g in \FF\bqty{t}\), \(g \neq 0\), there exist unique \(q, r \in \FF\bqty{t}\) such that
+    \[
+        f = g \cdot q + r,
+    \]
+    where \(\deg r < \deg g\).
+\end{proposition}
+
+\begin{proof}[Sketch of \proofname]
+    Let \(f\pqty{t} = \sum_{i = 0}^{n} a_i t^i\) and \(g\pqty{t} = \sum_{i = 0}^{m} b_i t^i\), \(\deg f = n, \deg g = m \geq 0\).
+
+    \begin{itemize}
+        \item If \(m > n\), set \(q = 0, r = f\).
+        \item If \(n \geq m\), set
+        \[
+            f'\pqty{t} - \frac{a_n}{b_m} t^{n - m} g\pqty{t},
+        \]
+        and we may continue by induction, since \(\deg f' < \deg f\).
+    \end{itemize}
+\end{proof}
+
+\begin{corollary}[B\'{e}zout's Lemma]
+    If \(f_1, \ldots, f_n \in \FF\bqty{t}\) have no common factor of degree at least one, then there exist \(g_1, \ldots, g_n \in \FF\bqty{t}\) such that
+    \[
+        f_1 g_1 + \dots + f_n g_n = 1.
+    \]
+\end{corollary}
+
+\begin{proof}
+    This is same for integers, and follows from the Euclidean algorithm.
+\end{proof}
+
+\begin{lemma}[Factor Theorem]
+    For \(\lambda \in \FF\), \(f\pqty{\lambda} = 0\) if and only if \(\pqty{t - \lambda} \divides f\).
+\end{lemma}
+
+\begin{proof}
+    We apply Euclid's algorithm to \(f\) and \(t - \lambda\).
+\end{proof}
+
+\begin{definition}[Root, Multiplicity]
+    A scalar \(\lambda \in \FF\) is a \term{root} of \(f\) of \term{multiplicity} \(\geq e\), if \((t - \lambda)^e \divides f\).
+\end{definition}
+
+\begin{corollary}[Degree \(n\) Polynomial has at most \(n\) Roots]
+    If \(\deg \pqty{f} = n \geq 0\), then \(f\) has at most \(n\) roots, counted with multiplicity.
+\end{corollary}
+
+\begin{corollary}[Identical Polynomials]
+    If \(\deg\pqty{f}, \deg\pqty{g} < n\), and there are \(\lambda_1, \ldots, \lambda_n \in \FF\) distinct, such that \(f\pqty{\lambda_i} = g\pqty{\lambda_i}\) for all \(i = 1, \ldots, n\), then \(f = g\).
+\end{corollary}
+
+\begin{theorem}[Fundamental Theorem of Algebra]
+    If \(\FF = \CC\), then every polynomial \(f \in \CC\bqty{t}\) with \(\deg f \geq 1\) has exactly \(n\) roots in \(\CC\) counted with multiplicity, and hence is a product of polynomials of degree \(1\).
+\end{theorem}
+
+For the proof, see \textit{IB Complex Analysis}.

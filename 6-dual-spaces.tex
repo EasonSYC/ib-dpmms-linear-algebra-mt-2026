@@ -438,6 +438,22 @@ Intuitively, dual maps are the analogue of transpose of matrices in the abstract
     \end{enumerate}
 \end{proof}
 
+This allows us to prove the row rank equals column rank in another way. Let \(A \in \matrixset_{m \times n}\pqty{\FF}\), and consider the linear map
+\[
+    \function{\alpha}{\FF^n}{\FF^m}{\vb{v}}{A\vb{v}}
+\]
+then
+\[
+    A = \bqty{\alpha}_{\mathcal{E}_m}^{\mathcal{E}_n} \qand A\transpose = \bqty{\dual{\alpha}}_{\dual{\mathcal{E}_n}}^{\dual{\mathcal{E}_m}},
+\]
+so
+\begin{align*}
+    \colrank \pqty{A} &= \rank \pqty{\alpha} \\
+    &= \rank \pqty{\dual{\alpha}} \\
+    &= \colrank \pqty{A\transpose} \\
+    &= \rowrank \pqty{A}.
+\end{align*}
+
 \subsection{Double duals}
 
 Denote
@@ -462,6 +478,88 @@ Then if \(V\) is finite-dimensional, by dimensions we have
     for all \(\vb{v} \in V\) and \(\theta \in \dual{V}\). Then \(\epsilon\) is a linear map, and if \(V\) is finite-dimensional, then \(\epsilon\) is an isomorphism.
 \end{theorem}
 
+\begin{proof}
+    \textbf{Linearity.} Let \(\vb{v}, \vb{w} \in V\) and \(\lambda \in \FF\). Then for any \(\theta \in \dual{V}\), we have
+    \begin{align*}
+        \epsilon\pqty{\vb{v} + \lambda \vb{w}}\pqty{\theta} &= \theta\pqty{\vb{v} + \lambda \vb{w}} \\
+        &= \theta\pqty{\vb{v}} + \lambda \theta\pqty{\vb{w}} \\
+        &= \epsilon\pqty{\vb{v}}\pqty{\theta} + \lambda \epsilon\pqty{\vb{w}}\pqty{\theta} \\
+        &= \pqty{\epsilon\pqty{\vb{v}} + \lambda \epsilon\pqty{\vb{w}}}\pqty{\theta}.
+    \end{align*}
+
+    This holds for all \(\theta\), so \(\epsilon\pqty{\vb{v} + \lambda \vb{w}} = \epsilon\pqty{\vb{v}} + \lambda \epsilon\pqty{\vb{w}}\).
+
+    \textbf{Injective if finite-dimensional.} Suppose \(\vb{0} \neq \vb{v} \in \ker \pqty{\epsilon}\), i.e., for all \(\theta \in \dual{V}\), we have
+    \[
+        \epsilon\pqty{\vb{v}}\pqty{\theta} = \theta\pqty{\vb{v}} = 0.
+    \]
+
+    Extend \(\vb{v}\) to a basis \(\basis = \Bqty{\vb{v}, \vb{b}_2, \ldots, \vb{b}_n}\) for \(V\). Then we have the dual basis \(\dual{\basis} = \Bqty{\dual{\vb{v}}, \dual{\vb{b}_2}, \ldots, \dual{\vb{b}_n}}\) for \(\dual{V}\). Set \(\theta = \dual{\vb{v}} \in \dual{V}\). Then we have
+    \[
+        \theta\pqty{\vb{v}} = \dual{\vb{v}}\pqty{\vb{v}} = 1 \neq 0,
+    \]
+    which is a contradiction. Hence \(\ker\pqty{\epsilon} = \Bqty{\vb{0}}\), and \(\epsilon\) is injective.
+
+    \textbf{Surjective if finite-dimensional.} Since \(\dim\pqty{V} = \dim\pqty{\dual{V}} = \dim\pqty{\ddual{V}}\), and \(\epsilon\) is injective, we have that \(\epsilon\) is surjective.
+\end{proof}
+
+\begin{remark}
+    For any finite-dimensional space, \(V \isomorphic \dual{V}\), but any such isomorphism depends on a choice a basis (i.e., it is not natural).
+\end{remark}
+
 \begin{definition}[Evaluation Map, Natural Isomorphism]
     The map \(\epsilon\) defined in the previous theorem is called the \term{evaluation map}. In the finite-dimensional case, the isomorphism \(\epsilon\) is called a \term{natural isomorphism} between \(V\) and \(\ddual{V}\).
 \end{definition}
+
+\begin{remark}
+    In infinite-dimensional spaces, \(\epsilon\) is not necessarily surjective -- and indeed, in a sense, \(\dual{V}\) is "larger" than \(V\).
+\end{remark}
+
+\begin{proposition}[Dual Bases are Dual to Some Basis]
+    Let \(V\) be a finite-dimensional vector space over \(\FF\). Every basis \(\mathcal{C}\) of \(\dual{V}\) is dual to some basis for \(V\).
+\end{proposition}
+
+\begin{proof}
+    Let \(\mathcal{C} = \Bqty{\theta_1, \ldots, \theta_n}\) be a basis for \(\dual{V}\). Then it has a dual basis in \(\ddual{V}\), given by
+    \[
+        \dual{\mathcal{C}} = \Bqty{\dual{\theta_1}, \ldots, \dual{\theta_n}}.
+    \]
+
+    Then using the evaluation map \(\epsilon\), define \(\vb{v}_i = \epsilon\inverse\pqty{\dual{\theta_i}} \in V\) for \(i = 1, \ldots, n\). Then \(\mathcal{B} = \Bqty{\vb{v}_1, \ldots, \vb{v}_n}\) is a basis for \(V\), and we have
+    \[
+        \theta_i\pqty{\vb{v}_j} = \epsilon\pqty{\vb{v}_j} \pqty{\theta_i} = \dual{\theta_j}\pqty{\theta_i} = \kronecker_{i, j},
+    \]
+    so \(C = \dual{B}\) as desired.
+\end{proof}
+
+\begin{proposition}
+    Let \(V\) be a finite-dimensional vector space over \(\FF\). For any \(U \subspace V\), we have
+    \[
+        \epsilon \pqty{U} = \annihilator{\pqty{\annihilator{U}}}
+    \]
+\end{proposition}
+
+\begin{proof}
+    If \(\vb{u} \in U\), then for all \(\theta \in \annihilator{U}\), we have
+    \[
+        \epsilon\pqty{\vb{u}}\pqty{\theta} = \theta\pqty{\vb{u}} = 0,
+    \]
+    so \(\epsilon\pqty{\vb{u}} \in \annihilator{\pqty{\annihilator{U}}}\), and hence \(\epsilon\pqty{U} \subspace \annihilator{\pqty{\annihilator{U}}}\). They are hence equal by dimension counting: let \(n = \dim\pqty{V}\). Then we have
+    \begin{align*}
+        \dim\pqty{\annihilator{\pqty{\annihilator{U}}}} &= n - \dim\pqty{\annihilator{U}} \\
+        &= n - \pqty{n - \dim\pqty{U}} \\
+        &= \dim\pqty{U} \\
+        &= \dim\pqty{\epsilon\pqty{U}}.
+    \end{align*}
+\end{proof}
+
+\begin{remark}
+    For \(X \subspace \dual{V}\), the annihilator of \(X\), \(\annihilator{X}\), is a subspace of \(\ddual{V}\), which is given by
+    \[
+        \annihilator{X} = \epsilon\pqty{X_0} = \set{\vb{v} \in V}{\forall \theta \in X: \theta\pqty{\vb{v}} = 0} = \bigcap_{\theta \in X} \ker\pqty{\theta}.
+    \]
+
+    Note \(\dim \pqty{X_0} = n - \dim \pqty{X}\) where \(n = \dim\pqty{V}\).
+
+    Therefore, given \(U \subspace V\), then \(U = X_0\) for some \(X \subspace \dual{V}\), namely \(X = \annihilator{U}\).
+\end{remark}
