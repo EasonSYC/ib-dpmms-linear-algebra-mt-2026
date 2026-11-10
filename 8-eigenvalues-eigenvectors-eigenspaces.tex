@@ -1,0 +1,211 @@
+\section{Eigenvalues, Eigenvectors and Eigenspaces}
+\subsection{Triangular and Diagonal Matrices/Linear Maps}
+
+\begin{definition}[Triangular and Diagonal Matrices/Linear Maps]
+    A matrix \(A \in \matrixset_{n \times n} \pqty{\FF}\) is \term{(upper) triangular} (respectively, \term{diagonal}) if \(A\) is of the form
+    \[
+        A = \pmqty{
+            \lambda_1 & * & \cdots & * \\
+             & \lambda_2 & \cdots & * \\
+             & & \ddots & \vdots \\
+            0 & & & \lambda_n
+        },
+    \]
+    and respectively,
+    \[
+        A = \pmqty{
+            \lambda_1 &  & & 0 \\
+             & \lambda_2 & &  \\
+             & & \ddots & \\
+            0 & & & \lambda_n
+        }.
+    \]
+
+    A matrix \(A \in \matrixset_{n \times n} \pqty{\FF}\) is \term{triangularisable} (respectively, \term{diagonalisable}) if it is similar to a triangular (respectively, diagonal) matrix.
+
+    Let \(V\) be a finite dimensional vector space over \(\FF\), and let \(\alpha \in \linearmap\pqty{V, V}\). We say \(\alpha\) is \term{triangularisable} (respectively, \term{diagonalisable}) if there exists a basis \(\basis\) of \(V\) such that the matrix representation of \(\alpha\) with respect to \(\basis\) is triangular (respectively, diagonal).
+\end{definition}
+
+\begin{remark}
+    Note a linear endomorphism \(\alpha\) is triangularisable (respectively, diagonalisable) if and only if its matrix representation with respect to some (equivalently, any) basis is triangularisable (respectively, diagonalisable).
+\end{remark}
+
+It is easy to compute determinants of triangular matrices, while diagonal matrices are easier to analyse similarity class of a matrix.
+
+Note that if there is a basis \(\basis = \Bqty{\vb{v}_1, \ldots, \vb{v}_n}\) is a basis for \(V\), such that
+\[
+    \bqty{\alpha}_{\basis}^{\basis} = \pmqty{\dmat{\lambda_1, \ddots, \lambda_n}},
+\]
+then \(\alpha\pqty{\vb{v}_i} = \lambda_i \vb{v}_i\) for all \(i = 1, \ldots, n\).
+
+\begin{definition}[Eigenvalues and Eigenvectors]
+    Let \(V\) be a vector space of \(\FF\), and let \(\alpha \in \linearmap\pqty{V, V}\).
+    \begin{itemize}
+        \item \(\lambda \in \FF\) is an \term{eigenvalue} of \(\alpha\), if there exists a non-zero vector \(\vb{0} \neq \vb{v} \in V\) such that \(\alpha\pqty{\vb{v}} = \lambda \vb{v}\).
+        \item Such a vector \(\vb{0} \neq \vb{v} \in V\) is called an \term{eigenvector} of \(\alpha\) corresponding to the eigenvalue \(\lambda\).
+        \item The \term{eigenspace} of \(\alpha\) corresponding to the eigenvalue \(\lambda\) is the set
+        \[
+            V_{\lambda} = \set{\vb{v} \in V}{\alpha\pqty{\vb{v}} = \lambda \vb{v}}.
+        \]
+
+    \end{itemize}
+\end{definition}
+
+\begin{remark}
+    \begin{itemize}
+        \item Note that \(V_{\lambda}\) is a subspace of \(V\), since we have \(V_{\lambda} = \ker\pqty{\alpha - \lambda \identity_V}\).
+        \item In the finite-dimensional case, \(\alpha\) is diagonalisable, if and only if there exists a basis of \(V\) consisting of eigenvectors of \(\alpha\).
+        \item If \(\vb{v} \in V_{\mu}\) and \(\lambda \neq \mu\), then
+        \[
+            \pqty{\alpha - \lambda \identity_V}\pqty{\vb{v}} = (\mu - \lambda) \vb{v},
+        \]
+        or in other words, the map \(\pqty{\alpha - \lambda \identity_V}\) preserves the subspace \(V_{\mu}\), and the restriction
+        \[
+            \functiondomain{\rightbar{\pqty{\alpha - \lambda \identity_V}}_{V_{\mu}}}{V_{\mu}}{V_{\mu}}
+        \]
+        is invertible, with inverse
+        \[
+            v \mapsto \pqty{\mu - \lambda}\inverse v.
+        \]
+    \end{itemize}
+\end{remark}
+
+\begin{lemma}[Eigenvectors corresponding to Distinct Eigenvalues are Linearly Independent]
+    \label{lem:eigenvectors-distinct-eigenvalues-linearly-independent}%
+    If \(\lambda_1, \ldots, \lambda_n\) are distinct eigenvalues of \(\alpha\), with corresponding eigenvectors \(\vb{0} \neq \vb{v}_i \in V_{\lambda_i}\). Then the set \(\Bqty{\vb{v}_1, \ldots, \vb{v}_n}\) is linearly independent.
+\end{lemma}
+
+\begin{proof}
+    We prove by contradiction. Suppose it is not linearly independent. Let
+    \[
+        \sum_{i = 1}^{n} \mu_i \vb{v}_i = \vb{0},
+    \]
+    for \(\mu_i \in \FF\), not all zero. Without loss of generality, let \(\mu_1 \neq 0\). Let
+    \[
+        \beta = \prod_{i = 2}^{n} \pqty{\alpha - \lambda_i \identity_V}.
+    \]
+
+    Then we have
+    \[
+        \beta\pqty{\vb{v}_j} = \pqty{\prod_{i = 2}^{n} \pqty{\lambda_j - \lambda_i}} \vb{v}_j
+    \]
+    and this is non-zero if and only if \(j = 1\). Thus,
+    \begin{align*}
+        \vb{0} &= \beta\pqty{\sum_{i = 1}^{n} \mu_i \vb{v}_i} \\
+        &= \mu_1 \pqty{\prod_{i = 2}^{n} \pqty{\lambda_1 - \lambda_i}} \vb{v}_1, \\
+        &\neq \vb{0},
+    \end{align*}
+    which is a contradiction.
+\end{proof}
+
+\begin{corollary}[Finitely Many Eigenvalues]
+    If \(V\) is a finite-dimensional vector space, then \(\alpha \in \linearmap\pqty{V, V}\) has finitely many eigenvalues, and in particular it has at most \(\dim V\) distinct eigenvalues.
+\end{corollary}
+
+\begin{example}[Real Sequences and Infinitely Many Eigenvalues]
+    Let \(V = \RR^{\NN}\), and define the linear map
+    \[
+        \function{\alpha}{V}{V}{\pqty{x_n}_{n \in \NN}}{\pqty{a_{n + 1}}_{n \in \NN}}.
+    \]
+
+    Then for every \(\lambda \in \RR\), the sequence \(\pqty{\lambda^n}_{n \in \NN}\) is an eigenvector of \(\alpha\) corresponding to the eigenvalue \(\lambda\). Thus, \(\alpha\) has infinitely many eigenvalues.
+\end{example}
+
+\begin{proposition}[Eigenspaces Generate Direct Sums]
+    Let \(V\) be a finite-dimensional vector space, and let \(\alpha \in \linearmap\pqty{V, V}\). Suppose \(\lambda_1, \ldots, \lambda_k \in \FF\) are all the eigenvalues of \(\alpha\).
+
+    \begin{enumerate}[label=(\roman*)]
+        \item \term{Eigenspaces always generate direct sums.} We have
+        \[
+            \spn\pqty{V_{\lambda_1} \cup \cdots \cup V_{\lambda_k}} = V_{\lambda_1} \oplus \cdots \oplus V_{\lambda_k}.
+        \]
+
+        \item If \(V\) is finite-dimensional, then \(\alpha\) is diagonalisable if and only if
+        \[
+            V = V_{\lambda_1} \oplus \cdots \oplus V_{\lambda_k}.
+        \]
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}[label=(\roman*)]
+        \item If this is not true, then there is some \(\vb{v}_i \in V_{\lambda_i}\) such that
+        \[
+            \sum_{i = 1}^{k} \vb{v}_i = \vb{0},
+        \]
+        and not all \(\vb{v}_i\) are zero. This contradicts \autoref{lem:eigenvectors-distinct-eigenvalues-linearly-independent}.
+
+        \item Suppose \(\alpha\) is diagonalisable. Then there is a basis of eigenvectors of \(\alpha\). These eigenvectors span \(V\), and lie in \(V_{\lambda_1} \cup \cdots \cup V_{\lambda_k}\).
+        
+        Conversely, if \(V = V_{\lambda_1} \oplus \cdots \oplus V_{\lambda_k}\), and let \(\basis_i\) be a basis of \(V_{\lambda_i}\), with \(\abs{\basis_i} = \dim V_{\lambda_i} = n_i\). Then \(\basis = \bigcup_{i = 1}^{k} \basis_i\) is a basis of \(V\), and we have
+        \[
+            \bqty{\alpha}_{\basis}^{\basis} = \pmqty{\dmat{\lambda_1 I_{n_1}, \lambda_2 I_{n_2}, \ddots,\lambda_k I_{n_k}}}
+        \]
+        is diagonal, and thus \(\alpha\) is diagonalisable.
+    \end{enumerate}
+\end{proof}
+
+\subsection{Characteristic Polynomial and Eigenvalues}
+
+Recall that if \(V\) is finite-dimensional, and \(\beta \in \linearmap\pqty{V, V}\), then \(\det \beta = 0\) if and only if \(\ker \pqty{\beta} \neq \Bqty{\vb{0}}\). Therefore, \(\lambda \in \FF\) is an eigenvalue of \(\alpha \in \linearmap\pqty{V, V}\) if and only if \(\det\pqty{\alpha - \lambda \identity_V} = 0\).
+
+\begin{definition}[Characteristic Polynomial]
+    Let \(A \in \matrixset_{n \times n} \pqty{\FF}\). The \term{characteristic polynomial} of \(A\) is the polynomial
+    \[
+        \characteristic_{A} \pqty{t} = \det\pqty{t I_n - A} \in \FF\bqty{t}.
+    \]
+    
+    Similarly, for a finite-dimensional vector space \(V\) and \(\alpha \in \linearmap\pqty{V, V}\), the characteristic polynomial of \(\alpha\) is defined as
+    \[
+        \characteristic_{\alpha} \pqty{t} = \chi_{\bqty{\alpha}_{\basis}^{\basis}} \pqty{t},
+    \]
+    for some (equivalently, any) basis \(\basis\) of \(V\).
+\end{definition}
+
+\begin{remark}
+    \begin{enumerate}[label=(\roman*)]
+        \item The characteristic polynomial \(\characteristic_{A}\) is monic of degree \(n\).
+        \item Note that
+        \[
+            \characteristic_{P A P\inverse} \pqty{t} = \det\pqty{t I_n - P A P\inverse} = \det\pqty{P\pqty{t I_n - A}P\inverse} = \det\pqty{t I_n - A} = \characteristic_{A}\pqty{t},
+        \]
+        so similar matrices have the same characteristic polynomial. In particular, \(\characteristic_{\alpha}\) is well-defined.
+        \item By the Leibniz rule, if the characteristic polynomial is given by
+        \[
+            \characteristic_{\alpha} \pqty{t} = t^n + c_{n - 1} t^{n - 1} + \cdots + c_1 t + c_0,
+        \]
+        then \(c_{n - 1} = -\tr \alpha\) and \(c_0 = (-1)^n \det \alpha\).
+    \end{enumerate}
+\end{remark}
+
+Then our previous observation of eigenvalues and characteristic polynomial can be summarised as follows.
+
+\begin{lemma}[Eigenvalues are Roots of Characteristic Polynomial]
+    Let \(V\) be a finite-dimensional vector space, and let \(\alpha \in \linearmap\pqty{V, V}\). The set of eigenvalues of \(\alpha\) is precisely the set of roots of \(\characteristic_{\alpha}\).
+\end{lemma}
+
+\subsection{Triangularisability and Diagonalisability}
+
+\begin{theorem}[Triangularisability of Complex Matrices]
+    \label{thm:triangularisability-complex-matrices}%
+    Every square, complex matrix is triangularisable.
+\end{theorem}
+
+\begin{proposition}[Triangularisability and Characteristic Polynomial]
+    \label{prop:triangularisability-characteristic-polynomial}%
+    For any \(A \in \matrixset_{n \times n} \pqty{\FF}\), \(A\) is triangularisable if and only if \(\characteristic_{A}\) splits into linear factors over \(\FF\).
+\end{proposition}
+
+Note that \autoref{thm:triangularisability-complex-matrices} follows from \autoref{prop:triangularisability-characteristic-polynomial}, by \autoref{thm:fundamental-theorem-of-algebra} (Fundamental Theorem of Algebra).
+
+\begin{example}[Real Matrices and Non-Triangularisability]
+    Note that the matrix
+    \[
+        A = \pmqty{\cos \theta & -\sin \theta \\ \sin \theta & \cos \theta} \in \matrixset_{2 \times 2} \pqty{\RR},
+    \]
+    with \(\theta \in \oointv{0}{\pi}\). Then the characteristic polynomial is
+    \[
+        \characteristic_{A} \pqty{t} = t^2 - 2 \cos \theta t + 1,
+    \]
+    which has discriminant \(\Delta = 4 \cos^2 \theta - 4 < 0\). Thus, \(\characteristic_{A}\) does not split into linear factors over \(\RR\), and thus \(A\) is not triangularisable over \(\RR\).
+\end{example}
