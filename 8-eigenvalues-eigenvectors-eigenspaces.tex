@@ -112,6 +112,7 @@ then \(\alpha\pqty{\vb{v}_i} = \lambda_i \vb{v}_i\) for all \(i = 1, \ldots, n\)
 \end{example}
 
 \begin{proposition}[Eigenspaces Generate Direct Sums]
+    \label{prop:eigenspaces-generate-direct-sums}%
     Let \(V\) be a finite-dimensional vector space, and let \(\alpha \in \linearmap\pqty{V, V}\). Suppose \(\lambda_1, \ldots, \lambda_k \in \FF\) are all the eigenvalues of \(\alpha\).
 
     \begin{enumerate}[label=(\roman*)]
@@ -209,3 +210,278 @@ Note that \autoref{thm:triangularisability-complex-matrices} follows from \autor
     \]
     which has discriminant \(\Delta = 4 \cos^2 \theta - 4 < 0\). Thus, \(\characteristic_{A}\) does not split into linear factors over \(\RR\), and thus \(A\) is not triangularisable over \(\RR\).
 \end{example}
+
+\begin{proof}[\proofname\ of \autoref{prop:triangularisability-characteristic-polynomial}]
+    Let \(\functiondomain{\alpha}{\FF^n}{\FF^n}\) be given by \(\alpha\pqty{\vb{v}} = A\vb{v}\), so that \(\bqty{\alpha}_{E_n}^{E_n} = A\).
+
+    Suppose \(A\) is triangularisable. Then A is similar to
+    \[
+        A' = \pmqty{
+            \lambda_1 & * & \cdots & * \\
+             & \lambda_2 & \cdots & * \\
+             & & \ddots & \vdots \\
+            0 & & & \lambda_n
+        }.
+    \]
+
+    Then we have
+    \[
+        \characteristic_{A} \pqty{t} = \characteristic_{A'} \pqty{t} = \det\pqty{t I_n - A'} = \prod_{i = 1}^{n} \pqty{t - \lambda_i}.
+    \]
+
+    Conversely, suppose \(\characteristic_{A}\) splits into linear factors over \(\FF\). Then in particular, \(\characteristic_{A}\) has a root \(\lambda \in \FF\). Then \(\alpha\) has an eigenvector \(\vb{0} \neq \vb{v} \in V_{\lambda}\) corresponding to \(\lambda\).
+
+    Extend \(\set{\vb{v}_1}\) to a basis \(\basis = \set{\vb{v}_1, \ldots, \vb{v}_n}\) of \(\FF^n\). Then by change of basis matrix, \(A\) is similar to
+    \[
+        \bqty{\alpha}_{\basis}^{\basis} = \pmqty{
+            \lambda & * & \cdots & * \\
+            0 &  &  &  \\
+            \vdots &  & C &  \\
+            0 &  &  &
+        },
+    \]
+    so the characteristic polynomial is
+    \[
+        \characteristic_{A} \pqty{t} = \pqty{t - \lambda} \characteristic_C \pqty{t},
+    \]
+    so \(\characteristic_C\) splits into linear factors over \(\FF\). By induction on the size of the matrices, we can conclude that \(C\) is triangularisable, with \(P C P\inverse\) being upper triangular. Let
+    \[
+        \overline{P} = \pmqty{1 & 0 \\ 0 & P},
+    \]
+    then \(A\) is similar to
+    \[
+        \overline{P} \bqty{\alpha}_{\basis}^{\basis} \overline{P}\inverse = \pmqty{
+            \lambda & * & \cdots & * \\
+            0 &  &  &  \\
+            \vdots &  & P C P\inverse &  \\
+            0 &  &  &
+        },
+    \]
+    which is an upper triangular matrix. Thus, \(A\) is triangularisable.
+\end{proof}
+
+\subsection{Minimal Polynomials and the Cayley--Hamilton Theorem}
+
+\begin{definition}[Polynomial on Linear Maps and Matrices]
+    Let \(V\) be a finite-dimensional vector space over \(\alpha\), and let \(\alpha \in \linearmap\pqty{V, V}\). Let \(p\) be a polynomial
+    \[
+        p\pqty{t} = \sum_{i = 0}^{n} a_i t^i \in \FF\bqty{t}.
+    \]
+
+    We denote
+    \[
+        p\pqty{\alpha} = \sum_{i = 0}^{n} a_i \alpha^i \in \linearmap\pqty{V, V},
+    \]
+    where \(\alpha^0 = \identity_V\).
+
+    Similarly, for \(A \in \matrixset_{n \times n} \pqty{\FF}\), we denote
+    \[
+        p\pqty{A} = \sum_{i = 0}^{n} a_i A^i \in \matrixset_{n \times n} \pqty{\FF},
+    \]
+    where \(A^0 = I_n\).
+\end{definition}
+
+\begin{remarks}
+    Let \(V\) be finite-dimensional.
+    \begin{itemize}
+        \item For a basis \(\basis\) of \(V\), we have
+        \[
+            \bqty{p\pqty{\alpha}}_{\basis}^{\basis} = p\pqty{\bqty{\alpha}_{\basis}^{\basis}}.
+        \]
+
+        \item If \(\dim V = n\), then \(\dim \linearmap\pqty{V, V} = n^2\), so the set
+        \[
+            \set{\identity_V, \alpha, \ldots, \alpha^{n^2}} \subseteq \linearmap\pqty{V, V}
+        \]
+        has \(n^2 + 1\) elements, and thus is linearly dependent, so they satisfy a non-trivial linear combination
+        \[
+            0 = \sum_{i = 0}^{n^2} a_i \alpha^i = p\pqty{\alpha},
+        \]
+        where the polynomial is given by
+        \[
+            p\pqty{t} = \sum_{i = 0}^{n^2} a_i t^i \in \FF\bqty{t}.
+        \]
+    \end{itemize}
+\end{remarks}
+
+Denote
+\[
+    I_\alpha = \set{p \in \FF\bqty{t}}{p\pqty{\alpha} = 0} \subseteq \FF\bqty{t},
+\]
+then the remark above says that \(I_\alpha\) is non-empty, and it has an element of at most degree \(n^2\).
+
+\begin{definition}[Minimal Polynomial]
+    Let \(V\) be a finite-dimensional vector space over \(\FF\), and let \(\alpha \in \linearmap\pqty{V, V}\). The \term{minimal polynomial} of \(\alpha\) is the unique (non-zero) monic polynomial \(m_\alpha \in \FF\bqty{t}\) of minimal degree such that
+    \[
+        m_\alpha\pqty{\alpha} = 0.
+    \]
+\end{definition}
+
+\begin{lemma}[Minimal Polynomial divides any Polynomial]
+    \label{lem:minimal-polynomial-divides-any-polynomial}%
+    Let \(V\) be a finite-dimensional vector space over \(\FF\), and let \(\alpha \in \linearmap\pqty{V, V}\). Then the minimal polynomial \(m_\alpha\) divides any polynomial \(f \in I_\alpha\).
+\end{lemma}
+
+\begin{proof}
+    Suppose not, then we apply the Euclidean algorithm to \(m_\alpha\) and \(f\) to obtain
+    \[
+        f = m_\alpha q + r,
+    \]
+    where \(q, r \in \FF\bqty{t}\) and \(\deg r < \deg m_\alpha\) with \(r \neq 0\). Then we have
+    \[
+        0 = f\pqty{\alpha} = m_\alpha\pqty{\alpha} q\pqty{\alpha} + r\pqty{\alpha} = r\pqty{\alpha},
+    \]
+    so \(r \in I_\alpha\). So \(r \neq 0\) is a polynomial of smaller degree than \(m_\alpha\) such that \(r\pqty{\alpha} = 0\), which contradicts the minimality of \(m_\alpha\).
+\end{proof}
+
+\begin{proposition}[Uniqueness of Minimal Polynomial]
+    Let \(V\) be a finite-dimensional vector space over \(\FF\), and let \(\alpha \in \linearmap\pqty{V, V}\). Then the minimal polynomial \(m_\alpha\) is unique.
+\end{proposition}
+
+\begin{proof}
+    Suppose \(0 \neq \bar{m}_{\alpha} \in I_{\alpha}\) of minimal degree and is monic. By \autoref{lem:minimal-polynomial-divides-any-polynomial}, we have \(m_\alpha \divides \bar{m}_\alpha\), i.e.
+    \[
+        \bar{m}_\alpha = m_\alpha q
+    \]
+    for some \(q \in \FF\bqty{t}\). But \(\deg \pqty{m_\alpha} = \deg \pqty{\bar{m}_\alpha}\) by minimality, so \(q\) is a non-zero constant. Since both \(m_\alpha\) and \(\bar{m}_\alpha\) are monic, we have \(q = 1\), so \(m_\alpha = \bar{m}_\alpha\).
+\end{proof}
+
+\begin{theorem}[Cayley--Hamilton Theorem]
+    \label{thm:cayley-hamilton-theorem}%
+    Let \(V\) be a finite-dimensional vector space over \(\FF\), and let \(\alpha \in \linearmap\pqty{V, V}\). Then \(\alpha\) satisfies its own characteristic polynomial, i.e.
+    \[
+        \characteristic_{\alpha}\pqty{\alpha} = 0.
+    \]
+\end{theorem}
+
+\begin{corollary}[Minimal Polynomial divides Characteristic Polynomial]
+    Let \(V\) be a finite-dimensional vector space over \(\FF\), and let \(\alpha \in \linearmap\pqty{V, V}\). Then the minimal polynomial \(m_\alpha\) divides the characteristic polynomial \(\characteristic_{\alpha}\).
+\end{corollary}
+
+\begin{proof}[\proofname\ of \autoref{thm:cayley-hamilton-theorem} over \(\CC\)]
+    By \autoref{thm:triangularisability-complex-matrices}, there is a basis
+    \(\basis = \set{v_1, v_2, \ldots, v_n}\) of \(V\) such that
+    \[
+        \bqty{\alpha}_{\basis}^{\basis} = \pmqty{
+            \lambda_1 & * & \cdots & * \\
+             & \lambda_2 & \cdots & * \\
+             & & \ddots & \vdots \\
+            0 & & & \lambda_n
+        },
+    \]
+    so we have
+    \[
+        \characteristic_{\alpha}\pqty{t} = \prod_{i = 1}^{n} \pqty{t - \lambda_i}.
+    \]
+
+    Define the subspace
+    \[
+        U_j = \spn\set{v_1, \ldots, v_j} \subspace V,
+    \]
+    so that \(U_0 = \set{\vb{0}}\) and \(U_n = V\). Then for each \(1 \leq j \leq n\), we have
+    \[
+        \pqty{\alpha - \lambda_j \identity_V}\pqty{U_j} \subspace U_{j - 1},
+    \]
+    so we have
+    \[
+        \characteristic_{\alpha} \pqty{\alpha} \pqty{V} = \pqty{\alpha - \lambda_1 \identity_V} \circ \cdots \circ \pqty{\alpha - \lambda_n \identity_V} \pqty{U_n} = \set{\vb{0}}.
+    \]
+
+    This shows that \(\characteristic_{\alpha}\pqty{\alpha} = 0\).
+\end{proof}
+
+\begin{remark}
+    There is an alternative proof valid over any field \(\FF\) \textbf{\textcolor{red}{See Handout}}
+\end{remark}
+
+\begin{definition}[Algebraic and Geometric Multiplicities]
+    Let \(V\) be a finite-dimensional vector space over \(\FF\), and let \(\alpha \in \linearmap\pqty{V, V}\). Let \(\lambda \in \FF\) be an eigenvalue of \(\alpha\).
+    
+    The \term{algebraic multiplicity}, denoted \(a_{\lambda}\), of \(\lambda\) is the multiplicity of \(\lambda\) as a root to the characteristic polynomial \(\characteristic_{\alpha}\), i.e., the largest integer \(k\) such that \(\pqty{t - \lambda}^k\) divides \(\characteristic_{\alpha}\).
+
+    The \term{geometric multiplicity}, denoted \(g_{\lambda}\), of \(\lambda\) is the dimension of the eigenspace \(V_{\lambda}\).
+\end{definition}
+
+Note that \(g_{\lambda}, a_{\lambda} \geq 1\).
+
+\begin{proposition}[Algebraic and Geometric Multiplicities]
+    \label{prop:algebraic-geometric-multiplicities}%
+    Let \(V\) be a finite-dimensional vector space over \(\FF\), and let \(\alpha \in \linearmap\pqty{V, V}\). Let \(\lambda \in \FF\) be an eigenvalue of \(\alpha\). Then
+    \[
+        g_{\lambda} \leq a_{\lambda}.
+    \]
+\end{proposition}
+
+\begin{proof}
+    Let \(\basis_\lambda\) be a basis for \(V_{\lambda}\), and we extend to a basis \(\basis \) of \(V\). Then we have the matrix
+    \[
+        \bqty{\alpha}_{\basis}^{\basis} = \pmqty{
+            \lambda I_{g_\lambda} & * \\
+            0 & C
+        },
+    \]  
+    and hence
+    \[
+        \characteristic_{\alpha} \pqty{t} = \det\pqty{t I_n - \bqty{\alpha}_{\basis}^{\basis}} = \pqty{t - \lambda}^{g_\lambda} \characteristic_C \pqty{t},
+    \]
+    so at least \(g_\lambda\) factors of \(\pqty{t - \lambda}\) divide \(\characteristic_{\alpha}\), so \(g_\lambda \leq a_\lambda\).
+\end{proof}
+
+\begin{lemma}
+    \label{lem:sum-of-multiplicities}%
+    Let \(V\) be a finite-dimensional vector space over \(\FF\), and let \(\alpha \in \linearmap\pqty{V, V}\). Let the eigenvalues of \(\alpha\) be \(\lambda_1, \ldots, \lambda_k\). Then we have the following.
+
+    \begin{enumerate}[label=(\roman*)]
+        \item \textbf{Sum of Geometric Multiplicities.}
+        \[
+            \sum_{i = 1}^{k} g_{\lambda_i} \leq \dim V,
+        \]
+        with equality if and only if \(\alpha\) is diagonalisable.
+
+        \item \textbf{Sum of Algebraic Multiplicities.}
+        \[
+            \sum_{i = 1}^{k} a_{\lambda_i} \leq \dim V.
+        \]
+        with equality if and only if \(\alpha\) is triangularisable.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    \begin{enumerate}[label=(\roman*)]
+        \item By \autoref{prop:eigenspaces-generate-direct-sums}, we have
+        \[
+            V_{\lambda_1} \oplus \cdots \oplus V_{\lambda_k} \subspace V,
+        \]
+        with equality if and only if \(\alpha\) is diagonalisable. Taking dimensions, we have
+        \[
+            \sum_{i = 1}^{k} g_{\lambda_i} = \sum_{i = 1}^{k} \dim V_{\lambda_i} = \dim\pqty{V_{\lambda_1} \oplus \cdots \oplus V_{\lambda_k}} \leq \dim V,
+        \]
+        with equality if and only if \(\alpha\) is diagonalisable.
+
+        \item Write
+        \[
+            \characteristic_\alpha \pqty{t} = g\pqty{t} \cdot \prod_{i = 1}^{k} \pqty{t - \lambda_i}^{a_{\lambda_i}},
+        \]
+        then
+        \begin{align*}
+            \dim\pqty{V} &= \deg\pqty{\characteristic_\alpha} \\
+            &= \deg\pqty{g} + \sum_{i = 1}^{k} a_{\lambda_i}.
+        \end{align*}
+
+        Since every root of \(\characteristic_{\alpha}\) is an eigenvalue (one of the \(\lambda_i\)), we have \(\deg g = 0\) if and only if \(\characteristic_{\alpha}\) splits into linear factors over \(\FF\), which is equivalent to \(\alpha\) being triangularisable by \autoref{prop:triangularisability-characteristic-polynomial}.
+    \end{enumerate}
+\end{proof}
+
+\begin{proposition}[Diagonalisability and Multiplicities of Complex Matrices]
+    Let \(V\) be a finite-dimensional vector space over \(\CC\), and let \(\alpha \in \linearmap\pqty{V, V}\). Then \(\alpha\) is diagonalisable if and only if \(g_{\lambda} = a_{\lambda}\) for all eigenvalues \(\lambda\) of \(\alpha\).
+\end{proposition}
+
+\begin{proof}
+    By \autoref{thm:triangularisability-complex-matrices}, \(\alpha\) is triangularisable, so we have \(\sum_{i = 1}^{k} a_{\lambda_i} = \dim V\), by \autoref{lem:sum-of-multiplicities} (ii).
+
+    Since \(g_{\lambda_i} \leq a_{\lambda_i}\) for all \(i\) by \autoref{prop:algebraic-geometric-multiplicities}, we have
+    \[
+        \sum_{i = 1}^{k} g_{\lambda_i} \leq \sum_{i = 1}^{k} a_{\lambda_i} = \dim V,
+    \]
+    with equality if and only if \(g_{\lambda_i} = a_{\lambda_i}\) for all \(i\). By \autoref{lem:sum-of-multiplicities} (i), we have \(\alpha\) is diagonalisable if and only if \(\sum_{i = 1}^{k} g_{\lambda_i} = \dim V\), which is equivalent to \(g_{\lambda_i} = a_{\lambda_i}\) for all \(i\).
+\end{proof}
