@@ -2,8 +2,8 @@
 
 Let \(V = \RR^4\). Note that the same subspace can be represented by different ways:
 \begin{align*}
-    W &= \spn\Bqty{\pmqty{1 \\ 0 \\ 0 \\ 0}, \pmqty{1 \\ 1 \\ 2 \\ 0}} \\
-    &= \spn\Bqty{\pmqty{2 \\ 1 \\ 2 \\ 0}, \pmqty{0 \\ 1 \\ 2 \\ 0}, \pmqty{-1 \\ 2 \\ 4 \\ 0}} \\
+    W &= \spn\set{\pmqty{1 \\ 0 \\ 0 \\ 0}, \pmqty{1 \\ 1 \\ 2 \\ 0}} \\
+    &= \spn\set{\pmqty{2 \\ 1 \\ 2 \\ 0}, \pmqty{0 \\ 1 \\ 2 \\ 0}, \pmqty{-1 \\ 2 \\ 4 \\ 0}} \\
     &= \set{\vb{v} \in V}{2 v_2 = v_3, v_4 = 0} \\
     &= \set{\vb{v} \in V}{2 \pqty{v_2 + v_4} = v_3, 2\pqty{v_2 - v_4} = v_3, 2 v_2 - 3 v_4 = 4 v_3}.
 \end{align*}
@@ -82,7 +82,7 @@ The first two are relatively familiar, although the sets are of different length
             \overline{\theta}\pqty{\vb{c}} = {\sum_{\vb{b} \in \basis}} \lambda_{\vb{b}} \dual{\vb{b}}\pqty{\vb{c}} = {\sum_{\vb{b} \in \basis}} \lambda_{\vb{b}} \kronecker_{\vb{b}, \vb{c}} = \lambda_{\vb{c}} = \theta\pqty{\vb{c}}.
         \]
 
-        So \(\theta = \overline{\theta} \in \spn\pqty{\Bqty{\dual{\basis}}}\), and hence \(\dual{\basis}\) spans \(\dual{V}\).
+        So \(\theta = \overline{\theta} \in \spn\pqty{\set{\dual{\basis}}}\), and hence \(\dual{\basis}\) spans \(\dual{V}\).
     \end{enumerate}
 \end{proof}
 
@@ -148,7 +148,7 @@ The first two are relatively familiar, although the sets are of different length
         \item \(\annihilator{S} \subspace \dual{V}\).
         \item If \(S \subseteq T\), then \(\annihilator{T} \subspace \annihilator{S}\).
         \item \(\annihilator{S} = \annihilator{\spn\pqty{S}}\).
-        \item \(\annihilator{V} = \Bqty{\vb{0}_{\dual{V}}}\) and \(\annihilator{\Bqty{\vb{0}_V}} = \dual{V}\).
+        \item \(\annihilator{V} = \set{\vb{0}_{\dual{V}}}\) and \(\annihilator{\set{\vb{0}_V}} = \dual{V}\).
     \end{enumerate}
 \end{lemma}
 
@@ -163,7 +163,7 @@ The first two are relatively familiar, although the sets are of different length
             \theta\pqty{\vb{v}} = {\sum_{\vb{s} \in S}}' \lambda_{\vb{s}} \theta\pqty{\vb{s}} = 0,
         \]
         so \(\theta \in \annihilator{\spn\pqty{S}}\). Hence \(\annihilator{S} \subspace \annihilator{\spn\pqty{S}}\).
-        \item If \(\theta \in \annihilator{V}\), then \(\theta\pqty{\vb{v}} = 0\) for all \(\vb{v} \in V\), which is the zero map, so \(\theta = \vb{0}_{\dual{V}}\). Also note that any linear map sends \(\vb{0}_V\) to \(\vb{0}_{\FF}\), so \(\annihilator{\Bqty{\vb{0}_V}} = \dual{V}\).
+        \item If \(\theta \in \annihilator{V}\), then \(\theta\pqty{\vb{v}} = 0\) for all \(\vb{v} \in V\), which is the zero map, so \(\theta = \vb{0}_{\dual{V}}\). Also note that any linear map sends \(\vb{0}_V\) to \(\vb{0}_{\FF}\), so \(\annihilator{\set{\vb{0}_V}} = \dual{V}\).
     \end{enumerate}
 \end{proof}
 
@@ -176,11 +176,11 @@ The first two are relatively familiar, although the sets are of different length
 \end{proposition}
 
 \begin{proof}
-    Suppose \(\dim\pqty{V} = n\) and \(\dim\pqty{U} = k\). Let \(\basis_U = \Bqty{\vb{u}_1, \ldots, \vb{u}_k}\) be a basis for \(U\), and extend it to a basis for \(V\) given by \(\basis_{V} = \Bqty{\vb{v}_1, \ldots, \vb{v}_n}\) where \(\vb{v}_i = \vb{u}_i\) for \(i = 1, 2, \ldots, k\).
+    Suppose \(\dim\pqty{V} = n\) and \(\dim\pqty{U} = k\). Let \(\basis_U = \set{\vb{u}_1, \ldots, \vb{u}_k}\) be a basis for \(U\), and extend it to a basis for \(V\) given by \(\basis_{V} = \set{\vb{v}_1, \ldots, \vb{v}_n}\) where \(\vb{v}_i = \vb{u}_i\) for \(i = 1, 2, \ldots, k\).
 
-    Then this gives us a dual basis \(\dual{\basis_V} = \Bqty{\dual{\vb{v}_1}, \ldots, \dual{\vb{v}_n}}\) for \(\dual{V}\). We claim that a basis for \(\annihilator{U}\) is given by
+    Then this gives us a dual basis \(\dual{\basis_V} = \set{\dual{\vb{v}_1}, \ldots, \dual{\vb{v}_n}}\) for \(\dual{V}\). We claim that a basis for \(\annihilator{U}\) is given by
     \[
-        \Bqty{\dual{\vb{v}_{k+1}}, \ldots, \dual{\vb{v}_n}}.
+        \set{\dual{\vb{v}_{k+1}}, \ldots, \dual{\vb{v}_n}}.
     \]
 
     First, we prove that this is a subspace of \(\annihilator{U}\). For \(i \leq k, j \geq k + 1\), we note \(\dual{\vb{v}_j} \pqty{\vb{v}_i} = \kronecker_{j, i} = 0\). So \(\dual{\vb{v_j}} \in \annihilator{\basis_U} = \annihilator{U}\) for \(j = k + 1, \ldots, n\).
@@ -345,7 +345,7 @@ Intuitively, dual maps are the analogue of transpose of matrices in the abstract
 \begin{proof}
     Suppose \(n = \dim V\) and \(m = \dim W\), with
     \[
-        \basis = \Bqty{\vb{b}_1, \ldots, \vb{b}_n} \qand \mathcal{C} = \Bqty{\vb{c}_1, \ldots, \vb{c}_m}.
+        \basis = \set{\vb{b}_1, \ldots, \vb{b}_n} \qand \mathcal{C} = \set{\vb{c}_1, \ldots, \vb{c}_m}.
     \]
 
     Let \(A = \bqty{\alpha}_{\mathcal{C}}^{\basis}\). Then we have
@@ -494,11 +494,11 @@ Then if \(V\) is finite-dimensional, by dimensions we have
         \epsilon\pqty{\vb{v}}\pqty{\theta} = \theta\pqty{\vb{v}} = 0.
     \]
 
-    Extend \(\vb{v}\) to a basis \(\basis = \Bqty{\vb{v}, \vb{b}_2, \ldots, \vb{b}_n}\) for \(V\). Then we have the dual basis \(\dual{\basis} = \Bqty{\dual{\vb{v}}, \dual{\vb{b}_2}, \ldots, \dual{\vb{b}_n}}\) for \(\dual{V}\). Set \(\theta = \dual{\vb{v}} \in \dual{V}\). Then we have
+    Extend \(\vb{v}\) to a basis \(\basis = \set{\vb{v}, \vb{b}_2, \ldots, \vb{b}_n}\) for \(V\). Then we have the dual basis \(\dual{\basis} = \set{\dual{\vb{v}}, \dual{\vb{b}_2}, \ldots, \dual{\vb{b}_n}}\) for \(\dual{V}\). Set \(\theta = \dual{\vb{v}} \in \dual{V}\). Then we have
     \[
         \theta\pqty{\vb{v}} = \dual{\vb{v}}\pqty{\vb{v}} = 1 \neq 0,
     \]
-    which is a contradiction. Hence \(\ker\pqty{\epsilon} = \Bqty{\vb{0}}\), and \(\epsilon\) is injective.
+    which is a contradiction. Hence \(\ker\pqty{\epsilon} = \set{\vb{0}}\), and \(\epsilon\) is injective.
 
     \textbf{Surjective if finite-dimensional.} Since \(\dim\pqty{V} = \dim\pqty{\dual{V}} = \dim\pqty{\ddual{V}}\), and \(\epsilon\) is injective, we have that \(\epsilon\) is surjective.
 \end{proof}
@@ -520,12 +520,12 @@ Then if \(V\) is finite-dimensional, by dimensions we have
 \end{proposition}
 
 \begin{proof}
-    Let \(\mathcal{C} = \Bqty{\theta_1, \ldots, \theta_n}\) be a basis for \(\dual{V}\). Then it has a dual basis in \(\ddual{V}\), given by
+    Let \(\mathcal{C} = \set{\theta_1, \ldots, \theta_n}\) be a basis for \(\dual{V}\). Then it has a dual basis in \(\ddual{V}\), given by
     \[
-        \dual{\mathcal{C}} = \Bqty{\dual{\theta_1}, \ldots, \dual{\theta_n}}.
+        \dual{\mathcal{C}} = \set{\dual{\theta_1}, \ldots, \dual{\theta_n}}.
     \]
 
-    Then using the evaluation map \(\epsilon\), define \(\vb{v}_i = \epsilon\inverse\pqty{\dual{\theta_i}} \in V\) for \(i = 1, \ldots, n\). Then \(\mathcal{B} = \Bqty{\vb{v}_1, \ldots, \vb{v}_n}\) is a basis for \(V\), and we have
+    Then using the evaluation map \(\epsilon\), define \(\vb{v}_i = \epsilon\inverse\pqty{\dual{\theta_i}} \in V\) for \(i = 1, \ldots, n\). Then \(\mathcal{B} = \set{\vb{v}_1, \ldots, \vb{v}_n}\) is a basis for \(V\), and we have
     \[
         \theta_i\pqty{\vb{v}_j} = \epsilon\pqty{\vb{v}_j} \pqty{\theta_i} = \dual{\theta_j}\pqty{\theta_i} = \kronecker_{i, j},
     \]

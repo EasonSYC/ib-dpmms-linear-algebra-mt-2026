@@ -33,7 +33,7 @@ Suppose onwards that \(V\) and \(W\) are finite-dimensional, with \(\dim \pqty{V
     where \(E_{r, s} = \pqty{\kronecker_{r, i}, \kronecker_{s, j}}\)
 \end{notation}
 
-Since \(V\) and \(W\) are finite dimensional, let \(\basis = \Bqty{\vb{v}_1, \ldots, \vb{v}_n}\) and \(\mathcal{C} = \Bqty{\vb{w}_1, \ldots, \vb{w}_m}\). Then given a linear map \(\alpha \in \linearmap\pqty{V, W}\), we may apply \(\alpha\) to the basis vectors \(\vb{v}_j\) to get linear combinations of \(\vb{w}_i\)
+Since \(V\) and \(W\) are finite dimensional, let \(\basis = \set{\vb{v}_1, \ldots, \vb{v}_n}\) and \(\mathcal{C} = \set{\vb{w}_1, \ldots, \vb{w}_m}\). Then given a linear map \(\alpha \in \linearmap\pqty{V, W}\), we may apply \(\alpha\) to the basis vectors \(\vb{v}_j\) to get linear combinations of \(\vb{w}_i\)
 \begin{align*}
     \alpha\pqty{\vb{v}_1} &= a_{1, 1} \vb{w}_1 + a_{2, 1} \vb{w}_2 + \cdots + a_{m, 1} \vb{w}_m, \\
     \alpha\pqty{\vb{v}_2} &= a_{1, 2} \vb{w}_1 + a_{2, 2} \vb{w}_2 + \cdots + a_{m, 2} \vb{w}_m, \\
@@ -160,7 +160,7 @@ It is relatively obvious that for any basis \(\basis\) of \(V\), we have
         P = \bqty{\identity_V}_{\basis'}^{\basis} = \matrixset_{m \times n} \pqty{\FF}.
     \]
 
-    Equivalently, for \(\basis = \Bqty{\vb{v}_1, \vb{v}_2, \ldots, \vb{v}_n}\) and \(\basis' = \Bqty{\vb{v}_1', \vb{v}_2', \ldots, \vb{v}_n'}\), then \(P = \pqty{p_{i, j}}\), where
+    Equivalently, for \(\basis = \set{\vb{v}_1, \vb{v}_2, \ldots, \vb{v}_n}\) and \(\basis' = \set{\vb{v}_1', \vb{v}_2', \ldots, \vb{v}_n'}\), then \(P = \pqty{p_{i, j}}\), where
     \[
         \vb{v}_j = \sum_{i = 1}^{n} p_{i, j} \vb{v}_i'
     \]
@@ -210,20 +210,20 @@ Note that the converse is true: any invertible matrix is a base-change matrix.
 \begin{proof}
     By \autoref{thm:rank-nullity-thm} (Rank--Nullity Theorem), \(\ker\pqty{\alpha}\) has a basis
     \[
-        \Bqty{\vb{v}_{r + 1}, \ldots, \vb{v}_n},
+        \set{\vb{v}_{r + 1}, \ldots, \vb{v}_n},
     \]
     and we extend this to a basis for \(V\) by adding vectors \(\vb{v}_1, \ldots, \vb{v}_r\) to get
     \[
-        \basis = \Bqty{\vb{v}_1, \ldots, \vb{v}_r, \vb{v}_{r + 1}, \ldots, \vb{v}_n}.
+        \basis = \set{\vb{v}_1, \ldots, \vb{v}_r, \vb{v}_{r + 1}, \ldots, \vb{v}_n}.
     \]
     
     Then \(\alpha\pqty{\vb{v}_1}, \ldots, \alpha\pqty{\vb{v}_r}\) spans \(\img\pqty{\alpha}\) with at most size \(r\). Then this is a basis for \(\img\pqty{\alpha}\), and denote
     \[
-        \Bqty{\vb{w}_1 = \alpha\pqty{\vb{v}_1}, \ldots, \vb{w}_r = \alpha\pqty{\vb{v}_r}}
+        \set{\vb{w}_1 = \alpha\pqty{\vb{v}_1}, \ldots, \vb{w}_r = \alpha\pqty{\vb{v}_r}}
     \]
     as a basis of \(\img\pqty{\alpha}\). We extend this to a basis for \(W\) by adding vectors \(\vb{w}_{r + 1}, \ldots, \vb{w}_m\), to get
     \[
-        \mathcal{C} = \Bqty{\vb{w}_1, \ldots, \vb{w}_r, \vb{w}_{r + 1}, \ldots, \vb{w}_m}.
+        \mathcal{C} = \set{\vb{w}_1, \ldots, \vb{w}_r, \vb{w}_{r + 1}, \ldots, \vb{w}_m}.
     \]
     
     Then we have
@@ -483,7 +483,7 @@ Note that elementary row operations preserve the row space of a matrix, and elem
     \[
         \sum_{i = 1}^{k} \lambda_i \vb{r}_i = \vb{0}
     \]
-    for some \(\lambda_i \in \FF\). Let \(p\pqty{\vb{r}_i} = j_i\), then it has to be a strictly increasing sequence \(j_1 < j_2 < \cdots < j_k\). By observing each \(j_i\)-th entry of the sum, we see that \(\lambda_i = 0\) for all \(i\). Sp \(\Bqty{\vb{r}_1, \ldots, \vb{r}_k}\) is linearly independent.
+    for some \(\lambda_i \in \FF\). Let \(p\pqty{\vb{r}_i} = j_i\), then it has to be a strictly increasing sequence \(j_1 < j_2 < \cdots < j_k\). By observing each \(j_i\)-th entry of the sum, we see that \(\lambda_i = 0\) for all \(i\). Sp \(\set{\vb{r}_1, \ldots, \vb{r}_k}\) is linearly independent.
 \end{proof}
 
 \begin{proposition}[Matrix can be put into RREF]

@@ -32,7 +32,7 @@
 
 It is easy to compute determinants of triangular matrices, while diagonal matrices are easier to analyse similarity class of a matrix.
 
-Note that if there is a basis \(\basis = \Bqty{\vb{v}_1, \ldots, \vb{v}_n}\) is a basis for \(V\), such that
+Note that if there is a basis \(\basis = \set{\vb{v}_1, \ldots, \vb{v}_n}\) is a basis for \(V\), such that
 \[
     \bqty{\alpha}_{\basis}^{\basis} = \pmqty{\dmat{\lambda_1, \ddots, \lambda_n}},
 \]
@@ -72,7 +72,7 @@ then \(\alpha\pqty{\vb{v}_i} = \lambda_i \vb{v}_i\) for all \(i = 1, \ldots, n\)
 
 \begin{lemma}[Eigenvectors corresponding to Distinct Eigenvalues are Linearly Independent]
     \label{lem:eigenvectors-distinct-eigenvalues-linearly-independent}%
-    If \(\lambda_1, \ldots, \lambda_n\) are distinct eigenvalues of \(\alpha\), with corresponding eigenvectors \(\vb{0} \neq \vb{v}_i \in V_{\lambda_i}\). Then the set \(\Bqty{\vb{v}_1, \ldots, \vb{v}_n}\) is linearly independent.
+    If \(\lambda_1, \ldots, \lambda_n\) are distinct eigenvalues of \(\alpha\), with corresponding eigenvectors \(\vb{0} \neq \vb{v}_i \in V_{\lambda_i}\). Then the set \(\set{\vb{v}_1, \ldots, \vb{v}_n}\) is linearly independent.
 \end{lemma}
 
 \begin{proof}
@@ -147,7 +147,7 @@ then \(\alpha\pqty{\vb{v}_i} = \lambda_i \vb{v}_i\) for all \(i = 1, \ldots, n\)
 
 \subsection{Characteristic Polynomial and Eigenvalues}
 
-Recall that if \(V\) is finite-dimensional, and \(\beta \in \linearmap\pqty{V, V}\), then \(\det \beta = 0\) if and only if \(\ker \pqty{\beta} \neq \Bqty{\vb{0}}\). Therefore, \(\lambda \in \FF\) is an eigenvalue of \(\alpha \in \linearmap\pqty{V, V}\) if and only if \(\det\pqty{\alpha - \lambda \identity_V} = 0\).
+Recall that if \(V\) is finite-dimensional, and \(\beta \in \linearmap\pqty{V, V}\), then \(\det \beta = 0\) if and only if \(\ker \pqty{\beta} \neq \set{\vb{0}}\). Therefore, \(\lambda \in \FF\) is an eigenvalue of \(\alpha \in \linearmap\pqty{V, V}\) if and only if \(\det\pqty{\alpha - \lambda \identity_V} = 0\).
 
 \begin{definition}[Characteristic Polynomial]
     Let \(A \in \matrixset_{n \times n} \pqty{\FF}\). The \term{characteristic polynomial} of \(A\) is the polynomial

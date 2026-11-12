@@ -97,7 +97,7 @@ If every element of \(U + W\) is uniquely expressible as a sum of \(\vb{u} \in U
     Note here there is an analogue with \textit{IA Groups} where we have the \term{direct product theorem}, which links the direct product of subgroups together with the group itself. The groups version is slightly more complicated, but the idea is similar.
 \end{remark}
 
-In this case, we have \(U \cap W = \Bqty{\vb{0}}\). For \(U, W \subspace V\), we have \(V = U \oplus W\), if and only if both \(U + W = V\), and \(U \cap W = \Bqty{\vb{0}}\).
+In this case, we have \(U \cap W = \set{\vb{0}}\). For \(U, W \subspace V\), we have \(V = U \oplus W\), if and only if both \(U + W = V\), and \(U \cap W = \set{\vb{0}}\).
 
 \begin{definition}[Direct Complement]
     For \(U \subspace V\) and \(W \subspace V\), we say that \(W\) is a \term{direct complement} to \(U\) in \(V\) if \(V = U \oplus W\).
@@ -118,7 +118,7 @@ In this case, we have \(U \cap W = \Bqty{\vb{0}}\). For \(U, W \subspace V\), we
         V = \spn \pqty{\basis_V} = \spn \pqty{\basis_U \cup \pqty{\basis_V \setminus \basis_U}} = U + W.
     \]
 
-    Since \(\basis_V\) is linearly independent, we have \(U \cap W = \Bqty{\vb{0}}\). (Alternatively, \(\dim\pqty{U} + \dim\pqty{W} = \dim\pqty{V}\) so by \autoref{cor:sum-intersection-formula} (Sum--Intersection Formula), we have \(U \cap W = \Bqty{\vb{0}}\).)
+    Since \(\basis_V\) is linearly independent, we have \(U \cap W = \set{\vb{0}}\). (Alternatively, \(\dim\pqty{U} + \dim\pqty{W} = \dim\pqty{V}\) so by \autoref{cor:sum-intersection-formula} (Sum--Intersection Formula), we have \(U \cap W = \set{\vb{0}}\).)
 \end{proof}
 
 More generally, given \(U_1, \ldots, U_n \subspace V\), we write
@@ -129,4 +129,4 @@ if the map
 \[
     \function{s}{\bigoplus_{i = 1}^{n} U_i}{V}{\pqty{\vb{u}_1, \ldots, \vb{u}_n}}{\sum_{i = 1}^{n} \vb{u}_i}
 \]
-is an isomorphism. In particular, this is \textbf{not} equivalent to checking \(U_1 + \cdots + U_n = V\) and \(U_i \cap U_j = \Bqty{\vb{0}}\) if \(i \neq j\).
+is an isomorphism. In particular, this is \textbf{not} equivalent to checking \(U_1 + \cdots + U_n = V\) and \(U_i \cap U_j = \set{\vb{0}}\) if \(i \neq j\).

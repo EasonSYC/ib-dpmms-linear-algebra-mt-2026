@@ -25,7 +25,7 @@
 \begin{remarks}
     \begin{itemize}
         \item \(\spn\pqty{S} \subspace V\) for any \(S \subseteq V\).
-        \item By convention, \(\spn\pqty{\emptyset} = \Bqty{\vb{0}_V}\).
+        \item By convention, \(\spn\pqty{\emptyset} = \set{\vb{0}_V}\).
         \item If \(S\) spans \(V\) and \(S \subseteq \spn\pqty{T}\), then \(T\) spans \(V\).
         \item \(\spn\pqty{S \cup T} = \spn\pqty{S} + \spn\pqty{T}\).
     \end{itemize}
@@ -35,7 +35,7 @@
     \begin{enumerate}[label=(\roman*)]
         \item Let \(V = \RR^3\), and let
         \[
-            S = \Bqty{\pmqty{1 \\ 0 \\ 0}, \pmqty{1 \\ 1 \\ 2}} \qand T = \Bqty{\pmqty{2 \\ 1 \\ 2}, \pmqty{0 \\ 1 \\ 2}, \pmqty{-1 \\ 2 \\ 4}}.
+            S = \set{\pmqty{1 \\ 0 \\ 0}, \pmqty{1 \\ 1 \\ 2}} \qand T = \set{\pmqty{2 \\ 1 \\ 2}, \pmqty{0 \\ 1 \\ 2}, \pmqty{-1 \\ 2 \\ 4}}.
         \]
 
         Then
@@ -73,7 +73,7 @@
 \begin{remarks}
     \begin{itemize}
         \item If a set \(S \subseteq V\) is linearly independent, then \(\vb{0} \notin S\).
-        \item If \(S\) is finite, with \(S = \Bqty{\vb{v}_1, \vb{v}_2, \ldots, \vb{v}_n}\) and \(\abs{S} = n\), then \(S\) is linearly independent, if and only if for all \(\lambda_1, \lambda_2, \ldots, \lambda_n \in \FF\), that
+        \item If \(S\) is finite, with \(S = \set{\vb{v}_1, \vb{v}_2, \ldots, \vb{v}_n}\) and \(\abs{S} = n\), then \(S\) is linearly independent, if and only if for all \(\lambda_1, \lambda_2, \ldots, \lambda_n \in \FF\), that
         \[
             \sum_{i = 1}^{n} \lambda_i \vb{v}_i = \vb{0} \implies \lambda_i = \cdots = \lambda_n = 0.
         \]
@@ -86,7 +86,7 @@
     \begin{enumerate}[label=(\roman*)]
         \item Let \(V = \RR^3\), and let
         \[
-            S = \Bqty{\pmqty{1 \\ 0 \\ 0}, \pmqty{1 \\ 1 \\ 2}} \qand T = \Bqty{\pmqty{2 \\ 1 \\ 2}, \pmqty{0 \\ 1 \\ 2}, \pmqty{-1 \\ 2 \\ 4}}.
+            S = \set{\pmqty{1 \\ 0 \\ 0}, \pmqty{1 \\ 1 \\ 2}} \qand T = \set{\pmqty{2 \\ 1 \\ 2}, \pmqty{0 \\ 1 \\ 2}, \pmqty{-1 \\ 2 \\ 4}}.
         \]
 
         Then \(S\) is linearly independent, while \(T\) is linearly dependent, since
@@ -128,13 +128,13 @@
 
 \begin{examples}
     \begin{enumerate}
-        \item Let \(\vb{e}_i \in \FF^n\) be the \term{\(i\)-th standard basis vector}, with entries 0 except for the \(i\)-th entry, which is 1. Then the set \(\Bqty{\vb{e}_i}{1 \leq i \leq n}\) is the \term{standard basis} of \(\FF^n\).
+        \item Let \(\vb{e}_i \in \FF^n\) be the \term{\(i\)-th standard basis vector}, with entries 0 except for the \(i\)-th entry, which is 1. Then the set \(\set{\vb{e}_i}{1 \leq i \leq n}\) is the \term{standard basis} of \(\FF^n\).
         \item The set
         \[
-            \Bqty{\pmqty{1 \\ 0 \\ 0}, \pmqty{1 \\ 1 \\ 0}, \pmqty{1 \\ 1 \\ 1}} \subseteq \FF^3
+            \set{\pmqty{1 \\ 0 \\ 0}, \pmqty{1 \\ 1 \\ 0}, \pmqty{1 \\ 1 \\ 1}} \subseteq \FF^3
         \]
         is a basis for \(\FF^3\).
-        \item Let \(p_n \in P\pqty{\RR}\) be given by \(p_n\pqty{x} = x^n\). Then the set \(\Bqty{p_n}{n \in \NN}\) is a basis for \(P\pqty{\RR}\).
+        \item Let \(p_n \in P\pqty{\RR}\) be given by \(p_n\pqty{x} = x^n\). Then the set \(\set{p_n}{n \in \NN}\) is a basis for \(P\pqty{\RR}\).
     \end{enumerate}
 \end{examples}
 
@@ -146,7 +146,7 @@
 \begin{proof}
     If \(S\) is linearly independent, then we are done. If not, write
     \[
-        S = \Bqty{\vb{v}_1, \vb{v}_2, \ldots, \vb{v}_n}.
+        S = \set{\vb{v}_1, \vb{v}_2, \ldots, \vb{v}_n}.
     \]
 
     There exists \(\lambda_1, \lambda_2, \ldots, \lambda_n \in \FF\), not all zero, such that
@@ -156,10 +156,10 @@
 
     Without loss of generality, up to relabelling, that \(\lambda_1 \neq 0\). Then rearranging this expression,
     \[
-        \vb{v}_1 = - \frac{1}{\lambda_1} \sum_{i = 2}^{n} \lambda_i \vb{v}_i \in \spn\pqty{S \setminus \Bqty{\vb{v}_1}}.
+        \vb{v}_1 = - \frac{1}{\lambda_1} \sum_{i = 2}^{n} \lambda_i \vb{v}_i \in \spn\pqty{S \setminus \set{\vb{v}_1}}.
     \]
 
-    So \(S \setminus \Bqty{\vb{v}_1}\) also spans \(V\). Repeat this and this will terminate after at most \(n\) steps.
+    So \(S \setminus \set{\vb{v}_1}\) also spans \(V\). Repeat this and this will terminate after at most \(n\) steps.
 \end{proof}
 
 \begin{corollary}[Finite-Dimensional Vector Space has a Finite Basis]
@@ -182,7 +182,7 @@
 \end{theorem}
 
 \begin{proof}
-    Let \(S = \Bqty{\vb{s}_1, \ldots, \vb{s}_m}\) nad \(T = \Bqty{\vb{t}_1, \ldots, \vb{t}_n}\), with \(\abs{S} = m\) and \(\abs{T} = n\).
+    Let \(S = \set{\vb{s}_1, \ldots, \vb{s}_m}\) nad \(T = \set{\vb{t}_1, \ldots, \vb{t}_n}\), with \(\abs{S} = m\) and \(\abs{T} = n\).
 
     If \(S = \emptyset\), then we are done. If not, we conduct the following steps.
 
@@ -192,10 +192,10 @@
     \]
     and since \(\vb{s}_1 \neq \vb{0}\), so \(\lambda_i\) cannot be trivially all zeros. Without loss of generality, up to relabelling, we can assume that \(\lambda_1 \neq 0\). Then rearranging this expression,
     \[
-        \vb{t}_1 = \frac{1}{\lambda_1} \pqty{\vb{s}_1 - \sum_{i = 2}^{N} \lambda_i \vb{t}_i} \in \spn\pqty{\Bqty{\vb{s}} \cup \Bqty{\vb{t}_2, \ldots, \vb{t}_n}}.
+        \vb{t}_1 = \frac{1}{\lambda_1} \pqty{\vb{s}_1 - \sum_{i = 2}^{N} \lambda_i \vb{t}_i} \in \spn\pqty{\set{\vb{s}} \cup \set{\vb{t}_2, \ldots, \vb{t}_n}}.
     \]
 
-    \textbf{Step \(\boldsymbol{\pqty{k + 1}}\)} where \(k < m\). Assume the set \(\Bqty{\vb{s}_1, \ldots, \vb{s}_k, \vb{t}_{k + 1}}, \ldots, \vb{t}_n\) spans \(V\). Write
+    \textbf{Step \(\boldsymbol{\pqty{k + 1}}\)} where \(k < m\). Assume the set \(\set{\vb{s}_1, \ldots, \vb{s}_k, \vb{t}_{k + 1}}, \ldots, \vb{t}_n\) spans \(V\). Write
     \[
         \vb{s}_{k + 1} = \sum_{i = k + 1}^{n} \lambda_i \vb{t}_i + \sum_{j = 1}^{k} \mu_j \vb{s}_j,
     \]
@@ -209,16 +209,16 @@
 
     Hence, without loss of generality, \(\lambda_{k + 1} \neq 0\), so we can write
     \[
-        \vb{t}_{k + 1} = \frac{1}{\lambda_{k + 1}} \pqty{\vb{s}_{k + 1} - \sum_{i = k + 2}^{n} \lambda_i \vb{t}_i - \sum_{j = 1}^{k} \mu_j \vb{s}_j} \in \spn\pqty{\Bqty{\vb{s}_1, \ldots, \vb{s}_{k + 1}} \cup \Bqty{\vb{t}_{k + 2}, \ldots, \vb{t}_n}}.
+        \vb{t}_{k + 1} = \frac{1}{\lambda_{k + 1}} \pqty{\vb{s}_{k + 1} - \sum_{i = k + 2}^{n} \lambda_i \vb{t}_i - \sum_{j = 1}^{k} \mu_j \vb{s}_j} \in \spn\pqty{\set{\vb{s}_1, \ldots, \vb{s}_{k + 1}} \cup \set{\vb{t}_{k + 2}, \ldots, \vb{t}_n}}.
     \]
 
-    So the new set \(\Bqty{\vb{s}_1, \ldots, \vb{s}_{k + 1}, \vb{t}_{k + 2}, \ldots, \vb{t}_n}\) spans \(V\).
+    So the new set \(\set{\vb{s}_1, \ldots, \vb{s}_{k + 1}, \vb{t}_{k + 2}, \ldots, \vb{t}_n}\) spans \(V\).
 
     We repeat the process until either we run out of elements of \(S\), or elements of \(T\). But if we exhausted \(T\) before \(S\), then we would have a linear combination of elements of \(S\) that gives \(\vb{0}\), contradicting the linear independence of \(S\). Hence, we must have exhausted \(S\) first, and we have \(\abs{S} \leq \abs{T}\), which gives \(m \leq n\), and
     \[
-        \Bqty{\vb{s}_1, \ldots, \vb{s}_m, \vb{t}_{m + 1}, \ldots, \vb{t}_n} \subseteq V
+        \set{\vb{s}_1, \ldots, \vb{s}_m, \vb{t}_{m + 1}, \ldots, \vb{t}_n} \subseteq V
     \]
-    with \(T' = \Bqty{\vb{t}_{m + 1}, \ldots, \vb{t}_n}\).
+    with \(T' = \set{\vb{t}_{m + 1}, \ldots, \vb{t}_n}\).
 \end{proof}
 
 \subsection{Dimension}
@@ -266,15 +266,15 @@
 \end{proposition}
 
 \begin{proof}
-    If \(U = \Bqty{\vb{0}}\), then \(\dim U = 0\), and we are done. Then, we construct a finite basis for \(U\) as follows.
+    If \(U = \set{\vb{0}}\), then \(\dim U = 0\), and we are done. Then, we construct a finite basis for \(U\) as follows.
 
-    \textbf{Step 1.} Let \(\vb{0} \neq \vb{u}_1 \in U\). Then \(\Bqty{\vb{u}_i}\) is linearly independent.
+    \textbf{Step 1.} Let \(\vb{0} \neq \vb{u}_1 \in U\). Then \(\set{\vb{u}_i}\) is linearly independent.
 
-    After \textbf{Step \(\boldsymbol k\).} We have \(S_k = \Bqty{\vb{u}_1, \ldots, \vb{u}_k} \subset U\) is linearly independent.
+    After \textbf{Step \(\boldsymbol k\).} We have \(S_k = \set{\vb{u}_1, \ldots, \vb{u}_k} \subset U\) is linearly independent.
 
     By \autoref{cor:size-of-li-and-spanning}, we have \(k \leq \dim \pqty{V}\). If \(\spn S_k = U\), then we are done. If not, then there exists some \(\vb{u}_{k + 1} \in U \setminus \spn S_k\), and set
     \[
-        S_{k + 1} = S_k \cup \Bqty{\vb{u}_{k + 1}} = \Bqty{\vb{u}_1, \ldots, \vb{u}_{k + 1}}.
+        S_{k + 1} = S_k \cup \set{\vb{u}_{k + 1}} = \set{\vb{u}_1, \ldots, \vb{u}_{k + 1}}.
     \]
 
     We claim that \(S_{k + 1}\) is linearly independent. Suppose not, then there exists \(\lambda_1, \ldots, \lambda_{k + 1} \in \FF\), not all zero, such that
@@ -319,11 +319,11 @@
 \end{theorem}
 
 \begin{proof}
-    Let \(\Bqty{\vb{v}_1, \ldots, \vb{v}_k}\) be a basis for \(\ker \alpha\), and we extend this to a basis for \(V\) by adding \(\Bqty{\vb{v}_{k + 1}, \ldots, \vb{v}_n}\).
+    Let \(\set{\vb{v}_1, \ldots, \vb{v}_k}\) be a basis for \(\ker \alpha\), and we extend this to a basis for \(V\) by adding \(\set{\vb{v}_{k + 1}, \ldots, \vb{v}_n}\).
 
     We claim that the set
     \[
-        \Bqty{\alpha\pqty{\vb{v}_{k + 1}}, \ldots, \alpha\pqty{\vb{v}_n}}
+        \set{\alpha\pqty{\vb{v}_{k + 1}}, \ldots, \alpha\pqty{\vb{v}_n}}
     \]
     forms a basis for \(\img \alpha\).
 
@@ -389,7 +389,7 @@
 \end{corollary}
 
 \begin{proof}
-    Recall that \(\alpha\) is injective if and only if \(\ker \alpha = \Bqty{\vb{0}}\), which is equivalent to \(\nul \alpha = 0\). Similarly, recall \(\alpha\) is surjective if and only if \(\img \alpha = W\), which is equivalent to \(\rank \alpha = \dim W = \dim V\).
+    Recall that \(\alpha\) is injective if and only if \(\ker \alpha = \set{\vb{0}}\), which is equivalent to \(\nul \alpha = 0\). Similarly, recall \(\alpha\) is surjective if and only if \(\img \alpha = W\), which is equivalent to \(\rank \alpha = \dim W = \dim V\).
 
     By rank--nullity theorem, we have
     \[
@@ -416,7 +416,7 @@
         F\pqty{\vb{v}} = {\sum_{\vb{b} \in \basis}}' \lambda_{\vb{b}} f\pqty{\vb{b}}.
     \]
 
-    \textbf{Well-defined.} If \(\vb{v} = {\sum_{\vb{b} \in \basis}}' \mu_i \vb{b}\), then \(\vb{0} = \Bqty{\sum_{\vb{b} \in \basis}}' \pqty{\lambda_{\vb{b}} - \mu_{\vb{b}}} \vb{b}\), hence \(\lambda_{\vb{b}} = \mu_{\vb{b}}\) for all \(\vb{b} \in \basis\), and so \(F\) is well-defined.
+    \textbf{Well-defined.} If \(\vb{v} = {\sum_{\vb{b} \in \basis}}' \mu_i \vb{b}\), then \(\vb{0} = \set{\sum_{\vb{b} \in \basis}}' \pqty{\lambda_{\vb{b}} - \mu_{\vb{b}}} \vb{b}\), hence \(\lambda_{\vb{b}} = \mu_{\vb{b}}\) for all \(\vb{b} \in \basis\), and so \(F\) is well-defined.
 
     \textbf{Uniqueness.} Suppose \(G\) is a linear map extending \(f\). Then for any \(\vb{v} \in V\), we have
     \begin{align*}
@@ -443,7 +443,7 @@
 
 \begin{corollary}[Isomorphism between \(n\)-dimensional Vector Space and \(\FF^n\)]
     \label{cor:isomorphism-between-n-dimensional-vector-space-and-F^n}%
-    Let \(V\) be a \(n\)-dimensional vector space, and let \(\basis = \Bqty{\vb{v}_1, \ldots, \vb{v}_n}\) be a basis for \(V\). Then there is an isomorphism
+    Let \(V\) be a \(n\)-dimensional vector space, and let \(\basis = \set{\vb{v}_1, \ldots, \vb{v}_n}\) be a basis for \(V\). Then there is an isomorphism
     \[
         \function{F_{\basis}}{V}{\FF^n}{\sum_{i = 1}^{n} \lambda_i \vb{v}_i}{\pmqty{\lambda_1 \\ \vdots \\ \lambda_n}}.
     \]
@@ -452,7 +452,7 @@
 \begin{proof}
     There is a bijection
     \[
-        \function{f}{\basis}{\Bqty{\vb{e}_1, \ldots, \vb{e}_n}}{\vb{v}_i}{\vb{e}_i}.
+        \function{f}{\basis}{\set{\vb{e}_1, \ldots, \vb{e}_n}}{\vb{v}_i}{\vb{e}_i}.
     \]
 
     By \autoref{prop:linear-map-is-determined-by-basis}, let \(F_{\basis}\) and \(\overline{F_{\basis}}\) extend \(f\) and \(f\inverse\) respectively. We claim that \(\overline{F_{\basis}} = \pqty{F_\basis}\inverse\). Consider the composition
@@ -466,7 +466,7 @@
 \end{proof}
 
 \begin{definition}[Coordinate Vector]
-    Let \(V\) be a finite-dimensional vector space, and let \(\basis = \Bqty{\vb{v}_1, \ldots, \vb{v}_n}\) be an ordered basis for \(V\). Given a vector \(\vb{v} \in V\), we denote the \term{coordinate vector} of \(\vb{v}\) with respect to \(\basis\) as
+    Let \(V\) be a finite-dimensional vector space, and let \(\basis = \set{\vb{v}_1, \ldots, \vb{v}_n}\) be an ordered basis for \(V\). Given a vector \(\vb{v} \in V\), we denote the \term{coordinate vector} of \(\vb{v}\) with respect to \(\basis\) as
     \[
         \bqty{\vb{v}}_{\basis} = \pmqty{\lambda_1 \\ \vdots \\ \lambda_n} \in \FF^n
     \]

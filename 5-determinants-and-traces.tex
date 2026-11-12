@@ -106,8 +106,8 @@ Note that in this proof, we have shown a way of calculating determinants.
 For the existence, we recall facts from \textit{IA Groups}.
 
 \begin{itemize}
-    \item \(S_n\) is the group of permutations of \(\Bqty{1, \ldots, n}\).
-    \item There is a unique sign homomorphism \(\functiondomain{\sign}{S_n}{\Bqty{1, -1}}\) such that \(\sign\pqty{\tau} = -1\) for all transposition \(\tau = \perm{k l}\).
+    \item \(S_n\) is the group of permutations of \(\set{1, \ldots, n}\).
+    \item There is a unique sign homomorphism \(\functiondomain{\sign}{S_n}{\set{1, -1}}\) such that \(\sign\pqty{\tau} = -1\) for all transposition \(\tau = \perm{k l}\).
     \item In particular, the kernel of \(\sign\) is the alternating group \(A_n\), and we have \(S_n = A_n \sqcup A_n \tau\) for any transposition \(\tau\).
 \end{itemize}
 
@@ -258,7 +258,7 @@ and this is known as \term{Leibniz formula}.
     \[
         \prod_{i = 1}^{n} c_{\sigma\pqty{i}, i} \neq 0,
     \]
-    then \(\sigma\) preserves \(X = \Bqty{1, \ldots, k}\) and hence also preserves \(Y = \Bqty{k + 1, \ldots, k + l}\). Hence, we may decompose \(\sigma = \tau \theta\) for \(\tau\) permuting exactly elements in \(X\), and \(\theta\) permuting exactly elements in \(Y\). Conversely, given \(\tau \in \Sym\pqty{X}\) and \(\theta \in \Sym\pqty{Y}\), then \(\tau \theta \in S_n\). Moreover,
+    then \(\sigma\) preserves \(X = \set{1, \ldots, k}\) and hence also preserves \(Y = \set{k + 1, \ldots, k + l}\). Hence, we may decompose \(\sigma = \tau \theta\) for \(\tau\) permuting exactly elements in \(X\), and \(\theta\) permuting exactly elements in \(Y\). Conversely, given \(\tau \in \Sym\pqty{X}\) and \(\theta \in \Sym\pqty{Y}\), then \(\tau \theta \in S_n\). Moreover,
     \begin{align*}
         \prod_{i = 1}^{n} c_{\tau \theta\pqty{i}, i} &= \pqty{\prod_{i = 1}^{k} c_{\tau\pqty{i}, i}} \pqty{\prod_{i = k + 1}^{k + l} c_{\theta\pqty{i}, i}} \\
         &= \pqty{\prod_{x \in X} c_{\tau\pqty{x}, x}} \pqty{\prod_{y \in Y} c_{\theta\pqty{y}, y}}.
