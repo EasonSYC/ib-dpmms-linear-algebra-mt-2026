@@ -394,6 +394,8 @@ then the remark above says that \(I_\alpha\) is non-empty, and it has an element
     There is an alternative proof valid over any field \(\FF\) \textbf{\textcolor{red}{See Handout}}
 \end{remark}
 
+\subsection{Multiplicites and Diagonalisability}
+
 \begin{definition}[Algebraic and Geometric Multiplicities]
     Let \(V\) be a finite-dimensional vector space over \(\FF\), and let \(\alpha \in \linearmap\pqty{V, V}\). Let \(\lambda \in \FF\) be an eigenvalue of \(\alpha\).
     
@@ -473,6 +475,7 @@ Note that \(g_{\lambda}, a_{\lambda} \geq 1\).
 \end{proof}
 
 \begin{proposition}[Diagonalisability and Multiplicities of Complex Matrices]
+    \label{prop:diagonalisability-multiplicities-complex-matrices}%
     Let \(V\) be a finite-dimensional vector space over \(\CC\), and let \(\alpha \in \linearmap\pqty{V, V}\). Then \(\alpha\) is diagonalisable if and only if \(g_{\lambda} = a_{\lambda}\) for all eigenvalues \(\lambda\) of \(\alpha\).
 \end{proposition}
 
@@ -485,3 +488,221 @@ Note that \(g_{\lambda}, a_{\lambda} \geq 1\).
     \]
     with equality if and only if \(g_{\lambda_i} = a_{\lambda_i}\) for all \(i\). By \autoref{lem:sum-of-multiplicities} (i), we have \(\alpha\) is diagonalisable if and only if \(\sum_{i = 1}^{k} g_{\lambda_i} = \dim V\), which is equivalent to \(g_{\lambda_i} = a_{\lambda_i}\) for all \(i\).
 \end{proof}
+
+\begin{remark}
+    For any polynomial \(p\pqty{t} = \sum_{i = 0}^{n} \mu_i t^i \in \FF\bqty{t}\), and \(\vb{v} \in V_{\lambda}\), we have
+    \[
+        p\pqty{\alpha} \pqty{\vb{v}} = \sum_{i = 1}^{n} \mu_i \alpha^i\pqty{\vb{v}} = \sum_{i = 1}^{n} \mu_i \lambda^i \vb{v} = p\pqty{\lambda} \vb{v}.
+    \]
+\end{remark}
+
+\begin{lemma}[Minimal and Characteristic Polynomials have the Same Roots]
+    For \(\lambda \in \FF\), \(\lambda\) is a root of \(m_{\alpha}\) if and only if \(\lambda\) is a root of \(\characteristic_{\alpha}\).
+\end{lemma}
+
+\begin{proof}
+    If \(\lambda\) is a root of \(m_{\alpha}\), then the Cayley--Hamilton thorem implies that \(\lambda\) is a root of \(\characteristic_{\alpha}\).
+
+    If \(\lambda\) is a root of \(\characteristic_{\alpha}\), then \(\lambda\) is an eigenvalue of \(\alpha\). Take \(\vb{0} \neq \vb{v} \in V_{\lambda}\), then we have
+    \[
+        m_{\alpha} \pqty{\alpha} \pqty{\vb{v}} = m_{\alpha} \pqty{\lambda} \vb{v},
+    \]
+    while \(m_{\alpha} \pqty{\alpha} = 0\), so \(m_{\alpha} \pqty{\lambda} = 0\) since \(\vb{v} \neq \vb{0}\), i.e. \(\lambda\) is a root of \(m_{\alpha}\).
+\end{proof}
+
+\begin{notation}
+    Denote \(c_{\lambda}\) as the multiplicity of \(\lambda\) as a root of \(m_{\alpha}\). Observe \(1 \leq c_{\lambda} \leq a_{\lambda}\) for all eigenvalues \(\lambda\) of \(\alpha\).
+\end{notation}
+
+\begin{example}
+    \begin{enumerate}[label=(\roman*)]
+        \item Let \(A = \lambda I_n\). Then \(\characteristic_{A} \pqty{t} = \pqty{t - \lambda}^n\), \(V_{\lambda} = \FF^n\), \(m_{A}\pqty{t} = t - \lambda\). So \(g_{\lambda} = a_{\lambda} = n\) and \(c_{\lambda} = 1\).
+        \item Let \(A\) be a Jordan block
+        \[
+            A = \pmqty{
+                \lambda & 1 & & & 0 \\
+                 & \lambda & 1 & & \\
+                 &  & \ddots & \ddots & \\
+                 & & & \lambda & 1 \\
+                0 & & & & \lambda
+            }.
+        \]
+
+        Then the characteristic polynomial is identical \(\characteristic_{A} \pqty{t} = \pqty{t - \lambda}^n\), however the eigenspace is now only \(V_{\lambda} = \spn\set{\vb{e}_1}\). Thus, \(g_{\lambda} = 1\), \(a_{\lambda} = n\). Further, note
+        \[
+            \pqty{A - \lambda I_n}^{n - 1} = \pmqty{
+                0 & \cdots & 0 & 1 \\
+                0 & \cdots & 0 & 0 \\
+                \vdots & \ddots & \vdots & \vdots \\
+                0 & \cdots & 0 & 0
+            },
+        \]
+        which is non-zero. So we must have \(m_A\pqty{t} = \pqty{t - \lambda}^n\), so \(c_{\lambda} = n\).
+    \end{enumerate}
+\end{example}
+
+\begin{theorem}[Diagonalisability and Factorisation of Minimal Polynomial]
+    \label{thm:diagonalisability-factorisation-minimal-polynomial}%
+    Let \(V\) be a finite-dimensional vector space over \(\FF\), and let \(\alpha \in \linearmap\pqty{V, V}\). If \(p\pqty{\alpha} = 0\) for some \(0 \neq p\pqty{t} \in \FF\bqty{t}\) which is a product of distinct linear factors, then \(\alpha\) is diagonalisable.
+\end{theorem}
+
+\begin{example}
+    Take \(\FF = \CC\). Note every invertible matrix \(A \in \GL_n\pqty{\CC}\) of finite order is diagonalisable. Indeed, suppose \(A^d = I\). Set \(p\pqty{t} = t^d - 1 \in \CC\bqty{t}\). Then this splits up as linear factors
+    \[
+        p\pqty{t} = \prod_{i = 1}^{d} \pqty{t - \omega^i} \qfor \omega = \exp\pqty{\frac{2 \pi i}{d}}.
+    \]
+
+    So \(p\pqty{A} = 0\), and hence \(A\) is diagonalisable.
+\end{example}
+
+\begin{proof}[\proofname\ of \autoref{thm:diagonalisability-factorisation-minimal-polynomial}]
+    We may assume that \(p\) is monic. Then write
+    \[
+        p\pqty{t} = \prod_{i = 1}^{k} \pqty{t - \mu_i}
+    \]
+    for some distinct \(\mu_i \in \FF\). Set polynomials
+    \[
+        p_i\pqty{t} = \prod_{j \neq i} \pqty{t - \mu_j}.
+    \]  
+
+    Then the \(p_i\)s are pairwise coprime (no common factors of degree at least one, since the \(\mu_i\)s are distinct). Appplying B\'{e}zout's lemma, there exist \(q_i\pqty{t} \in \FF\bqty{t}\), such that
+    \[
+        1 = \sum_{i = 1}^{k} p_i\pqty{t} q_i\pqty{t}.
+    \]
+
+    Take \(\pi_i = p_i\pqty{\alpha} \circ q_i\pqty{\alpha} \in \linearmap\pqty{V, V}\). Then
+    \[
+        \identity_V = \sum_{i = 1}^{k} \pi_i,
+    \]
+    so for each \(\vb{v} \in V\), we have
+    \[
+        \vb{v} = \sum_{i = 1}^{k} \pi_i \pqty{\vb{v}},
+    \]
+    and hence
+    \[
+        V = \img\pqty{\pi_1} + \cdots + \img\pqty{\pi_k}.
+    \]
+
+    Note that \(\pqty{t - \mu_i} p_i\pqty{t} = p\pqty{t}\), so in terms of endomorphisms, we have
+    \[
+        \pqty{\alpha - \mu_i \identity_V} \circ \pi_i = p\pqty{\alpha} \circ q_i \pqty{\alpha} = 0,
+    \]
+    so \(\img\pqty{\pi_i} \subspace \ker\pqty{\alpha - \mu_i \identity_V} = V_{\mu_i}\) Thus we have
+    \begin{align*}
+        V &= \img\pqty{\pi_1} + \cdots + \img\pqty{\pi_k} \\
+        &\subspace V_{\mu_1} \oplus \cdots \oplus V_{\mu_k} \\
+        &\subspace V.
+    \end{align*}
+
+    Hence, \(V = V_{\mu_1} \oplus \cdots \oplus V_{\mu_k}\), and thus \(\alpha\) is diagonalisable.
+\end{proof}
+
+So far, we summarise criterion for diagonalisability.
+
+\begin{theorem}[Criterion for Diagonalisability]
+    Let \(V\) be a finite-dimensional vector space over \(\FF\), and let \(\alpha \in \linearmap\pqty{V, V}\). Then the following are equivalent.
+    \begin{enumerate}[label=(\roman*)]
+        \item \(\alpha\) is diagonalisable.
+        \item \(V\) has a basis of eigenvectors of \(\alpha\).
+        \item There exists \(0 \neq p\pqty{t} \in \FF\bqty{t}\) which is a product of distinct linear factors such that \(p\pqty{\alpha} = 0\).
+        \item The minimal polynomial \(m_\alpha\) splits into distinct linear factors.
+        \item If \(\FF = \CC\), for all eigenvalues \(\lambda\) of \(\alpha\), we have \(g_{\lambda} = a_{\lambda}\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    \begin{itemize}
+        \item (i) \(\iff\) (ii) is by definition.
+        \item (i) \(\iff\) (v) in \(\FF = \CC\) is by \autoref{prop:diagonalisability-multiplicities-complex-matrices}.
+        \item (iii) \(\implies\) (iv) is by \autoref{lem:minimal-polynomial-divides-any-polynomial}.
+        \item (iv) \(\implies\) (iii) is trivial by simply taking \(p = m_\alpha\).
+        \item (iii) \(\implies\) (i) is by \autoref{thm:diagonalisability-factorisation-minimal-polynomial}.
+        \item (i) \(\implies\) (iii) is follows. Let \(\basis\) be a basis for \(V\) such that \(\bqty{\alpha}_{\basis}^{\basis}\) is diagonal. Then rearranging \(\basis\), we may assume that
+        \[
+            \bqty{\alpha}_{\basis}^{\basis} = \pmqty{
+                \lambda_1 I_{n_1} &  & & 0 \\
+                 & \lambda_2 I_{n_2} & &  \\
+                 & & \ddots & \\
+                0 &  &  & \lambda_k I_{n_k}
+            },
+        \]
+        where \(\lambda_i \in \FF\) are distinct. Then the polynomial
+        \[
+            p\pqty{t} = \prod_{i = 1}^{k} \pqty{t - \lambda_i}
+        \]
+        is a product of distinct linear factors, and note that
+        \[
+            \bqty{p\pqty{\alpha}}_{\basis}^{\basis} = p\pqty{\bqty{\alpha}_{\basis}^{\basis}} = O,
+        \]
+        so \(p\pqty{\alpha} = 0\).
+    \end{itemize}
+\end{proof}
+
+\begin{definition}[Simultaneously Diagonalisable]
+    Let \(V\) be a finite-dimensional vector space over \(\FF\), and let \(\alpha, \beta \in \linearmap\pqty{V, V}\). We say that \(\alpha\) and \(\beta\) are \term{simultaneously diagonalisable} if there exists a basis \(\basis\) of \(V\) such that both \(\bqty{\alpha}_{\basis}^{\basis}\) and \(\bqty{\beta}_{\basis}^{\basis}\) are diagonal.
+\end{definition}
+
+\begin{lemma}[Commuting Endomorphisms preserves Eigenspaces]
+    \label{lem:commuting-endomorphisms-preserves-eigenspaces}%
+    Let \(V\) be a finite-dimensional vector space over \(\FF\), and let \(\alpha, \beta \in \linearmap\pqty{V, V}\) such that \(\alpha \circ \beta = \beta \circ \alpha\). Let \(V_{\lambda}\) be an eigenspace of \(\alpha\) corresponding to the eigenvalue \(\lambda\). Then \(\beta\pqty{V_{\lambda}} \subspace V_{\lambda}\).
+\end{lemma}
+
+\begin{proof}
+    Let \(\vb{v} \in V_{\lambda}\). Note that
+    \begin{align*}
+        \alpha\pqty{\beta\pqty{\vb{v}}} &= \beta\pqty{\alpha\pqty{\vb{v}}} \\
+        &= \beta \pqty{\lambda \vb{v}} \\
+        &= \lambda \beta\pqty{\vb{v}},
+    \end{align*}
+    so \(\beta\pqty{\vb{v}} \in V_{\lambda}\).
+\end{proof}
+
+\begin{theorem}[Simultaneous Diagonalisability and Commutativity]
+    Suppose \(\alpha\) and \(\beta\) are diagonalisable. They are simultaneously diagonalisable if and only if they commute, i.e. \(\alpha \circ \beta = \beta \circ \alpha\).
+\end{theorem}
+
+\begin{proof}
+    Clearly commutativity is necessary, since diagonal matrices commute.
+
+    Suppose \(\alpha\) and \(\beta\) are diagonalisable and commute. Let
+    \[
+        V = V_{\lambda_1} \oplus \cdots \oplus V_{\lambda_k}
+    \]
+    for \(V_{\lambda_i}\) being the eigenspace of \(\alpha\) corresponding to the eigenvalue \(\lambda_i\). By \autoref{lem:commuting-endomorphisms-preserves-eigenspaces}, we have \(\beta\pqty{V_{\lambda_i}} \subspace V_{\lambda_i}\) for all \(i\). Let \(p\pqty{t} \in \FF\bqty{t}\) be a product of distinct linear factors such that \(p\pqty{\beta} = 0\). Then we may restrict \(\functiondomain{\beta}{V_{\lambda_i}}{V_{\lambda_i}}\), with \(p\pqty{\beta\vert_{V_{\lambda_i}}} = 0\). By \autoref{thm:diagonalisability-factorisation-minimal-polynomial}, we have \(\beta\vert_{V_{\lambda_i}}\) is diagonalisable, so there exists a basis \(\basis_i\) of \(V_{\lambda_i}\) such that \(\bqty{\beta}_{\basis_i}^{\basis_i}\) is diagonal. Then
+    \[
+        \basis = \bigcup_{i = 1}^{k} \basis_i
+    \]
+    is a basis for \(V\), and the elements of \(\basis\) are eigenvectors for both \(\alpha\) abd \(\beta\), so \(\alpha\) and \(\beta\) are simultaneously diagonalisable.
+\end{proof}
+
+\subsection{Jordan Normal Form}
+
+\begin{definition}[Jordan Block]
+    Let \(\lambda \in \CC\). The \(n \times n\) matrix
+    \[
+        J_n\pqty{\lambda} = \pmqty{
+            \lambda & 1 & & & 0 \\
+             & \lambda & 1 & & \\
+             & & \ddots & \ddots & \\
+             & & & \lambda & 1 \\
+            0 & & & & \lambda
+        }
+    \]
+    is called a \term{Jordan block} of size \(n\) corresponding to the eigenvalue \(\lambda\). We allow for \(n = 1\) in which case \(J_1\pqty{\lambda} = \pmqty{\lambda}\).
+\end{definition}
+
+Recall that the characteristic polynomial of \(J_n\pqty{\lambda}\) is \(\characteristic_{J_n\pqty{\lambda}} \pqty{t} = \pqty{t - \lambda}^n\), which is identical to its minimal polynomial. Its only eigenspace is \(V_{\lambda} = \spn\set{\vb{e}_1}\).
+
+\begin{definition}[Jordan Normal Form]
+    Let \(A \in \matrixset_{n \times n} \pqty{\CC}\). We say that \(A\) is in \term{Jordan normal form} if it is a block diagonal matrix of the form
+    \[
+        A = \pmqty{
+            J_{n_1}\pqty{\lambda_1} & & & & 0 \\
+             & J_{n_2}\pqty{\lambda_2} & & & \\
+             & & J_{n_3}\pqty{\lambda_3} & & \\
+             & & & \ddots & \\
+            0 & &  &  & J_{n_k}\pqty{\lambda_k}
+        },
+    \]
+    where \(J_{n_i}\pqty{\lambda_i}\) are Jordan blocks of size \(n_i\) corresponding to eigenvalues \(\lambda_i\), not necessarily distinct. 
+\end{definition}
