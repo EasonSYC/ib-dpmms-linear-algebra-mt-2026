@@ -390,11 +390,45 @@ then the remark above says that \(I_\alpha\) is non-empty, and it has an element
     This shows that \(\characteristic_{\alpha}\pqty{\alpha} = 0\).
 \end{proof}
 
-\begin{remark}
-    There is an alternative proof valid over any field \(\FF\) \textbf{\textcolor{red}{See Handout}}
-\end{remark}
+\begin{proof}[\proofname\ of \autoref{thm:cayley-hamilton-theorem} over General \(\FF\)]
+    We apply \autoref{thm:cramer} (Cramer's Rule) to the matrix \(t I_n - A\) to obtain
+    \[
+        \pqty{t I_n - A} \adj\pqty{t I_n - A} = \det\pqty{t I_n - A} I_n = \characteristic_{A}\pqty{t} I_n,
+    \]
+    and we write the coefficients of the characteristic polynomial as
+    \[
+        \characteristic_{A}\pqty{t} = t^n + a_{n - 1} t^{n - 1} + \cdots + a_1 t + a_0.
+    \]
 
-\subsection{Multiplicites and Diagonalisability}
+    Each entry of \(\adj\pqty{t I_n - A}\) is the determinant of some minor of \(t I_n - A\), which has at most one entry in each row and column containing the variable \(t\), and hence is a polynomial of degree at most \(n - 1\). Thus, we can write
+    \[
+        \adj\pqty{t I_n - A} = B_{n -1} t^{n - 1} + \cdots + B_1 t + B_0,
+    \]
+    where \(B_i \in \matrixset_{n \times n} \pqty{\FF}\) for \(i = 0, \ldots, n - 1\).
+
+    Substituting back, we have
+    \[
+        \pqty{t I_n - A} \pqty{B_{n - 1} t^{n - 1} + \cdots + B_1 t + B_0} = \pqty{t^n + a_{n - 1} t^{n - 1} + \cdots + a_1 t + a_0} I_n.
+    \]
+
+    Expanding out the left-hand side and equating coefficients of \(t\), we obtain the sequence of matrix equations
+    \begin{align*}
+        a_0 I_n + A B_0 &= 0, \\
+        B_0 &= A B_1 + a_1 I_n, \\
+        B_1 &= A B_2 + a_2 I_n, \\
+        &\vdots \\
+        B_{n - 2} &= A B_{n - 1} + a_{n - 1} I_n, \\
+        B_{n - 1} &= I_n.
+    \end{align*}
+
+    We may eliminate then recursively to obtain
+    \[
+        A^n + a_{n - 1} A^{n - 1} + \cdots + a_1 A + a_0 I_n = 0,
+    \]
+    which is precisely \(\characteristic_{A}\pqty{A} = 0\), as desired.
+\end{proof}
+
+\subsection{Multiplicities and Diagonalisability}
 
 \begin{definition}[Algebraic and Geometric Multiplicities]
     Let \(V\) be a finite-dimensional vector space over \(\FF\), and let \(\alpha \in \linearmap\pqty{V, V}\). Let \(\lambda \in \FF\) be an eigenvalue of \(\alpha\).
@@ -706,3 +740,280 @@ Recall that the characteristic polynomial of \(J_n\pqty{\lambda}\) is \(\charact
     \]
     where \(J_{n_i}\pqty{\lambda_i}\) are Jordan blocks of size \(n_i\) corresponding to eigenvalues \(\lambda_i\), not necessarily distinct. 
 \end{definition}
+
+\begin{theorem}[Jordan Normal Form]
+    \label{thm:jordan-normal-form}%
+    Every complex, square matrix \(A \in \matrixset_{n \times n} \pqty{\CC}\) is similar to a matrix \(\JNF\pqty{A}\) in Jordan normal form. Further, the Jordan normal form is unique, up to the rearrangement of the Jordan blocks.
+\end{theorem}
+
+We will give a proof of uniqueness, but for existence this is non-examinable (we will give a sketch of the proof), and we will see this in \textit{IB Groups, Rings and Modules}.
+
+\begin{example}[Complete list of Possible Jordan Normal Forms for \(n = 2, 3\)]
+    The complete possibility of Jordan normal forms for \(n = 2\) are
+    \[
+        \pmqty{
+            \lambda & 0 \\
+            0 & \lambda
+        } \quad
+        \pmqty{
+            \lambda & 0 \\
+            0 & \mu
+        } \quad
+        \pmqty{
+            \lambda & 1 \\
+            0 & \lambda
+        }
+    \]
+    with minimal polynomials
+    \[
+        \pqty{t - \lambda} \quad \pqty{t - \lambda}\pqty{t - \mu} \quad \pqty{t - \lambda}^2 
+    \]
+    respectively.
+
+    In the \(n = 3\) case, we have 6 possibilities
+    \[
+        \pmqty{
+            \lambda & 0 & 0 \\
+            0 & \lambda & 0 \\
+            0 & 0 & \lambda
+        } \quad
+        \pmqty{
+            \lambda & 0 & 0 \\
+            0 & \lambda & 0 \\
+            0 & 0 & \mu
+        } \quad
+        \pmqty{
+            \lambda & 0 & 0 \\
+            0 & \mu & 0 \\
+            0 & 0 & \nu
+        } \quad
+        \pmqty{
+            \lambda & 1 & 0 \\
+            0 & \lambda & 0 \\
+            0 & 0 & \mu
+        } \quad
+        \pmqty{
+            \lambda & 1 & 0 \\
+            0 & \lambda & 0 \\
+            0 & 0 & \lambda
+        } \quad
+        \pmqty{
+            \lambda & 1 & 0 \\
+            0 & \lambda & 1 \\
+            0 & 0 & \lambda
+        }
+    \]
+    with minimal polynomials
+    \[
+        \pqty{t - \lambda} \quad
+        \pqty{t - \lambda}\pqty{t - \mu} \quad
+        \pqty{t - \lambda}\pqty{t - \mu}\pqty{t - \nu} \quad
+        \pqty{t - \lambda}^2\pqty{t - \mu} \quad
+        \pqty{t - \lambda}^2 \quad
+        \pqty{t - \lambda}^3
+    \]
+    respectively.
+\end{example}
+
+\begin{remark}
+    For \(n \geq 3\), the Jordan normal form is uniquely determined by its minimal polynomial. This is not true for larger matrices.
+\end{remark}
+
+Recall that the Jordan block \(J_n \pqty{\lambda}\) has algebraic multiplicity \(a_{\lambda} = n\), geometric multiplicity \(g_{\lambda} = 1\), and minimal polynomial \(m_{J_n \pqty{\lambda}} \pqty{t} = \pqty{t - \lambda}^n\). Further, note that if a matrix \(A\) is in block-diagonal form
+\[
+    A = \pmqty{
+        A_1 & & & 0 \\
+         & A_2 & & \\
+         & & \ddots & \\
+        0 & &  & A_k
+    } \in \matrixset_{n \times n} \pqty{\CC},
+\]
+where \(A_i \in \matrixset_{n_i \times n_i} \pqty{\CC}\) for \(i = 1, \ldots, k\), then we have
+\[
+    p\pqty{A} = \pmqty{
+        p\pqty{A_1} & & & 0 \\
+         & p\pqty{A_2} & & \\
+         & & \ddots & \\
+        0 & &  & p\pqty{A_k}
+    },
+\]
+so we have \(m_A\pqty{t} = \lcm\set{m_{A_1}\pqty{t}, \ldots, m_{A_k}\pqty{t}}\). So we have \(c_{\lambda}\pqty{A} = \max\set{c_{\lambda}\pqty{A_1}, \ldots, c_{\lambda}\pqty{A_k}}\).
+
+For \(\lambda \in \CC\), we have
+\[
+    A - \lambda I_n = \pmqty{
+        A_1 - \lambda I_{n_1} & & & 0 \\
+         & A_2 - \lambda I_{n_2} & & \\
+         & & \ddots & \\
+        0 & &  & A_k - \lambda I_{n_k}
+    },
+\]
+so the characteristic polynomial is given by
+\[
+    \characteristic_A\pqty{t} = \det\pqty{t I_n - A} = \prod_{i = 1}^{k} \det\pqty{t I_{n_i} - A_i} = \prod_{i = 1}^{k} \characteristic_{A_i}\pqty{t},
+\]
+so for algebraic multiplicities, we have \(a_{\lambda}\pqty{A} = \sum_{i = 1}^{k} a_{\lambda}\pqty{A_i}\).
+
+For geometric multiplicities, note \(\rank\pqty{A} = \sum_{i = 1}^{k} \rank\pqty{A_i}\), so we have
+\[
+    g_\lambda \pqty{A} = \nul \pqty{A - \lambda I_n} = n - \rank\pqty{A - \lambda I_n} = n - \sum_{i = 1}^{k} \rank\pqty{A_i - \lambda I_{n_i}} = \sum_{i = 1}^{k} \nul\pqty{A_i - \lambda I_{n_i}} = \sum_{i = 1}^{k} g_\lambda \pqty{A_i}.
+\]
+
+\begin{proposition}[Multiplicities and Minimal/Characteristic Polynomial of Jordan Normal Form]
+    For \(A \in \matrixset_{n \times n} \pqty{\CC}\) in Jordan normal form, we have
+    \begin{enumerate}[label=(\roman*)]
+        \item \(c_{\lambda} \pqty{A}\) is the largest \(\lambda\)-Jordan block in \(A\).
+        \item \(a_{\lambda} \pqty{A}\) is the sum of the sizes of all \(\lambda\)-Jordan blocks in \(A\).
+        \item \(g_{\lambda} \pqty{A}\) is the number of \(\lambda\)-Jordan blocks in \(A\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    This follows immediately from the observations above.
+\end{proof}
+
+\begin{example}
+    Consider
+    \[
+        A = \pmqty{
+            3 & -2 & 0 \\
+            1 & 0 & 0 \\
+            1 & 0 & 1
+        }
+    \]
+    and we want to find \(P \in \GL_3\pqty{\CC}\) such that \(P\inverse A P\) is in Jordan normal form. We first compute the characteristic polynomial, which is given by
+    \[
+        \characteristic_A \pqty{t} = \pqty{t - 1}^2 \pqty{t - 2}.
+    \]
+
+    So the two possible Jordan normal forms are
+    \[
+        \pmqty{
+            1 & 1 & 0 \\
+            0 & 1 & 0 \\
+            0 & 0 & 2
+        } \qor
+        \pmqty{
+            1 & 0 & 0 \\
+            0 & 1 & 0 \\
+            0 & 0 & 2
+        },
+    \]
+    and this can be computed by the the geometric eigenspace \(V_1\) corresponding to the eigenvalue \(\lambda = 1\). We have
+    \[
+        A - I_3 = \pmqty{
+            2 & -2 & 0 \\
+            1 & -1 & 0 \\
+            1 & 0 & 0
+        }
+    \]
+    has rank \(2\), so \(\dim V_1 = 3 - 2 = 1\) with eigenvector \(\vb{v}_2 = \pmqty{0 \\ 0 \\ 1}\). Thus, the Jordan normal form is
+    \[
+        \JNF\pqty{A} = \pmqty{
+            1 & 1 & 0 \\
+            0 & 1 & 0 \\
+            0 & 0 & 2
+        }.
+    \]
+
+    To find the basis in which gives the Jordan normal form, similarly compute an eigenvector for \(\lambda = 2\), which is given by \(\vb{v}_1 = \pmqty{2 \\ 1 \\ 2}\). Then we need to find a vector \(\vb{v}_3\) such that
+    \[
+        A \vb{v}_3 = \vb{v}_2 + \vb{v}_3,
+    \]
+    and note \(\vb{v}_3 = \pmqty{1 \\ 1 \\ 0}\) works. Then we have
+    \[
+        P = \pmqty{\vb{v}_1 & \vb{v}_2 & \vb{v}_3} = \pmqty{
+            2 & 0 & 1 \\
+            1 & 0 & 1 \\
+            2 & 1 & 0
+        } \in \GL_3\pqty{\CC}.
+    \]
+\end{example}
+
+\begin{proof}[\proofname\ of Uniqueness of JNF]
+    Let \(A, \bar{A} \in \matrixset_{n \times n} \pqty{\CC}\), with \(A \sim \bar{A}\) and \(\bar{A}\) is in Jordan normal form.
+
+    For \(\lambda \in \CC\) and \(r \in \NN\), define
+    \[
+        R_{\lambda, r} \pqty{\bar{A}} = \text{the number of Jordan blocks of size at least \(r\) corresponding to the eigenvalue \(\lambda\) in \(\bar{A}\)}.
+    \]
+
+    Then the \(R_{\lambda, r} \pqty{\bar{A}}\) determine \(\bar{A}\), up to rearranging blocks.
+
+    We claim that \(R_{\lambda, r}\) admits a coordinate-free description, i.e. \(R_{\lambda, r} \pqty{\bar{A}}\) is invariant under similarity, which is given by
+    \[
+        R_{\lambda, r} \pqty{\bar{A}} = \rank \pqty{\pqty{\bar{A} - \lambda I_n}^{r - 1}} - \rank \pqty{\pqty{\bar{A} - \lambda I_n}^{r}}.
+    \]
+
+    This is clearly invariant under similarity, since
+    \[
+        P \pqty{\bar{A} - \lambda I_n}^{r} P\inverse = \pqty{P \bar{A} P\inverse - \lambda I_n}^{r}.
+    \]
+
+    We look at a Jordan block \(J_l \pqty{\lambda}\) of size \(l\), and note
+    \[
+        J_l \pqty{\lambda} - \lambda I_l = \pmqty{
+            0 & 1 & & 0 \\
+             & \ddots & \ddots & \\
+             & & \ddots & 1 \\
+            0 & & & 0
+        },
+    \]
+    and squaring gives
+    \[
+        \pqty{J_l \pqty{\lambda} - \lambda I_l}^2 = \pmqty{
+            0 & 0 & 1 & & 0 \\
+             & \ddots & \ddots & \ddots & \\
+             & & \ddots & \ddots & 1 \\
+             & & & \ddots & 0 \\
+            0 & & & & 0
+        },
+    \]
+    so each time we raise it to a higher power, we shift the superdiagonal to the right, until we reach the \(l\)th power, which is the zero matrix. Thus, we have
+    \[
+        \rank\pqty{\pqty{J_l \pqty{\lambda} - \lambda I_l}^{r}} = \max\set{0, l - r} = \begin{cases}
+            l - r & \qif r < l, \\
+            0 & \qif r \geq l.
+        \end{cases}
+    \]
+
+    If \(\mu \neq \lambda\), \(J_l \pqty{\mu} - \lambda I_l\) is always invertible and full-rank.
+
+    Hence,
+    \begin{align*}
+        \rank\pqty{\pqty{A - \lambda I_n}^k} &= n - k \cdot \text{the number of \(\lambda\)-Jordan blocks of size \(\geq k\)} \\
+        &\phantom{=} \quad - \sum_{\text{\(\lambda\)-Jordan blocks with size \(< k\)}} \text{the size of the block}.
+    \end{align*}
+
+    This shows that \(R_{\lambda, r}\) indeed has this coordinate-free description, and hence is invariant under similarity. Thus, \(R_{\lambda, r} \pqty{\bar{A}}\) is uniquely determined by \(A\), and hence the Jordan normal form of \(A\) is unique up to rearranging blocks.
+\end{proof}
+
+We outline how prove the existence here.
+
+\begin{definition}[Generalised Eigenspace]
+    Let \(V\) be a finite-dimensional \(\CC\)-vector space, and we write the minimal polynomial of \(\alpha \in \linearmap\pqty{V, V}\) as
+    \[
+        m_{\alpha}\pqty{t} = \prod_{i = 1}^{k} \pqty{t - \lambda_i}^{c_{\lambda_i}}
+    \]
+    for distinct eigenvalues \(\lambda_i\) of \(\alpha\) and \(c_i \geq 1\). Then we define the \term{\(\lambda_i\)-generalised eigenspace} of \(\alpha\) as
+    \[
+        V_i = \ker\pqty{\pqty{\alpha - \lambda_i \identity_V}^{c_{\lambda_i}}} \subspace V.
+    \]
+\end{definition}
+
+\begin{theorem}[Generalised Eigenspace Decomposition]
+    Let \(V\) be a finite-dimensional \(\CC\)-vector space, and let \(\alpha \in \linearmap\pqty{V, V}\). Then we have
+    \[
+        V = V_1 \oplus \cdots \oplus V_k,
+    \]
+    where \(V_i\) is the \(\lambda_i\)-generalised eigenspace of \(\alpha\).
+\end{theorem}
+
+\begin{lemma}[Linear Independence of Generalised Eigenspaces]
+    \label{lem:linear-independence-generalised-eigenspaces}%
+    If \(\vb{0} \neq \vb{v}_i \in V_i\) for \(i = 1, \ldots, k\), then \(\set{\vb{v}_1, \ldots, \vb{v}_k}\) is linearly independent.
+\end{lemma}
+
+\begin{proof}
+    \textbf{\textcolor{red}{See Example Sheet.}} We adapt criterion for diagonalisability from \autoref{thm:diagonalisability-factorisation-minimal-polynomial} and use \autoref{lem:linear-independence-generalised-eigenspaces}.
+\end{proof}
