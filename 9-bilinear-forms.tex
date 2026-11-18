@@ -1,0 +1,143 @@
+\section{Bilinear Forms}
+
+\begin{definition}[Bilinear Form]
+    Let \(U, V\) be \(\FF\)-vector spaces. A function \(\functiondomain{\phi}{U \times V}{\FF}\) is a \term{bilinear foron} if for all \(\vb{u}_1 \in U\), \(\vb{v}_0 \in V\), the maps
+    \[
+        \function{\phi_{\vb{u}_0}}{V}{\FF}{\vb{v}}{\phi\pqty{\vb{u}_0, \vb{v}}} \qand \function{\phi_{\vb{v}_0}}{U}{\FF}{\vb{u}}{\phi\pqty{\vb{u}, \vb{v}_0}}
+    \]
+    are linear maps.
+\end{definition}
+
+\begin{examples}
+    The following are examples of bilinear forms.
+
+    \begin{enumerate}[label=(\roman*)]
+        \item Let \(U = V = \FF^n\), and define
+        \[
+            \phi\pqty{\vb{u}, \vb{v}} = \sum_{i=1}^n u_i v_i.
+        \]
+
+        \item Let \(U = \FF^m\) and \(V = \FF^n\), and \(A \in \matrixset_{m \times n} \pqty{\FF}\). Define
+        \[
+            \phi\pqty{\vb{u}, \vb{v}} = \vb{u}\transpose A \vb{v}.
+        \]
+
+        \item Let \(U = V = \contClass{0} \pqty{\ccintv{0}{1}}\). Define
+        \[
+            \phi\pqty{f, g} = \int_0^1 f\pqty{x} g\pqty{x} \dd{x}.
+        \]
+
+        \item For any \(\FF\)-vector space \(V\), define
+        \[
+            \function{\phi}{V \times \dual{V}}{\FF}{\phi\pqty{\vb{v}, \theta}}{\theta\pqty{\vb{v}}}.
+        \]
+    \end{enumerate}
+\end{examples}
+
+\subsection{Matrix Representation of Bilinear Forms}
+
+\begin{definition}[Matrix of a Bilinear Form]
+    Let \(U, V\) be finite-dimensional vector spaces, with bases \(\basis = \set{\vb{b}_1, \ldots, \vb{v}_m}\) and \(\mathcal{C} = \set{\vb{c}_1, \ldots, \vb{c}_n}\), respectively, then the \term{matrix of \(\phi\) with respect to \(\basis\) and \(\mathcal{C}\)} is the matrix
+    \[
+        \bqty{\phi}_{\basis, \mathcal{C}} = \pqty{\phi\pqty{\vb{b}_i, \vb{c}_j}}_{i, j} \in \matrixset_{m \times n} \pqty{\FF}.
+    \]
+\end{definition}
+
+\begin{proposition}[Compatibility of Bilinear Forms and Component Vectors]
+    For all \(\vb{u} \in U\), \(\vb{v} \in V\), we have
+    \[
+        \bqty{\vb{u}}_{\basis}\transpose \bqty{\phi}_{\basis, \mathcal{C}} \bqty{\vb{v}}_{\mathcal{C}} = \phi\pqty{\vb{u}, \vb{v}}.
+    \]
+
+    In particular, the matrix of a bilinear form is unique with respect to the choice of bases.
+\end{proposition}
+
+\begin{proof}
+    Decompose
+    \[
+        \vb{u} = \sum_{i=1}^m \lambda_i \vb{b}_i \qand \vb{v} = \sum_{j=1}^n \mu_j \vb{c}_j,
+    \]
+    so we have \(\bqty{\vb{u}}_{\basis} = \vb*{\lambda}\) and \(\bqty{\vb{v}}_{\mathcal{C}} = \vb*{\mu}\). Then we have
+    \begin{align*}
+        \phi\pqty{\vb{u}, \vb{v}} &= \phi\pqty{\sum_{i=1}^m \lambda_i \vb{b}_i, \sum_{j=1}^n \mu_j \vb{c}_j} \\
+        &= \sum_{i = 1}^{m} \sum_{j = 1}^{n} \lambda_i \mu_j \phi\pqty{\vb{b}_i, \vb{c}_j} \\
+        &= \vb*{\lambda}\transpose \bqty{\phi}_{\basis, \mathcal{C}} \vb*{\mu}.
+    \end{align*}
+
+    If there is some other matrix \(A \in \matrixset_{m \times n} \pqty{\FF}\) is such that
+    \[
+        \bqty{\vb{u}}_{\basis}\transpose A \bqty{\vb{v}}_{\mathcal{C}} = \phi\pqty{\vb{u}, \vb{v}},
+    \]
+    for all \(\vb{u} \in U\), \(\vb{v} \in V\), then by setting \(\vb{u} = \vb{b}_i\) and \(\vb{v} = \vb{c}_j\), then \(\bqty{\vb{u}}_{\basis} = \vb{e}_i\) and \(\bqty{\vb{v}}_{\mathcal{C}} = \vb{e}_j\). So we have
+    \[
+        \phi\pqty{\vb{b}_i, \vb{c}_j} = \vb{e}_i\transpose A \vb{e}_j = A_{ij},
+    \]
+\end{proof}
+
+\begin{corollary}[Change of Basis for Bilinear Forms]
+    \label{cor:change-of-basis-bilinear-forms}%
+    For \(\basis, \basis'\) bases for \(U\), \(\mathcal{C}, \mathcal{C}'\) bases for \(V\), we have
+    \[
+        \bqty{\phi}_{\basis', \mathcal{C}'} = \pqty{\bqty{\identity_{U}}_{\basis}^{\basis'}}\transpose \bqty{\phi}_{\basis, \mathcal{C}} \bqty{\identity_{V}}_{\mathcal{C}}^{\mathcal{C}'}.
+    \]
+\end{corollary}
+
+\begin{proof}
+    Let \(\vb{u} \in U\), \(\vb{v} \in V\). Then we have
+    \begin{align*}
+        \bqty{\vb{u}}_{\basis'}\transpose \pqty{\bqty{\identity_{U}}_{\basis}^{\basis'}}\transpose \bqty{\phi}_{\basis, \mathcal{C}} \bqty{\identity_{V}}_{\mathcal{C}}^{\mathcal{C}'} \bqty{\vb{v}}_{\mathcal{C}'} &= \pqty{\bqty{\identity_{U}}_{\basis}^{\basis'} \bqty{\vb{u}}_{\basis'}}\transpose \bqty{\phi}_{\basis, \mathcal{C}} \pqty{\bqty{\identity_{V}}_{\mathcal{C}}^{\mathcal{C}'} \bqty{\vb{v}}_{\mathcal{C}'}} \\
+        &= \bqty{\vb{u}}_{\basis}\transpose \bqty{\phi}_{\basis, \mathcal{C}} \bqty{\vb{v}}_{\mathcal{C}} \\
+        &= \phi\pqty{\vb{u}, \vb{v}},
+    \end{align*}
+    hence the results follow by the uniqueness of the matrix.
+\end{proof}
+
+\begin{definition}[Rank of a Bilinear Form]
+    Let \(\phi\) be a bilinear form on two finite-dimensional vector spaces \(U\) and \(V\). The \term{rank} of a bilinear form \(\phi\) is the rank of its matrix with respect to any choice of bases.
+\end{definition}
+
+\begin{remark}
+    As a result of \autoref{cor:change-of-basis-bilinear-forms}, since equivalent matrices have the same rank, the rank of a bilinear form is well-defined and independent of the choice of bases.
+
+    For a bilinear form on two identical vector spaces \(U = V\) with bases \(\basis, \basis'\), there is some \(P \in \GL_n\pqty{\FF}\) such that
+    \[
+        \bqty{\phi}_{\basis', \basis'} = P\transpose \bqty{\phi}_{\basis, \basis} P,
+    \]
+\end{remark}
+
+\begin{definition}[Congruent Matrices]
+    Two matrices \(A, A' \in \matrixset_{n \times n} \pqty{\FF}\) are \term{congruent} if there exists some \(P \in \GL_n\pqty{\FF}\) such that
+    \[
+        A' = P\transpose A P.
+    \]
+    
+\end{definition}
+
+This is also an equivalence relation on \(\matrixset_{n \times n} \pqty{\FF}\).
+
+\subsection{Left and Right Kernels}
+
+\begin{definition}[Left and Right Linear Maps of a Bilinear Form]
+    Let \(\functiondomain{\phi}{U \times V}{\FF}\) be a bilinear form. For \(\vb{u} \in U, \vb{v} \in V\), define
+    \[
+        \phi_{\textL} \pqty{\vb{u}} = \phi\pqty{\vb{u}, \cdot} \in \dual{V} \qand \phi_{\textR}\pqty{\vb{v}} = \phi\pqty{\cdot, \vb{v}} \in \dual{U}.
+    \]  
+
+    These are known as the \term{left} and \term{right} linear maps of \(\phi\), respectively.
+\end{definition}
+
+\begin{lemma}[Linearity of Left and Right Linear Maps]
+    \(\phi_{\text{L}}\) and \(\phi_{\text{R}}\) are linear maps.
+\end{lemma}
+
+\begin{definition}[Left and Right Kernels of a Bilinear Form]
+    Let \(\functiondomain{\phi}{U \times V}{\FF}\) be a bilinear form. The \term{left kernel} of \(\phi\) is
+    \[
+        \ker_{\textL} \phi = \set{\vb{u} \in U}{\phi_{\text{L}}\pqty{\vb{u}} = 0} = \set{\vb{u} \in U }{\forall \vb{v} \in V: \phi\pqty{\vb{u}, \vb{v}} = 0},
+    \]
+    and the \term{right kernel} of \(\phi\) is
+    \[
+        \ker_{\textR} \phi = \set{\vb{v} \in V}{\phi_{\text{R}}\pqty{\vb{v}} = 0} = \set{\vb{v} \in V}{\forall \vb{u} \in U : \phi\pqty{\vb{u}, \vb{v}} = 0}.
+    \]
+    
+\end{definition}
