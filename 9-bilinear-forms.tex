@@ -115,7 +115,7 @@
 
 This is also an equivalence relation on \(\matrixset_{n \times n} \pqty{\FF}\).
 
-\subsection{Left and Right Kernels}
+\subsection{Left and Right Linear Maps}
 
 \begin{definition}[Left and Right Linear Maps of a Bilinear Form]
     Let \(\functiondomain{\phi}{U \times V}{\FF}\) be a bilinear form. For \(\vb{u} \in U, \vb{v} \in V\), define
@@ -139,5 +139,211 @@ This is also an equivalence relation on \(\matrixset_{n \times n} \pqty{\FF}\).
     \[
         \ker_{\textR} \phi = \set{\vb{v} \in V}{\phi_{\text{R}}\pqty{\vb{v}} = 0} = \set{\vb{v} \in V}{\forall \vb{u} \in U : \phi\pqty{\vb{u}, \vb{v}} = 0}.
     \]
-    
 \end{definition}
+
+\begin{proposition}[Matrix Representation of Left and Right Linear Maps]
+    \label{prop:matrix-representation-left-right-linear-maps}%
+    Let \(U, V\) be finite-dimensional vector spaces, and let \(\basis, \mathcal{C}\) be bases for \(U\) and \(V\), respectively. Let \(\dual{\basis}\) and \(\dual{\mathcal{C}}\) be the dual bases for \(\dual{U}\) and \(\dual{V}\), respectively. Then we have
+    \[
+        \bqty{\phi_{\textL}}^{\basis}_{\dual{\mathcal{C}}} = \bqty{\phi}_{\basis, \mathcal{C}}\transpose \qand \bqty{\phi_{\textR}}^{\mathcal{C}}_{\dual{\basis}} = \bqty{\phi}_{\basis, \mathcal{C}}.
+    \]
+\end{proposition}
+
+\begin{proof}
+    Let \(A = \bqty{\phi}_{\basis, \mathcal{C}}\), and \(A' = \bqty{\phi_{\textL}}^{\basis}_{\dual{\mathcal{C}}}\). Let \(\basis = \set{\vb{b}_1, \ldots, \vb{b}_m}\) and \(\mathcal{C} = \set{\vb{c}_1, \ldots, \vb{c}_n}\). Then we have
+    \[
+        \phi_{\textL}\pqty{\vb{b}_i} = \sum_{k = 1}^{n} a'_{kj} \dual{\vb{c}}_k,
+    \]
+    while we have
+    \begin{align*}
+        a_{ji} &= \phi \pqty{\vb{b}_j, \vb{c}_i} \\
+        &= \phi_{\textL}\pqty{\vb{b}_j}\pqty{\vb{c}_i} \\
+        &= \sum_{k = 1}^{n} a'_{kj} \dual{\vb{c}}_k\pqty{\vb{c}_i} \\
+        &= a'_{ij},
+    \end{align*}
+    so we have \(A' = A\transpose\). The proof for the right linear map is similar.
+\end{proof}
+
+\begin{corollary}[Rank of Left and Right Linear Maps]
+    \label{cor:rank-of-left-and-right-linear-maps}%
+    Let \(\functiondomain{\phi}{U \times V}{\FF}\) be a bilinear form. Then we have
+    \[
+        \rank \phi_{\textL} = \rank \phi_{\textR} = \rank \phi.
+    \]
+\end{corollary}
+
+\begin{proof}
+    This is immediate from \autoref{prop:matrix-representation-left-right-linear-maps} and \autoref{thm:row-rank-equals-column-rank} (Row Rank equals Column Rank).
+\end{proof}
+
+\begin{definition}[Orthogonal Complement/Perpendicular Subspace]
+    Let \(\functiondomain{\phi}{U \times V}{\FF}\) be a bilinear form. Let \(S \subseteq U\) and \(T \subseteq V\). The \term{orthogonal complement/perpenducular subspace} of \(S\) is
+    \[
+        \rperp{S} = \set{\vb{v} \in V}{\forall \vb{u} \in S: \phi\pqty{\vb{u}, \vb{v}} = 0} \subseteq V,
+    \]
+    and of \(T\) is
+    \[
+        \lperp{T} = \set{\vb{u} \in U}{\forall \vb{v} \in T: \phi\pqty{\vb{u}, \vb{v}} = 0} \subseteq U.
+    \]
+\end{definition}
+
+\begin{remarks}
+    \begin{itemize}
+        \item By the subspace test, \(\rperp{S} \subspace V\) and \(\lperp{T} \subspace U\).
+        \item If \(S_1 \subseteq S_2 \subseteq U\), then \(\rperp{S_2} \subseteq \rperp{S_1}\). Similarly, if \(T_1 \subseteq T_2 \subseteq V\), then \(\lperp{T_2} \subseteq \lperp{T_1}\).
+        \item \(\ker \phi_{\textL} = \lperp{V}\) and \(\ker \phi_{\textR} = \rperp{U}\).
+    \end{itemize}
+\end{remarks}
+
+\begin{definition}[Degeneracy of Bilinear Forms]
+    A bilinear form \(\functiondomain{\phi}{U \times V}{\FF}\) is \term{degenerate} if either \(\rperp{U}\) or \(\lperp{V}\) is non-trivial. Otherwise, it is \term{non-degenerate}.
+\end{definition}
+
+\begin{proposition}[Non-Degeneracy of Bilinear Forms]
+    For finite-dimensional vector spaces \(U, V\) with bases \(\basis\) and \(\mathcal{C}\), a bilinear form \(\functiondomain{\phi}{U \times V}{\FF}\) is non-degenerate if and only if \(\dim U = \dim V\), and the matrix \(\phi_{\basis, \mathcal{C}}\) is invertible.
+\end{proposition}
+
+\begin{proof}
+    Non-degeneracy is equivalent to \(\ker \phi_{\textL} = \set{\vb{0}}\) and \(\ker \phi_{\textR} = \set{\vb{0}}\). By \autoref{thm:rank-nullity-thm} (Rank-Nullity Theorem), we have
+    \[
+        \dim U = \rank \phi_{\textL} = \rank \phi = \rank \phi_{\textR} = \dim V,
+    \]
+    by \autoref{cor:rank-of-left-and-right-linear-maps}. This happens if and only if \(\phi_{\basis, \mathcal{C}}\) is a square matrix of full rank.
+\end{proof}
+
+\subsection{Bilinear Form on a Single Vector Space}
+
+If \(\functiondomain{\phi}{U \times V}{\FF}\) is a bilinear form where \(U = V\) are finite-dimensional with basis \(\basis\), then we denote
+\[
+    \bqty{\phi}_{\basis} = \bqty{\phi}_{\basis, \basis} \in \matrixset_{n \times n} \pqty{\FF}.
+\]
+
+\begin{definition}[Symmetric Bilinear Form]
+    A bilinear form \(\functiondomain{\phi}{V \times V}{\FF}\) is \term{symmetric} if \(\phi\pqty{\vb{u}, \vb{v}} = \phi\pqty{\vb{v}, \vb{u}}\) for all \(\vb{u}, \vb{v} \in V\).
+\end{definition}
+
+\begin{remarks}
+    \begin{itemize}
+        \item For a finite-dimensional vector space \(V\) with basis \(\basis\), a bilinear form \(\functiondomain{\phi}{V \times V}{\FF}\) is symmetric if and only if \(\bqty{\phi}_{\basis}\) is a symmetric matrix.
+        \item If \(\phi\) is symmetric, then for any \(S \subseteq V\), we have \(\lperp{S} = \rperp{S}\).
+        \item In particular, if \(\phi\) is symmetric, then \(\ker \phi_{\textL} = \ker \phi_{\textR}\). We call this the \term{kernel} of \(\phi\).
+    \end{itemize}
+\end{remarks}
+
+One cool result about symmetric bilinear forms is that we can recover a symmetric bilinear form from only looking at the values \(\phi\pqty{\vb{v}, \vb{v}}\) for all \(\vb{v} \in V\). This motivates the following definition.
+
+\begin{definition}[Quadratic Form]
+    A function \(\functiondomain{Q}{V}{\FF}\) is a \term{quadratic form} if there exists a symmetric bilinear form \(\functiondomain{\phi}{V \times V}{\FF}\) such that for all \(\vb{v} \in V\), we have \(Q\pqty{\vb{v}} = \phi\pqty{\vb{v}, \vb{v}}\).
+\end{definition}
+
+\begin{example}
+    Let \(V = \RR^2\), for \(A = \pmqty{a & b \\ c & d} \in \matrixset_{2 \times 2} \pqty{\RR}\), define the quadratic form
+    \[
+        Q_A \pqty{\vb{v}} = \vb{v}\transpose A \vb{v} = a v_1^2 + \pqty{b + c} v_1 v_2 + d v_2^2.
+    \]
+
+    There is a corresponding bilinear form
+    \[
+        \phi_A \pqty{\vb{u}, \vb{v}} = \vb{u}\transpose A \vb{v}.
+    \]
+
+    Note that \(Q_A = Q_{\frac{1}{2} \pqty{A + A\transpose}}\), so we can always assume that \(A\) is symmetric. (The asymmetric part of \(A\) does not contribute to the quadratic form.)
+\end{example}
+
+\begin{proposition}[Polarisation Identity]
+    \label{prop:polarisation-identity}%
+    Suppose \(1 + 1 \neq 0\) in \(\FF\), and let \(V\) be a \(\FF\)-vector space. Let \(\functiondomain{Q}{V}{\FF}\) be a quadratic form. Then there is a unique symmetric bilinear form \(\functiondomain{\psi}{V \times V}{\FF}\) such that for all \(\vb{v} \in V\), we have \(Q\pqty{\vb{v}} = \psi\pqty{\vb{v}, \vb{v}}\), which is given by
+    \[
+        \psi\pqty{\vb{u}, \vb{v}} = \frac{1}{2} \pqty{Q\pqty{\vb{u} + \vb{v}} - Q\pqty{\vb{u}} - Q\pqty{\vb{v}}}.
+    \]
+\end{proposition}
+
+\begin{proof}
+    To show existence, let \(\phi\) induce this quadratic form \(Q\), i.e., \(\phi\pqty{\vb{v}, \vb{v}} = Q\pqty{\vb{v}}\) for all \(\vb{v} \in V\). Set \(\psi\pqty{\vb{u}, \vb{v}} = \frac{1}{2} \pqty{\phi\pqty{\vb{u}, \vb{v}} + \phi\pqty{\vb{v}, \vb{u}}}\). Then \(\psi\) is symmetric, and for all \(\vb{v} \in V\), we have \(\psi\pqty{\vb{v}, \vb{v}} = \phi\pqty{\vb{v}, \vb{v}} = Q\pqty{\vb{v}}\).
+
+    For uniqueness, suppose \(\psi\) is a symmetric bilinear form satisfying \(\psi\pqty{\vb{v}, \vb{v}} = Q\pqty{\vb{v}}\) for all \(\vb{v} \in V\). Then note 
+    \begin{align*}
+        Q\pqty{\vb{u} + \vb{v}} &= \psi\pqty{\vb{u} + \vb{v}, \vb{u} + \vb{v}} \\
+        &= \psi\pqty{\vb{u}, \vb{u}} + \psi\pqty{\vb{u}, \vb{v}} + \psi\pqty{\vb{v}, \vb{u}} + \psi\pqty{\vb{v}, \vb{v}} \\
+        &= Q\pqty{\vb{u}} + \psi\pqty{\vb{u}, \vb{v}} + \psi\pqty{\vb{v}, \vb{u}} + Q\pqty{\vb{v}} \\
+        &= Q\pqty{\vb{u}} + 2 \psi\pqty{\vb{u}, \vb{v}} + Q\pqty{\vb{v}},
+    \end{align*}
+    and rearranging, we get that \(\psi\) is uniquely determined by \(q\) as
+    \[
+        \psi\pqty{\vb{u}, \vb{v}} = \frac{1}{2} \pqty{Q\pqty{\vb{u} + \vb{v}} - Q\pqty{\vb{u}} - Q\pqty{\vb{v}}},
+    \]
+\end{proof}
+
+\begin{theorem}[Diagonalisation of Symmetric Bilinear Forms]
+    \label{thm:diagonalisation-symmetric-bilinear-forms}%
+    Suppose \(1 + 1 \neq 0\) in \(\FF\). Let \(V\) be a finite-dimensional \(\FF\)-vector space, and let \(\functiondomain{\phi}{V \times V}{\FF}\) be a symmetric bilinear form. Then there exists a basis \(\basis\) for \(V\) such that \(\bqty{\phi}_{\basis}\) is diagonal.
+\end{theorem}
+
+\begin{remark}
+    The assumption that \(\phi\) is symmetric is necessary, since if \(A \in \matrixset_{n \times n} \pqty{\FF}\) with \(P \transpose A P = D\) being diagonal for some \(P \in \GL_n\pqty{\FF}\), then we have
+    \[
+        P\transpose A P = D = D\transpose = P\transpose A\transpose P
+    \]
+    so \(A = A\transpose\), i.e., \(A\) is symmetric.
+\end{remark}
+
+\begin{corollary}[Congruence of Symmetric Matrices to Diagnoal Matrices]
+    Suppose \(1 + 1 \neq 0\) in \(\FF\), every symmetric matrix over \(\FF\) is congruent to a diagonal matrix.
+\end{corollary}
+
+\begin{example}
+    If \(\FF = \flatfrac{\ZZ}{2 \ZZ}\), the matrix \(\pmqty{0 & 1 \\ 1 & 0}\) is not congruent to any diagonal matrix.
+\end{example}
+
+\begin{proof}[\proofname\ of \autoref{thm:diagonalisation-symmetric-bilinear-forms}]
+    We induct on \(n = \dim V\). This is clear for \(n = 0\) or \(1\).
+
+    If \(\phi\pqty{\vb{v}, \vb{v}} = 0\) for all \(\vb{v} \in V\), then by \autoref{prop:polarisation-identity} (Polarisation Identity), we have \(\phi\pqty{\vb{u}, \vb{v}} = 0\) for all \(\vb{u}, \vb{v} \in V\), so any basis will do.
+
+    Now, suppose \(\vb{v}_1 \in V\) with \(\phi\pqty{\vb{v}_1, \vb{v}_1} \neq 0\). Let
+    \[
+        U = \rperp{\set{\vb{v}_1}} = \ker \pqty{\phi_{\textL}\pqty{\vb{v}_1}} \subseteq V.
+    \]
+
+    Note \(\vb{v}_1 \notin U\), so by \autoref{thm:rank-nullity-thm} (Rank--Nullity Theorem), we have \(\dim U = n - 1\), and \(V = \spn\set{\vb{v}_1} \oplus U\).
+
+    By the induction hypothesis, there is a basis \(\basis_U = \set{\vb{v}_2, \vb{v}_2, \ldots, \vb{v}_{n}}\) for \(U\), such that the restriction of \(\phi\) to \(U\) is diagonal with respect to \(\basis_U\).
+
+    Set \(\basis = \set{\vb{v}_1} \cup \basis_U\). Then \(\basis\) is a basis for \(V\), and we have
+    \[
+        \bqty{\phi}_{\basis} = \pmqty{\phi\pqty{\vb{v}_1, \vb{v}_1} & \vb{0}\transpose \\ \vb{0} & \bqty{\phi}_{\basis_U}},
+    \]
+    is indeed diagonal, by the construction of the orthogonal complement \(U\) of \(\vb{v}_1\).
+\end{proof}
+
+\begin{remark}
+    This is a procedure that will always work for constructing a diagonal basis. In practice, it is often easier to do by inspection.
+\end{remark}
+
+\begin{example}
+    For \(\vb{x} \in \RR^3\), define the quadratic form
+    \begin{align*}
+        Q\pqty{\vb{x}} &= x_1^2 - 4 x_2 x_3 + x_3^2 \\
+        &= x_1^2 + \pqty{x_3 - 2 x_2}^2 - \pqty{2 x_2}^2 \\
+        &= z_1^2 + z_2^2 - z_3^2,
+    \end{align*}
+    where
+    \[
+        \vb{z} = \pmqty{1 & 0 & 0 \\ 0 & -2 & 1 \\ 0 & 2 & 0} \vb{x} = P\inverse \vb{x}.
+    \]
+
+    Then \(Q \pqty{\vb{x}} = \psi\pqty{\vb{x}, \vb{x}}\), where
+    \[
+        \psi\pqty{\vb{x}, \vb{y}} = x_1 y_1 - 2 \pqty{x_2 y_3 + x_3 y_2} + x_3 y_3.
+    \]
+
+    In the standard basis, \(\psi\) has matrix
+    \[
+        A = \pmqty{1 & 0 & 0 \\ 0 & 0 & -2 \\ 0 & -2 & 1},
+    \]
+    then we have
+    \[
+        P\transpose A P = \pmqty{1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & -1},
+    \]
+    is diagonal as desired.
+\end{example}
