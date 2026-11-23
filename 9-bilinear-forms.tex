@@ -44,6 +44,7 @@
 \end{definition}
 
 \begin{proposition}[Compatibility of Bilinear Forms and Component Vectors]
+    \label{prop:compatibility-bilinear-forms-component-vectors}%
     For all \(\vb{u} \in U\), \(\vb{v} \in V\), we have
     \[
         \bqty{\vb{u}}_{\basis}\transpose \bqty{\phi}_{\basis, \mathcal{C}} \bqty{\vb{v}}_{\mathcal{C}} = \phi\pqty{\vb{u}, \vb{v}}.
@@ -347,3 +348,226 @@ One cool result about symmetric bilinear forms is that we can recover a symmetri
     \]
     is diagonal as desired.
 \end{example}
+
+\begin{corollary}
+    Suppose \(\FF = \CC\) or \(\RR\), and let \(U, V\) and \(\phi\). be as in \autoref{thm:diagonalisation-symmetric-bilinear-forms}. Define \(Q\pqty{\vb{v}} = \phi\pqty{\vb{v}, \vb{v}}\) be the quadratic form induced by \(\phi\).
+
+    If \(\FF = \CC\), then there exists a basis \(\basis = \set{\vb{b}_1, \vb{b}_2, \ldots, \vb{b}_n}\) for \(V\) such that
+    \[
+        \bqty{\phi}_{\basis} = \pmqty{\dmat{I_r, O}} \qfor r = \rank \phi,
+    \]
+    and equivalently
+    \[
+        Q\pqty{\sum_{i = 1}^{n} \lambda_i \vb{v}_i} = \sum_{i = 1}^{r} \lambda_i^2.
+    \]
+
+    If \(\FF = \RR\), then there exists a basis \(\basis\) for \(V\) such that
+    \[
+        \bqty{\phi}_{\basis} = \pmqty{\dmat{I_p, -I_q, O}} \qfor p + q = \rank \phi,
+    \]
+    and equivalently
+    \[
+        Q\pqty{\sum_{i = 1}^{n} \lambda_i \vb{v}_i} = \sum_{i = 1}^{p} \lambda_i^2 - \sum_{i = p + 1}^{p + q} \lambda_i^2.
+    \]
+\end{corollary}
+
+\begin{proof}
+    Pick bases \(\mathcal{C} = \set{\vb{w}_1, \ldots, \vb{w}_n}\) as in \autoref{thm:diagonalisation-symmetric-bilinear-forms}. Them we have
+    \[
+        \bqty{\phi}_{\mathcal{C}} = \pmqty{\dmat{a_1, \ddots, a_n}},
+    \]
+    then by reordering \(\mathcal{C}\), we may assume that:
+    \item \(a_i \neq 0\) for \(i \leq r = \rank \phi\); and
+    \item in the case \(\FF = \RR\), \(r = p + q\), and \(a_i > 0\) for \(i \leq p\), and \(a_i < 0\) for \(p < i \leq p + q\).
+    
+    If \(\FF = \CC\), rescale the vectors, such that
+    \[
+        \vb{v}_i = \begin{cases}
+            \flatfrac{\vb{w}_i}{\sqrt{a_i}}, & i \leq r, \\
+            \vb{w}_i, & i > r,
+        \end{cases}
+    \]
+    and if \(\FF = \RR\), rescale the vectors, such that
+    \[
+        \vb{v}_i = \begin{cases}
+            \flatfrac{\vb{w}_i}{\sqrt{a_i}}, & i \leq p, \\
+            \flatfrac{\vb{w}_i}{\sqrt{-a_i}}, & p < i \leq p + q, \\
+            \vb{w}_i, & i > p + q.
+        \end{cases}
+    \]
+
+    Then under this basis, the matrix is in the form, as claimed.
+\end{proof}
+
+\subsection{Bilinear Forms on \(\RR\)}
+
+\begin{definition}[Positive/Negative-(Semi)Definite Bilinear Forms]
+    Let \(V\) be a real vector space, and let \(\functiondomain{\phi}{V \times V}{\RR}\) be a symmetric bilinear form. We say:
+    \begin{itemize}
+        \item \(\phi\) is \term{positive definite} if its associated quadratic form satisfies \(\phi\pqty{\vb{v}, \vb{v}} > 0\) for all \(\vb{v} \in V \setminus \set{\vb{0}}\).
+        \item \(\phi\) is \term{positive semidefinite} if its associated quadratic form satisfies \(\phi\pqty{\vb{v}, \vb{v}} \geq 0\) for all \(\vb{v} \in V\).
+        \item \(\phi\) is \term{negative definite} if its associated quadratic form satisfies \(\phi\pqty{\vb{v}, \vb{v}} < 0\) for all \(\vb{v} \in V \setminus \set{\vb{0}}\).
+        \item \(\phi\) is \term{negative semidefinite} if its associated quadratic form satisfies \(\phi\pqty{\vb{v}, \vb{v}} \leq 0\) for all \(\vb{v} \in V\).
+    \end{itemize}
+
+    Otherwise, we say \(\phi\) is \term{indefinite}.
+\end{definition}
+
+\begin{example}
+    Let \(V\) be a finite-dimensional real vector space, and let \(\functiondomain{\phi}{V \times V}{\RR}\) be a symmetric bilinear form. Then
+    \begin{enumerate}[label=(\roman*)]
+        \item If
+        \[
+            \bqty{\phi}_{\basis} = \pmqty{\dmat{I_p, O}},
+        \]
+        the \(\phi\) is positive semidefinite, and it is positive definite if and only if \(p = \dim V\).
+        \item In the general case, if
+        \[
+            \bqty{\phi}_{\basis} = \pmqty{\dmat{I_p, -I_q, O}},
+        \]
+        where \(p, q > 0\), we have that \(\phi\) is indefinite.
+    \end{enumerate}
+\end{example}
+
+\begin{theorem}[Sylvester's Law of Inertia]
+    \label{thm:sylvesters-law-of-inertia}%
+    Let \(V\) be a finite-dimensional real vector space, and let \(\functiondomain{\phi}{V \times V}{\RR}\) be a symmetric bilinear form. If \(\basis, \basis'\) are bases for \(V\) such that
+    \[
+        \bqty{\phi}_{\basis} = \pmqty{\dmat{I_p, -I_q, O}} \qand \bqty{\phi}_{\basis'} = \pmqty{\dmat{I_{p'}, -I_{q'}, O}},
+    \]
+    then \(p = p'\) and \(q = q'\).
+\end{theorem}
+
+\begin{definition}[Signature of a Bilinear Form]
+    Let \(V\) be a finite-dimensional real vector space, and let \(\functiondomain{\phi}{V \times V}{\RR}\) be a symmetric bilinear form. The \term{signature} of \(\phi\) is \(\sigma\pqty{\phi} = p - q\), where \(p\) and \(q\) are as in Sylvester's Law of Inertia.
+\end{definition}
+
+\begin{corollary}[Well-Definedness of Signature]
+    The signature of a symmetric bilinear form is well-defined and independent of the choice of basis.
+\end{corollary}
+
+To prove Sylvester's law, we introduce the following lemma.
+
+\begin{lemma}[Trivial Intersection of Subspaces with Positive and Negative Definite Restrictions]
+    Let \(U, W \subspace V\) where \(V\) is a real vector space, and let \(\functiondomain{\phi}{V \times V}{\RR}\) be a symmetric bilinear form.
+    \begin{enumerate}[label=(\roman*)]
+        \item If the restriction \(\functiondomain{\rightbar{\phi}_{U}}{U \times U}{\RR}\) is positive definite, and \(\functiondomain{\rightbar{\phi}_{W}}{W \times W}{\RR}\) is negative semidefinite, then \(U \cap W = \set{\vb{0}}\) intersect trivially.
+        \item If the restriction \(\functiondomain{\rightbar{\phi}_{U}}{U \times U}{\RR}\) is negative definite, and \(\functiondomain{\rightbar{\phi}_{W}}{W \times W}{\RR}\) is positive semidefinite, then \(U \cap W = \set{\vb{0}}\) intersect trivially.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    \begin{enumerate}[label=(\roman*)]
+        \item Suppose \(\vb{0} \neq \vb{v} \in U \cap W\). Then we have
+        \[
+            \vb{v} \in U \implies \phi\pqty{\vb{v}, \vb{v}} > 0 \qand \vb{v} \in W \implies \phi\pqty{\vb{v}, \vb{v}} \leq 0,
+        \]
+        which is a contradiction. Hence \(U \cap W = \set{\vb{0}}\).
+        \item This is similar to (i).
+    \end{enumerate}
+\end{proof}
+
+
+\begin{proof}[\proofname\ of \autoref{thm:sylvesters-law-of-inertia} (Sylvester's Law)]
+    For uniqueness of \(p\), we claim that \(p\) is the largest dimension of a subspace of \(V\), on which \(\phi\) is positive definite.
+
+    Set \(U = \spn \set{\vb{v}_1, \ldots, \vb{v}_p}\), and \(W = \set{\vb{v}_{p + 1}, \ldots, \vb{v}_n}\). Then \(\rightbar{\phi}_U\) is positive definite, while \(\rightbar{\phi}_W\) is negative semidefinite.
+
+    Suppose there is another subspace \(U' \subspace V\) with \(\rightbar{\phi}_{U'}\) being positive definite, but \(\dim U' = p' > p\). Then by the previous lemma, we have \(U \cap W = \set{\vb{0}}\), but by the dimension formula, we have
+    \[
+        \dim \pqty{U'} + \dim \pqty{W} > n = \dim V,
+    \]
+    so \(U' \cap W \neq \set{\vb{0}}\), which is a contradiction. Hence \(p' \leq p\), and by symmetry, we have \(p = p'\).
+
+    The uniqueness of \(q\) is similar.
+\end{proof}
+
+\begin{definition}[Totally Isotropic Subspace]
+    Let \(V\) be a finite-dimensional real vector space, and let \(\functiondomain{\phi}{V \times V}{\RR}\) be a symmetric bilinear form. A subspace \(T \subspace V\) is \term{totally isotropic} if the restriction \(\rightbar{\phi}_T\) is identically zero, i.e., \(\phi\pqty{\vb{t}_1, \vb{t}_2} = 0\) for all \(\vb{t}_1, \vb{t}_2 \in T\).
+\end{definition}
+
+\begin{example}
+    Suppose \(V\) is finite-dimensional with \(\basis\), and
+    \[
+        \bqty{\phi}_{\basis} = \pmqty{\dmat{I_p, -I_q, O}}.
+    \]
+
+    Then the maximal dimension of the totally isotropic subspace is not only \(\dim{V} - p - q\), but in fact is \(\dim \pqty{V} - \max\pqty{p, q}\).
+\end{example}
+
+\subsection{Sesquilinear Forms on \(\CC\)}
+
+The motivating example for bilinear forms is the dot product on \(\RR^n\). However, the dot product on \(\CC^n\) is not bilinear, but rather a sesquilinear form (recall we take the complex conjugate of one argument).
+
+\begin{example}[Complex Dot Product]
+    The standard dot product on \(\CC^n\)
+    \[
+        \vb{x} \vdot \vb{y} = \sum_{i = 1}^{n} x_i \conjugate{y_i}.
+    \]
+
+    (We use the standard algebraic convention of taking the complex conjugate of the second argument.) This is clearly not bilinear.
+\end{example}
+
+\begin{definition}[Sesquilinear Form]
+    Let \(V, W\) be complex vector spaces. A \term{sesquilinear form} is a function
+    \[
+        \functiondomain{\phi}{V \times W}{\CC}
+    \]
+    such that \(\phi\) is linear in the first argument, and conjugate-linear in the second argument, i.e., for all \(\vb{v}_1, \vb{v}_2 \in V\), \(\vb{w}_1, \vb{w}_2 \in W\), and \(\lambda, \mu \in \CC\), we have
+    \begin{align*}
+        \phi\pqty{\lambda \vb{v}_1 + \vb{v}_2, \vb{w}_1} = \lambda \phi\pqty{\vb{v}_1, \vb{w}_1} + \phi\pqty{\vb{v}_2, \vb{w}_1}, \\
+        \phi\pqty{\vb{v}_1, \mu \vb{w}_1 + \vb{w}_2} = \conjugate{\mu} \phi\pqty{\vb{v}_1, \vb{w}_1} + \phi\pqty{\vb{v}_1, \vb{w}_2}.
+    \end{align*}
+\end{definition}
+
+\begin{definition}[Matrix Representation of Sesquilinear Forms]
+    Let \(V, W\) be finite-dimensional complex vector spaces, and let \(\functiondomain{\phi}{V \times W}{\CC}\) be a sesquilinear form. Let \(\basis\) and \(\mathcal{C}\) be bases for \(V\) and \(W\), respectively. The \term{matrix representation} of \(\phi\) with respect to the bases \(\basis\) and \(\mathcal{C}\) is
+    \[
+        \bqty{\phi}_{\basis, \mathcal{C}} = \pmqty{\phi\pqty{\vb{b}_i, \vb{c}_j}}_{1 \leq i \leq m, 1 \leq j \leq n} \in \matrixset_{m \times n} \pqty{\CC},
+    \]
+\end{definition}
+
+\begin{proposition}[Compatibility of Sesquilinear Forms and Component Vectors]
+    Let \(\basis, \mathcal{C}\) be bases for finite-dimensional complex vector spaces \(V\) and \(W\), respectively. The matrix \(\bqty{\phi}_{\basis, \mathcal{C}}\) is compatible with the component vectors of \(\vb{v} \in V\) and \(\vb{w} \in W\) in the sense that it is the unique matrix such that
+    \[
+        \bqty{\vb{v}}_{\basis}\transpose \bqty{\phi}_{\basis, \mathcal{C}} \conjugate{\bqty{\vb{w}}_{\mathcal{C}}} = \phi\pqty{\vb{v}, \vb{w}},
+    \]
+    for all \(\vb{v} \in V\) and \(\vb{w} \in W\).
+\end{proposition}
+
+\begin{proof}
+    This is similar to the proof of \autoref{prop:compatibility-bilinear-forms-component-vectors}.
+\end{proof}
+
+\begin{corollary}[Change of Basis for Sesquilinear Forms]
+    Let \(\basis, \basis'\) be bases for a finite-dimensional complex vector space \(V\), and let \(\mathcal{C}, \mathcal{C}'\) be bases for a finite-dimensional complex vector space \(W\). Then we have
+    \[
+        \bqty{\phi}_{\basis', \mathcal{C}'} = P\transpose \bqty{\phi}_{\basis, \mathcal{C}} \conjugate{Q},
+    \]
+    where \(P = \bqty{\identity_V}_{\basis}^{\basis'}\) and \(Q = \bqty{\identity_W}_{\mathcal{C}}^{\mathcal{C}'}\).
+\end{corollary}
+
+\begin{proof}
+    This is similar to the proof of \autoref{cor:change-of-basis-bilinear-forms}.
+\end{proof}
+
+\begin{definition}[Hermitian Sesquilinear Forms]
+    A sesquilinear form \(\functiondomain{\phi}{V \times V}{\CC}\) is \term{Hermitian} if \(\phi\pqty{\vb{v}, \vb{w}} = \conjugate{\phi\pqty{\vb{w}, \vb{v}}}\) for all \(\vb{v}, \vb{w} \in V\).
+\end{definition}
+
+\begin{remarks}
+    Let \(V\) be a finite-dimensional complex vector space with basis \(\basis\), and let \(\functiondomain{\phi}{V \times V}{\CC}\) be Hermitian. Then
+    \begin{enumerate}[label=(\roman*)]
+        \item We denote \(\bqty{\phi}_{\basis} = \bqty{\phi}_{\basis, \basis}\).
+        \item For all \(\vb{v} \in V\), we have \(\phi\pqty{\vb{v}, \vb{v}} \in \RR\), and for \(\lambda \in \CC\), \(\phi\pqty{\lambda \vb{v}, \lambda \vb{v}} = \abs{\lambda}^2 \phi\pqty{\vb{v}, \vb{v}}\). This allows us to define positive/negative-(semi)definite Hermitian sesquilinear forms, in the same way as we did for symmetric bilinear forms on \(\RR\).
+        \item Note \(\phi\pqty{\vb{u}, \vb{v}} = 0\) if and only if \(\phi\pqty{\vb{v}, \vb{u}} = 0\). Hence, the left and right orthogonal complements of a subspace \(S \subspace V\) are equal.
+    \end{enumerate}
+\end{remarks}
+
+\begin{definition}[Hermitian Matrix]
+    A square complex matrix \(A \in \matrixset_{n \times n} \pqty{\CC}\) is \term{Hermitian} if \(A = A\hermitian\), i.e., \(A = \conjugate{A\transpose}\).
+\end{definition}
+
+\begin{lemma}[Hermitian Sesquilinear Forms and Hermitian Matrices]
+    Let \(V\) be a finite-dimensional complex vector space with basis \(\basis\), and let \(\functiondomain{\phi}{V \times V}{\CC}\) be a sesquilinear form. Then \(\phi\) is Hermitian, if and only if \(\bqty{\phi}_{\basis}\) is a Hermitian matrix for some basis (equivalently, all bases).
+\end{lemma}
