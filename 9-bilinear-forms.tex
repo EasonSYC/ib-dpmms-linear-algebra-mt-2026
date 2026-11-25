@@ -349,7 +349,8 @@ One cool result about symmetric bilinear forms is that we can recover a symmetri
     is diagonal as desired.
 \end{example}
 
-\begin{corollary}
+\begin{corollary}[Diagonalisation of Symmetric Bilinear Forms over \(\RR\) and \(\CC\)]
+    \label{cor:diagonalisation-symmetric-bilinear-forms-over-r-and-c}%
     Suppose \(\FF = \CC\) or \(\RR\), and let \(U, V\) and \(\phi\). be as in \autoref{thm:diagonalisation-symmetric-bilinear-forms}. Define \(Q\pqty{\vb{v}} = \phi\pqty{\vb{v}, \vb{v}}\) be the quadratic form induced by \(\phi\).
 
     If \(\FF = \CC\), then there exists a basis \(\basis = \set{\vb{b}_1, \vb{b}_2, \ldots, \vb{b}_n}\) for \(V\) such that
@@ -569,5 +570,55 @@ The motivating example for bilinear forms is the dot product on \(\RR^n\). Howev
 \end{definition}
 
 \begin{lemma}[Hermitian Sesquilinear Forms and Hermitian Matrices]
+    \label{lem:hermitian-sesquilinear-forms-hermitian-matrices}%
     Let \(V\) be a finite-dimensional complex vector space with basis \(\basis\), and let \(\functiondomain{\phi}{V \times V}{\CC}\) be a sesquilinear form. Then \(\phi\) is Hermitian, if and only if \(\bqty{\phi}_{\basis}\) is a Hermitian matrix for some basis (equivalently, all bases).
 \end{lemma}
+
+\begin{proof}
+    Let \(\basis = \set{\vb{b}_1, \ldots, \vb{b}_n}\) be a basis for \(V\), and \(A = \bqty{\phi}_{\basis}\).
+
+    Suppose \(\phi\) is Hermitian. Then we have \(a_{ij} = \phi\pqty{\vb{b}_i, \vb{b}_j} = \conjugate{\phi\pqty{\vb{b}_j, \vb{b}_i}} = \conjugate{a_{ji}}\), so \(A = A\hermitian\).
+
+    Suppose \(A\) is Hermitian. Then for all \(\vb{v}, \vb{w} \in V\), we have
+    \begin{align*}
+        \phi\pqty{\vb{v}, \vb{w}} &= \bqty{\vb{v}}_{\basis} \transpose A \conjugate{\bqty{\vb{w}}_{\basis}} \\
+        &= \pqty{\bqty{\vb{v}}_{\basis} \transpose A \conjugate{\bqty{\vb{w}}_{\basis}}}\transpose \\
+        &= \conjugate{\bqty{\vb{w}}_{\basis}} \transpose A\transpose \bqty{\vb{v}}_{\basis} \\
+        &= \conjugate{\bqty{\vb{w}}_{\basis}\transpose \conjugate{A}\transpose \conjugate{\bqty{\vb{v}}_{\basis}}} \\
+        &= \conjugate{\phi\pqty{\vb{w}, \vb{v}}},
+    \end{align*}
+    since \(A = A\hermitian = \conjugate{A}\transpose\). Hence \(\phi\) is Hermitian.
+\end{proof}
+
+\begin{proposition}[Polarisation Identity for Hermitian Forms]
+    \label{prop:polarisation-identity-hermitian-sesquilinear-forms}%
+    Let \(V\) be a complex vector space. A Hermitian form \(\phi\) on \(V\) is uniquely determined by its associated quadratic form \(Q\pqty{\vb{v}} = \phi\pqty{\vb{v}, \vb{v}}\), and is given by
+    \[
+        \phi\pqty{\vb{u}, \vb{v}} = \frac{1}{4} \pqty{Q\pqty{\vb{u} + \vb{v}} - Q\pqty{\vb{u} - \vb{v}} + i Q\pqty{\vb{u} + i \vb{v}} - i Q\pqty{\vb{u} - i \vb{v}}}.
+    \]
+\end{proposition}
+
+\begin{proof}
+    \textbf{\textcolor{red}{See Example Sheet.}}
+\end{proof}
+
+\begin{theorem}[Diagonalisation of Hermitian Forms]
+    Let \(V\) be a finite-dimensional complex vector space, and let \(\phi\) be a /Hermitian form on \(V\).
+
+    \begin{enumerate}[label=(\roman*)]
+        \item There is a basis \(\basis\) of \(V\), such that
+        \[
+            \bqty{\phi}_{\basis} = \pmqty{\dmat{I_p, -I_q, O}} \qfor p + q = \rank \phi.
+        \]
+
+        \item \term{Hermitian Sylvester's Law.} The numbers \(p\) and \(q\) are uniquely determined by \(\phi\), and are independent of the choice of basis.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    This is almost identical to the proof fo bilinear forms.
+
+    \textbf{Existence.} (Similar to \autoref{cor:diagonalisation-symmetric-bilinear-forms-over-r-and-c}.) We induct on \(n \dim V\). If \(\phi\) is identically zero, then we are done. If not, then there is some non-zero \(\vb{v}_1 \in V\) such that \(\phi\pqty{\vb{v}_1, \vb{v}_1} \neq 0\), by \autoref{prop:polarisation-identity-hermitian-sesquilinear-forms} (Polarisation Identity for Hermitian Forms). Let \(U = \rperp{\spn\pqty{\vb{v}_1}}\). We may check that \(V = \spn\pqty{\vb{v}_1} \oplus U\), and by the induction hypothesis on \(\rightbar{\phi}_{U}\), we can find a basis for \(U\) such that the restriction of \(\phi\) to \(U\) is diagonal. Then, we rescale basis vectors using the observation that \(\phi\pqty{\lambda \vb{v}, \lambda \vb{v}} = \abs{\lambda}^2 \phi\pqty{\vb{v}, \vb{v}}\), to get the desired diagonal form.
+
+    \textbf{Uniqueness.} (Similar to \autoref{thm:sylvesters-law-of-inertia}.) The uniqueness of \(p\) and \(q\) follows from the fact that \(p\) is the largest dimension of a subspace of \(V\) on which \(\phi\) is positive definite, and \(q\) is the largest dimension of a subspace of \(V\) on which \(\phi\) is negative definite.
+\end{proof}

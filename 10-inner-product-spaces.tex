@@ -1,0 +1,157 @@
+\section{Inner Product Spaces}
+
+\begin{definition}[Real/Complex Inner Product Space]
+    Let \(V\) be a vector space over \(\RR\) (respectively, \(\CC\)). An \term{inner product} on \(V\) is a positive-definite symmetric bilinear (respectively, Hermitian) form on \(V\). The pair \(\pqty{V, \phi}\) is an \term{inner product space}, and we denote \(\inner{\vb{u}}{\vb{v}}\) for \(\phi\pqty{\vb{u}, \vb{v}}\).
+\end{definition}
+
+\begin{examples}
+    \begin{enumerate}[label=(\roman*)]
+        \item The standard dot products on \(\RR^n\) and \(\CC^n\) are inner products.
+        \item Let \(V = \contClass{0} \pqty{\ccintv{0}{1}}\) be the space of continuous functions on the interval \(\ccintv{0}{1}\). Define
+        \[
+            \inner{f}{g} = \int_{0}^{1} f\pqty{t} g\pqty{t} \dd{t}.
+        \]
+        Then \(\inner{\cdot}{\cdot}\) is an inner product on \(V\). More generally, given a \term{weight function} \(\functiondomain{w}{\ccintv{0}{1}}{\oointv{0}{\plusinfty}}\), we may define the weighted inner product
+        \[
+            \inner[w]{f}{g} = \int_{0}^{1} f\pqty{t} g\pqty{t} w\pqty{t} \dd{t}.
+        \]
+    \end{enumerate}
+\end{examples}
+
+\subsection{Length and Distance}
+
+\begin{definition}[Length of a Vector]
+    Let \(\pqty{V, \inner{\cdot}{\cdot}}\) be an inner product space. The \term{length} of a vector \(\vb{v} \in V\) is defined as
+    \[
+        \norm{\vb{v}} = \sqrt{\inner{\vb{v}}{\vb{v}}}.
+    \]
+
+    The \term{distance} between two vectors \(\vb{v}, \vb{w} \in V\) is defined as \(\norm{\vb{v} - \vb{w}}\).
+\end{definition}
+
+\begin{remarks}
+    \begin{enumerate}[label=(\roman*)]
+        \item \(\vb{0} \in V\) is the only vector with length zero.
+        \item We may recover the inner product \(\functiondomain{\inner{\cdot}{\cdot}}{V \times V}{\RR}\) from the length function \(\functiondomain{\norm{\cdot}}{V}{\RR_{\geq 0}}\) using the polarisation identity (\autoref{prop:polarisation-identity}, and \autoref{prop:polarisation-identity-hermitian-sesquilinear-forms}).
+    \end{enumerate}
+\end{remarks}
+
+\begin{lemma}[Cauchy--Schwarz Inequality]
+    Let \(\pqty{V, \inner{\cdot}{\cdot}}\) be an inner product space. Then for all \(\vb{v}, \vb{w} \in V\),
+    \[
+        \abs{\inner{\vb{v}}{\vb{w}}} \leq \norm{\vb{v}} \norm{\vb{w}}.
+    \]
+\end{lemma}
+
+\begin{proof}
+    If \(\vb{v} = \vb{0}\) then we are done. Otherwise, for \(t \in \FF\), we have
+    \begin{align*}
+        0 & \leq \norm{t \vb{v} + \vb{w}}^2 \\
+        &= \inner{t \vb{v} + \vb{w}}{t \vb{v} + \vb{w}} \\
+        &= \abs{t}^2 \norm{\vb{v}}^2 + t \inner{\vb{v}}{\vb{w}} + \conjugate{t} \conjugate{\inner{\vb{v}}{\vb{w}}} + \norm{\vb{w}}^2.
+    \end{align*}
+
+    Set \(t = - \flatfrac{\conjugate{\vb{v}}{\vb{w}}}{\norm{\vb{v}}^2}\). Then we have
+    \[
+        0 \leq \norm{\vb{w}}^2 - \frac{\abs{\inner{\vb{v}}{\vb{w}}}^2}{\norm{\vb{v}}^2},
+    \]
+    which implies the desired inequality.
+\end{proof}
+
+\begin{remarks}
+    \begin{enumerate}[label=(\roman*)]
+        \item From the proof, we have equality, if and only if the span of \(\set{\vb{v}, \vb{w}}\) in \(V\) has dimension at most \(1\).
+        \item For \(\FF = \RR\), we may define the angle \(\theta\) between \(\vb{v}, \vb{w}\) by
+        \[
+            \cos \theta = \frac{\inner{\vb{v}}{\vb{w}}}{\norm{\vb{v}} \norm{\vb{w}}} \in \ccintv{-1}{1}
+        \]
+        and \(\theta \in \ccintv{0}{\pi}\).
+    \end{enumerate}
+\end{remarks}
+
+\begin{corollary}[Triangular Inequality]
+    For all \(\vb{v}, \vb{w} \in V\), we have \(\norm{\vb{v} + \vb{w}} \leq \norm{\vb{v}} + \norm{\vb{w}}\).
+\end{corollary}
+
+\begin{proof}
+    We note
+    \begin{align*}
+        \norm{\vb{v} + \vb{w}}^2 &= \inner{\vb{v} + \vb{w}}{\vb{v} + \vb{w}} \\
+        &= \norm{\vb{v}}^2 + \inner{\vb{v}}{\vb{w}} + \conjugate{\inner{\vb{v}}{\vb{w}}} + \norm{\vb{w}}^2 \\
+        &\leq \norm{\vb{v}}^2 + 2 \norm{\vb{v}} \norm{\vb{w}} + \norm{\vb{w}}^2 \\
+        &= \pqty{\norm{\vb{v}} + \norm{\vb{w}}}^2.
+    \end{align*}
+\end{proof}
+
+\begin{remark}
+    The distance function \(d\pqty{\vb{v}, \vb{w}} = \norm{\vb{v} - \vb{w}}\) defines a metric on \(V\). (See \textit{IB Analysis II}.)
+\end{remark}
+
+\subsection{Orthogonality and Orthonormality}
+
+\begin{definition}[Orthogonal and Orthonormal Set]
+    A set \(E \subseteq V\) is \term{orthogonal}, if for all \(\vb{d}, \vb{e} \in E\), we have \(\inner{\vb{d}}{\vb{e}} = 0\) whenever \(\vb{d} \neq \vb{e}\).
+
+    A set \(E \subseteq V\) is \term{orthonormal}, if it is orthogonal and \(\norm{\vb{e}} = 1\) for all \(\vb{e} \in E\).
+\end{definition}
+
+\begin{remark}
+    If \(V\) is finite dimensional and \(\basis\) is a basis for \(V\), then \(\basis\) is orthonormal, if and only if \(\bqty{\inner{\cdot}{\cdot}}_{\basis} = I_n\) is the identity matrix.
+\end{remark}
+
+\begin{lemma}[Decomposition of a Vector in an Orthogonal Set]
+    \label{lem:decomposition-of-a-vector-in-an-orthogonal-set}%
+    If \(E \subseteq V\) is orthogonal, and \(\vb{0} \notin E\). Then:
+    \begin{enumerate}[label=(\roman*)]
+        \item \(E\) is linearly independent.
+        \item If \(\vb{v} \in \spn E\), then
+        \[
+            \vb{v} = {\sum_{\vb{e} \in E}}' \frac{\inner{\vb{v}}{\vb{e}}}{\inner{\vb{e}}{\vb{e}}} \vb{e},
+        \]
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    If \(\vb{v} \in \spn E\), then we write
+    \[
+        \vb{v} = {\sum_{\vb{e} \in E}}' \lambda_{\vb{e}} \vb{e}.
+    \]
+    for some scalars \(\lambda_{\vb{e}} \in \FF\). Then for any \(\vb{d} \in E\), we have
+    \[
+        \inner{\vb{v}}{\vb{d}} = {\sum_{\vb{e} \in E}}' \lambda_{\vb{e}} \inner{\vb{e}}{\vb{d}} = \lambda_{\vb{d}} \inner{\vb{d}}{\vb{d}}.
+    \]
+
+    As \(\vb{d} \neq \vb{0}\), we have
+    \[
+        \lambda_{\vb{d}} = \frac{\inner{\vb{v}}{\vb{d}}}{\inner{\vb{d}}{\vb{d}}},
+    \]
+    as desired. Setting \(\vb{v} = \vb{0}\) gives linear independence since all \(\lambda_{\vb{e}} = 0\).
+\end{proof}
+
+\begin{corollary}[Parseval's Identity]
+    If \(E \subseteq V\) is orthonormal, and \(\vb{v}, \vb{w} \in \spn E\), then
+    \[
+        \inner{\vb{v}}{\vb{w}} = {\sum_{\vb{e} \in E}}' \inner{\vb{v}}{\vb{e}} \conjugate{\inner{\vb{w}}{\vb{e}}}.
+    \]
+\end{corollary}
+
+\begin{proof}
+    By using \autoref{lem:decomposition-of-a-vector-in-an-orthogonal-set} (ii), using \(\inner{\vb{e}}{\vb{e}} = 1\) for all \(\vb{e} \in E\), we have
+    \begin{align*}
+        \inner{\vb{v}}{\vb{w}} &= \inner{{\sum_{\vb{e} \in E}}' \inner{\vb{v}}{\vb{e}} \vb{e}}{{\sum_{\vb{d} \in E}}' \inner{\vb{w}}{\vb{d}} \vb{d}} \\
+        &= {\sum_{\vb{d}, \vb{e} \in E}}' \inner{\vb{v}}{\vb{e}} \conjugate{\inner{\vb{w}}{\vb{d}}} \inner{\vb{e}}{\vb{d}} \\
+        &= {\sum_{\vb{e} \in E}}' \inner{\vb{v}}{\vb{e}} \conjugate{\inner{\vb{w}}{\vb{e}}}.
+    \end{align*}
+\end{proof}
+
+\begin{theorem}[Gran--Schmidt Process]
+    Let \(V\) be an inner product space, and let \(\set{\vb{v}_1, \ldots, \vb{v}_n} \subseteq V\) be linearly independent. There is an orthonormal set \(\set{\vb{e}_1, \ldots, \vb{e}_n} \subseteq V\) such that
+    \[
+        \spn\set{\vb{v}_1, \ldots, \vb{v}_k} = \spn\set{\vb{e}_1, \ldots, \vb{e}_k}
+    \]
+    for all \(k = 1, \ldots, n\).
+\end{theorem}
+
+\begin{corollary}[Orthonormal Basis for Finite-Dimensional Inner Product Spaces]
+    Suppose \(V\) is a finite-dimensional inner product space. Then any orthonormal set in \(V\) can be extended to an orthonormal basis for \(V\).
+\end{corollary}
