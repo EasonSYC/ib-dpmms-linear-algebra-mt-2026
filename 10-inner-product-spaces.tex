@@ -152,6 +152,217 @@
     for all \(k = 1, \ldots, n\).
 \end{theorem}
 
+\begin{proof}
+    We induct on \(k\).
+
+    For \(k = 1\), we normalise the vector to \(\vb{e}_1 = \flatfrac{\vb{v}_1}{\norm{\vb{v}_1}}\).
+
+    Suppose we constructed \(\vb{e}_1, \ldots, \vb{e}_k\) for some \(k < n\). First, we set
+    \[
+        \tilde{\vb{e}}_{k + 1} = \vb{v}_{k + 1} - \sum_{i = 1}^{k} \inner{\vb{v}_{k + 1}}{\vb{e}_i} \vb{e}_i.
+    \]
+
+    First, \(\tilde{\vb{e}}_{k + 1} \neq \vb{0}\) since \(\vb{v}_{k + 1} \notin \spn \set{\vb{v}_1, \ldots, \vb{v}_k} = \spn \set{\vb{e}_1, \ldots, \vb{e}_k}\). Then, clearly we have \(\inner{\tilde{\vb{e}}_{k + 1}}{\vb{e}_i} = 0\) for all \(i = 1, \ldots, k\), and it preserves the span
+    \[
+        \spn \set{\vb{v}_1, \ldots, \vb{v}_k, \vb{v}_{k + 1}} = \spn \set{\vb{e}_1, \ldots, \vb{e}_k, \tilde{\vb{e}}_{k + 1}}.
+    \]
+
+    Finally, we normalise \(\tilde{\vb{e}}_{k + 1}\) to \(\vb{e}_{k + 1} = \flatfrac{\tilde{\vb{e}}_{k + 1}}{\norm{\tilde{\vb{e}}_{k + 1}}}\).
+\end{proof}
+
+\begin{remark}
+    If \(\vb{v}_1, \ldots, \vb{v}_k\) is already orthonormal, then the Gram--Schmidt process does not change them and returns \(\vb{e}_1 = \vb{v}_1, \ldots, \vb{e}_k = \vb{v}_k\).
+\end{remark}
+
 \begin{corollary}[Orthonormal Basis for Finite-Dimensional Inner Product Spaces]
     Suppose \(V\) is a finite-dimensional inner product space. Then any orthonormal set in \(V\) can be extended to an orthonormal basis for \(V\).
 \end{corollary}
+
+\begin{proof}
+    Given an orthonormal set
+    \[
+        \set{\vb{e}_1, \ldots, \vb{e}_k} \subseteq V,
+    \]
+    we may extend this to a basis \(\basis = \set{\vb{e}_1, \ldots, \vb{e}_k, \vb{v}_{k + 1}, \ldots, \vb{v}_n}\) for \(V\). Then we may apply the Gram--Schmidt process to the linearly independent set \(\basis\) to obtain an orthonormal basis for \(V\). By the previous observation, the Gram--Schmidt process does not change \(\vb{e}_1, \ldots, \vb{e}_k\), and we obtain an orthonormal basis for \(V\) that extends the original orthonormal set.
+\end{proof}
+
+\subsection{Orthogonal Complements}
+
+\begin{definition}[Orhtogonal Direct Sum]
+    Let \(\pqty{V, \inner{\cdot}{\cdot}}\) be an inner product space, and let \(U, W \subseteq V\) be subspaces. We say that \(V\) is the \term{orthogonal direct sum} of \(U\) and \(W\), if:
+    \begin{enumerate}[label=(\roman*)]
+        \item \(V = U + W\), and
+        \item for all \(\vb{u} \in U\) and \(\vb{w} \in W\), we have \(\inner{\vb{u}}{\vb{w}} = 0\).
+    \end{enumerate}
+
+    We denote this as \(V = U \obot W\).
+\end{definition}
+
+\begin{remark}
+    Condition (ii) implies, from positive-definiteness, that \(U \cap W = \set{\vb{0}}\). Hence, the orthogonal direct sum is indeed a direct sum.
+\end{remark}
+
+\begin{lemma}[Orthogonal Decomposition for Finite-Dimensional Spaces]
+    Let \(\pqty{V, \inner{\cdot}{\cdot}}\) be a finite-dimensional inner product space. Then for any \(W \subspace V\), we have \(V = W \obot \rperp{W}\).
+\end{lemma}
+
+\begin{proof}
+    This clearly satisfies (ii), so it suffices to check \(V = W + \rperp{W}\). Let \(E_W\) be an orthonormal basis for \(W\), and extend this to an orthonormal basis \(E_V\) for \(V\). Then we have \(V = W + \spn \pqty{E_V \setminus E_W}\), and \(E_V \setminus E_W \subseteq \rperp{W}\) by orthonormality.
+\end{proof}
+
+\begin{corollary}[Dimension Formula for Orthogonal Complements]
+    Let \(\pqty{V, \inner{\cdot}{\cdot}}\) be a finite-dimensional inner product space, and let \(W \subspace V\). Then
+    \[
+        \dim W + \dim \rperp{W} = \dim V.
+    \]
+\end{corollary}
+
+\begin{proof}
+    Since \(V = W \obot \rperp{W}\), we have \(V = W \oplus \rperp{W}\), hence we have \(\dim V = \dim W + \dim \rperp{W}\).
+\end{proof}
+
+\begin{definition}[Orthogonal Projection]
+    Let \(V\) be a finite-dimensional inner product space, and let \(W \subspace V\). The \term{orthogonal projection} of \(V\) onto \(W\) is the linear map \(\functiondomain{\pi_W}{V}{V}\) given by \(\pi_W \pqty{\vb{v}} = \vb{w}\), where \(\vb{w} \in W, \vb{u} \in \rperp{W}\) are the unique vectors such that \(\vb{v} = \vb{w} + \vb{u}\).
+\end{definition}
+
+\begin{remarks}
+    \begin{enumerate}[label=(\roman*)]
+        \item The map \(\functiondomain{\pi_W}{V}{V}\) is linear, and \(\img \pqty{\pi_W} = W\) and \(\ker \pqty{\pi_W} = \rperp{W}\).
+        \item We have
+        \[
+            \rightbar{\pi_W}_{W} = \identity_W,
+        \]
+        and hence
+        \[
+            \pi_W^2 = \pi_W.
+        \]
+
+        This means \(\pi_W\) is an \term{idempotent} linear map.
+
+        \item We have \(\identity_V - \pi_W = \pi_{\rperp{W}}\).
+    \end{enumerate}
+\end{remarks}
+
+\begin{proposition}[Closest Point Projection]
+    For all \(\vb{v} \in V\) and \(\vb{w} \in W\), we have
+    \[
+        \norm{\vb{v} - \pi_W(\vb{v})} \leq \norm{\vb{v} - \vb{w}},
+    \]
+    with the equal sign taken if and only if \(\vb{w} = \pi_W(\vb{v})\).
+\end{proposition}
+
+\begin{proof}
+    This is by direct computation. Note
+    \begin{align*}
+        \norm{\vb{v} - \vb{w}}^2 &= \norm{\pqty{\vb{v} - \pi_W\pqty{\vb{v}}} + \pqty{\pi_W\pqty{\vb{v}} - \vb{w}}}^2 \\
+        &= \norm{\vb{v} - \pi_W\pqty{\vb{v}}}^2 + \norm{\pi_W\pqty{\vb{v}} - \vb{w}}^2,
+    \end{align*}
+    since note that \(\vb{v} - \pi_W\pqty{\vb{v}} \in \rperp{W}\) and \(\pi_W\pqty{\vb{v}} - \vb{w} \in W\), so the cross term vanishes. Hence,
+    \begin{align*}
+        \norm{\vb{v} - \vb{w}}^2 &\geq \norm{\vb{v} - \pi_W\pqty{\vb{v}}}^2,
+    \end{align*}
+    with equality if and only if \(\pi_W\pqty{\vb{v}} - \vb{w} = \vb{0}\), i.e. \(\vb{w} = \pi_W\pqty{\vb{v}}\).
+\end{proof}
+
+\begin{definition}[External Orthogonal Direct Sum]
+    Let \(\pqty{V, \inner[V]{\cdot}{\cdot}}\) and \(\pqty{W, \inner[W]{\cdot}{\cdot}}\) be inner product spaces. The \term{external orthogonal direct sum} of \(V\) and \(W\) is the vector space \(V \oplus W\) with the inner product
+    \[
+        \inner{\pqty{\vb{v}_1, \vb{w}_1}}{\pqty{\vb{v}_2, \vb{w}_2}} = \inner[V]{\vb{v}_1}{\vb{v}_2} + \inner[W]{\vb{w}_1}{\vb{w}_2}.
+    \]
+\end{definition}
+
+\subsection{Adjoint Maps}
+
+\begin{example}
+    Let \(\FF = \RR\) or \(\CC\). For two column vectors \(\vb{v} \in \FF^n\), \(\vb{w} \in \FF^m\), and \(A \in \matrixset_{m \times n} \pqty{\FF}\), we note that
+    \begin{align*}
+        \pqty{A \vb{v}} \vdot \vb{w} &= \pqty{A \vb{v}}\transpose \conjugate{\vb{w}} \\
+        &= \vb{v}\transpose \pqty{A\transpose \conjugate{\vb{w}}} \\
+        &= \vb{v}\transpose \conjugate{\pqty{A \hermitian \vb{w}}} \\
+        &= \vb{v} \vdot \pqty{A\hermitian \vb{w}}.
+    \end{align*}
+\end{example}
+
+In other words, a matrix travels through an inner product to become its Hermitian conjugate. This motivates the following theorem.
+
+\begin{theorem}[Existence and Uniqueness of Adjoint Map]
+    \label{thm:adjoint-map}%
+    Let \(V\) and \(W\) be finite-dimensional inner product spaces, and let \(\alpha \in \linearmap\pqty{V}{W}\).
+
+    \begin{enumerate}[label=(\roman*)]
+        \item There is a unique linear map \(\functiondomain{\adjoint{\alpha}}{W}{V}\), such that
+        \[
+            \inner[W]{\alpha\pqty{\vb{v}}}{\vb{w}} = \inner[V]{\vb{v}}{\adjoint{\alpha}\pqty{\vb{w}}}
+        \]
+        for all \(\vb{v} \in V\) and \(\vb{w} \in W\).
+
+        \item For \(\basis\), \(\mathcal{C}\) orthonormal bases for \(V\) and \(W\), we have
+        \[
+            \bqty{\adjoint{\alpha}}_{\basis}^{\mathcal{C}} = \pqty{\bqty{\alpha}_{\mathcal{C}}^{\basis}}\hermitian.
+        \]
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Recall if \(\dim V = n\) and \(\basis\) is an orthonormal basis for \(V\), then \(\bqty{\inner{\cdot}{\cdot}}_{\basis} = I_n\) is the identity matrix. We choose orthonormal bases \(\basis = \set{\vb{b}_1, \vb{b}_2, \ldots, \vb{b}_n}\) and \(\mathcal{C} = \set{\vb{c}_1, \vb{c}_2, \ldots, \vb{c}_m}\) for \(V\) and \(W\), respectively. Define \(A = \bqty{\alpha}_{\mathcal{C}}^{\basis} \in \matrixset_{m \times n} \pqty{\FF}\).
+
+    \textbf{Existence.} We define \(\functiondomain{\adjoint{\alpha}}{W}{V}\) by
+    \[
+        \adjoint{\alpha} \pqty{\vb{c}_j} = \sum_{i = 1}^{n} \conjugate{a_{ji}} \vb{b}_i
+    \]
+    so that \(\bqty{\adjoint{\alpha}}_{\basis}^{\mathcal{C}} = A\hermitian\). Then, we have
+    \begin{align*}
+        \inner[W]{\alpha\pqty{\vb{v}}}{\vb{w}} &= \pqty{\bqty{\alpha\pqty{\vb{v}}}_{\mathcal{C}}}\transpose \conjugate{\bqty{\vb{w}}_{\mathcal{C}}} \\
+        &= \pqty{A \bqty{\vb{v}}_{\basis}}\transpose \conjugate{\bqty{\vb{w}}_{\mathcal{C}}} \\
+        &= \bqty{\vb{v}}_{\basis}\transpose \pqty{A\transpose \conjugate{\bqty{\vb{w}}_{\mathcal{C}}}} \\
+        &= \bqty{\vb{v}}_{\basis}\transpose \conjugate{\pqty{A\hermitian \bqty{\vb{w}}_{\mathcal{C}}}} \\
+        &= \bqty{\vb{v}}_{\basis}\transpose \conjugate{\bqty{\adjoint{\alpha}\pqty{\vb{w}}}_{\basis}} \\
+        &= \inner[V]{\vb{v}}{\adjoint{\alpha}\pqty{\vb{w}}}.
+    \end{align*}
+
+    \textbf{Uniqueness.} Suppose \(\functiondomain{\alpha'}{W}{V}\) is another linear map satisfying the same property. Then, let \(A' = \bqty{\alpha'}_{\basis}^{\mathcal{C}}\). Then, we have
+    \[
+        \inner{\alpha\pqty{\vb{b}_i}}{\vb{c}_j} = \pqty{A \vb{e}_i}\transpose \conjugate{\vb{e}_j} = a_{ji}
+    \]
+    while
+    \[
+        \inner{\vb{b}_i}{\alpha'\pqty{\vb{c}_j}} = \vb{e}_i\transpose \conjugate{A' \vb{e}_j} = \conjugate{a'_{ij}}.
+    \]
+
+    Thus, we have
+    \[
+        \bqty{\alpha'}_{\basis}^{\mathcal{C}} = A\hermitian = \bqty{\adjoint{\alpha}}_{\basis}^{\mathcal{C}},
+    \]
+    so \(\alpha' = \adjoint{\alpha}\) by the uniqueness of matrix representations.
+\end{proof}
+
+\begin{definition}[Adjoint Map]
+    The linear map \(\functiondomain{\adjoint{\alpha}}{W}{V}\) in \autoref{thm:adjoint-map} is called the \term{adjoint map} of \(\alpha\).
+\end{definition}
+
+\begin{remark}
+    This is a notation clash with the dual map \(\functiondomain{\dual{\alpha}}{\dual{W}}{\dual{V}}\). There is a reason for this!
+\end{remark}
+
+Recall that we have the right/left linear maps, if we write \(\phi\pqty{\vb{v}, \vb{w}} = \inner{\vb{v}}{\vb{w}}\), fix \(\vb{v} \in V\), we have an element \(\phi_{\textR, V} \pqty{\vb{v}} \in \dual{V}\), given by
+\[
+    \phi_{\textR, V} \pqty{\vb{v}} \pqty{\vb{w}} = \inner{\vb{v}}{\vb{w}}.
+\]
+
+Recall that \(\functiondomain{\phi_{\textR, V}}{V}{\dual{V}}\) is linear in \autoref{lem:linearity-of-left-and-right-linear-maps}.
+
+\begin{theorem}[Riesz Representation Theorem]
+    Let \(\pqty{V, \inner{\cdot}{\cdot}}\) be a real finite-dimensional inner product space. Then the right linear map \(\functiondomain{\phi_{\textR, V}}{V}{\dual{V}}\) is an isomorphism.
+\end{theorem}
+
+\begin{proof}
+    \textbf{Linearity.} By \autoref{lem:linearity-of-left-and-right-linear-maps}. (This uses the fact that we work over \(\RR\) for a bilinear inner product.)
+
+    \textbf{Injectivity.} Suppose \(\vb{v} \in \ker\pqty{\phi_{\textR, V}}\), then
+    \[
+        0 = \phi_{\textR, V} \pqty{\vb{v}} \pqty{\vb{v}} = \inner{\vb{v}}{\vb{v}},
+    \]
+    so \(\vb{v} = \vb{0}\) by positive-definiteness.
+
+    \textbf{Surjectivity.} This is immediate as \(\dim V = \dim \dual{V}\) for finite-dimensional vector spaces.
+\end{proof}
